@@ -35,7 +35,7 @@ users.users.tjbo = {
 home-manager.users.tjbo= { pkgs, ... }: {
 home.packages = with pkgs; [
    # alacritty
-   # delta
+    delta
     fzf
    # fd
    # gh
@@ -54,8 +54,7 @@ home.packages = with pkgs; [
   ];
 
   #config files for lazygit
-  home.file.".config/lazygit/config.yml".text =
-    builtins.readFile(dotfiles/lazygit/config.yml);
+  home.file.".config/lazygit/config.yml".text = builtins.readFile(dotfiles/lazygit/config.yml);
 
   # config files for vifm
   # home.file.".config/vifm/vifmrc".text = builtins.readFile(../vifm/vifmrc);

@@ -1,13 +1,25 @@
-let dotfiles_dir = "~/.nixpkgs/dotfiles"; in
+let 
+    dotfiles_dir = "~/.nixpkgs/dotfiles";
+    config_dir = "~/.config";
+    nixpkgs_dir = "~/.nixpkgs";
+in
 {
   # change directories
   "cda" = "cd ${dotfiles_dir}/alacritty";
-  "cdc" = "cd ~/.config";
+  "cdc" = "cd ${config_dir}";
   "cddf" = "cd ${dotfiles_dir}";
   "cddf2" = "cd ~/.dotfiles";
-  "cdn" = "cd ~/.nixpkgs";
-  "cdv" = "cd ${dotfiles_dir}/dotfiles/nvim";
-  "cdz" = "cd ${dotfiles_dir}/dotfiles/zsh";
+  "cdn" = "cd ${nixpkgs_dir}";
+  "cdv" = "cd ${dotfiles_dir}/nvim";
+  "cdz" = "cd ${dotfiles_dir}/zsh";
+  "cddt" = "cd ~/Desktop";
+  "cddl" = "cd ~/Downloads";
+  "cdp" = "cd ~/Projects/";
+  "cdt"="cd ~/Projects/timer-labs-app/";
+  "cdta"="cd ~/Projects/timer-labs-app/app";
+  "cdtf"="cd ~/Projects/timer-labs-app/functions";
+  "cdtd"="cd ~/Projects/timer-labs-app/db";
+  "cdtv"="cd ~/Projects/timer-labs-app/vpc";
 
   # fast edit
   "e" = "nvim";
@@ -18,6 +30,7 @@ let dotfiles_dir = "~/.nixpkgs/dotfiles"; in
   "evs" = "nvim ${dotfiles_dir}/nvim/settings.lua";
   "eh" = "nvim ${dotfiles_dir}/nixos/home.nix";
   "es" = "nvim ${dotfiles_dir}/nixos/configuration.nix";
+  "ed" = "nvim ${nixpkgs_dir}/darwin-configuration.nix";
 
   # clear
   "c" = "clear";
@@ -30,60 +43,18 @@ let dotfiles_dir = "~/.nixpkgs/dotfiles"; in
   "ls" = "ls -AGFhoTl";
 
   # "bh" = "~/.config/dotfiles/rebuild-home.sh";
-  "bs" = "darwin-rebuild switch";
+  "bs" = "darwin-rebuild switch && reload";
+
+  "reload" = "source ${config_dir}/zsh/.zshrc"; 
+
+
+
 }
 
 
-
-
-
-## EDIT COMMON THINGS
-#alias ezz="code $ZSH/.zshrc"
-#alias eza="code $ZSH/.zaliasrc"
-#alias ezv="code $VIM/.vimrc"
-#alias ezvp="code $VIM/config/plugins.vim"
-#alias ezs="code $SCRIPTS/symlinks.sh"
-
-## HARDWARE SIMULATOR
-#alias sim="~/Sites/nand2tetris/tools/HardwareSimulator.sh"
-
-## ANDROID SHORCUTS
-#alias ar="adb reverse tcp:8081 tcp:8081"
-#alias ae="emulator -avd RNWebRTC"
-#alias ar="adb reverse tcp:8081 tcp:8081"
 #alias rni="react-native run-ios"
 #alias rna="react-native run-android"
 
-## DEV SHORTCUTS
-#alias dd1="/Applications/Chromium.app/Contents/MacOS/Chromium --remote-debugging-port=9222"
-#alias dd2="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9333"
-#alias dda="open -a /Applications/Chromium.app/Contents/MacOS/Chromium http://helpscout.local.sumoci.net"
-#alias dds="open -a /Applications/Chromium.app/Contents/MacOS/Chromium http://helpscout.local.sumoci.net/sumo"
-#alias ddb="open -a /Applications/Chromium.app/Contents/MacOS/Chromium http://localhost:3001"
-
-## CHANGE DIRECTORY COMMON
-#alias cdc="cd ~/Projects/projects/packages/prototypable"
-#alias cde="cd ~/Projects/projects/packages/eitherorelse.com"
-#alias cda="cd ~/Projects/timer-labs-app/app"
-#alias cdf="cd ~/Projects/timer-labs-app/functions"
-#alias cds="cd ~/Projects/timer-labs-app/functions"
-#alias cdt="cd ~/Projects/timer-labs-app/"
-#alias cdw="cd ~/Projects/timer-labs-web"
-#alias cdd="cd ~/Documents"
-#alias cddl="cd ~/Downloads"
-#alias cddb="cd ~/Dropbox/"
-#alias cddf="cd ~/.dotfiles"
-#alias cdssh="cd ~/.ssh/"
-#alias cdv="cd $VIM"
-#alias cdvc="cd $VIM/config"
-#alias cdw="cd ~/Projects/writings"
-#alias cdp="cd ~/Projects/"
-
-## OPEN SHORTCUTS
-#alias pp="npm run proxypack:open -- --browser=chromium"
-#alias ppc="npm run proxypack:open -- --browser=chrome"
-#alias ppf="npm run proxypack:open -- --browser=firefox"
-#alias pps="npm run proxypack:open -- --browser=safari"
 
 ## NPM
 #alias ni="npm install"

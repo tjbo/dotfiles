@@ -4,7 +4,6 @@ local c = vim.cmd
 local o = vim.opt
 local api = vim.api
 
-
 ----------------------------------------------------------------------
 -- Tree Sitter Plugin 
 ----------------------------------------------------------------------
@@ -29,7 +28,6 @@ parser_install_dir = parser_install_dir,
 ----------------------------------------------------------------------
 -- Git Signs Plugin 
 ----------------------------------------------------------------------
-
 require'gitsigns'.setup({
 	on_attach = function(buffer) 
 	c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
@@ -50,7 +48,6 @@ require'gitsigns'.setup({
 },
 })
 
-
 -- vim.lsp.start({
 --           name = 'my-server-name',
 --           cmd = {'name-of-language-server-executable'},
@@ -62,7 +59,6 @@ require'lspconfig'.pyright.setup{}
 ----------------------------------------------------------------------
 -- General Options 
 ----------------------------------------------------------------------
-o.backspace=indent,eol,start
 o.history=9999
 -- Number column
 o.number = true
