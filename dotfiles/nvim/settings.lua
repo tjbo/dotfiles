@@ -4,6 +4,17 @@ local c = vim.cmd
 local o = vim.opt
 local api = vim.api
 
+
+-- Map keys function
+function map(mode, lhs, rhs, opts)
+	local options = { noremap = true }
+
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
 ----------------------------------------------------------------------
 -- Tree Sitter Plugin 
 ----------------------------------------------------------------------
@@ -48,13 +59,65 @@ require'gitsigns'.setup({
 },
 })
 
--- vim.lsp.start({
---           name = 'my-server-name',
---           cmd = {'name-of-language-server-executable'},
---           root_dir = vim.fs.dirname(vim.fs.find({'setup.py', 'pyproject.toml'}, { upward = true })[1]),
--- })
 
-require'lspconfig'.pyright.setup{}
+-- require'neo-tree'.setup({
+--         close_if_last_window: true,
+-- });
+
+----------------------------------------------------------------------
+-- Lsp  
+----------------------------------------------------------------------
+
+local on_attach = function (client, bufnr) 
+          -- Enable completion triggered by <c-x><c-o>
+  api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  map('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  map('n', 'gd', vim.lsp.buf.definition, bufopts)
+  map('n', 'K', vim.lsp.buf.hover, bufopts)
+  map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  map('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  map('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  map('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  map('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  map('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  map('n', 'gr', vim.lsp.buf.references, bufopts)
+  map('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
+-- Javascript & Typescript
+require'lspconfig'['tsserver'].setup{
+        cmd = {'typescript-language-server', '--stdio', '--tsserver-path', '/Users/tjbo/.nix-profile/bin/tsserver'}, 
+}
+
+-- Lua
+require'lspconfig'.sumneko_lua.setup {
+         settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+
+}
+
+-- Rescript
+require'lspconfig'.rescriptls.setup {
+        cmd = { 'node', '/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js', '--stdio' }
+}
+
+-- Rust
+require'lspconfig'.rust_analyzer.setup{cmd = { '/Users/tjbo/.nix-profile/bin/rust-analyzer' } }
+
+
 
 ----------------------------------------------------------------------
 -- General Options 
@@ -103,17 +166,27 @@ o.clipboard:prepend {"unnamedplus"}
 -- fixed once adding a formatter
 -- api.nvim_create_autocmd({ "BufWritePre" }, {pattern = { "*" },  command = [[%s/\s\+$//e]], })
 
+-- can this be working?
+o.undodir = "Users/tjbo/.local/share/nvim/undo"
+o.backup = true
+o.backupdir = "/User/tjbo/.local/share/nvim/backups"
+o.backupext = ".bak"
+
+c("silent !mkdir /Users/tjbo/.local/share/nvim/backups> /dev/null 2>&1")
+-- auto back up with timestamp
+api.nvim_create_autocmd('BufWritePre', {
+  group = api.nvim_create_augroup('timestamp_backupext', { clear = true }),
+  desc = 'Add timestamp to backup extension',
+  pattern = '*',
+  callback = function()
+    o.backupext = '-' .. vim.fn.strftime('%Y%m%d%H%M')
+  end,
+})
+
 ----------------------------------------------------------------------
 -- Keymaps 
 ----------------------------------------------------------------------
-function map(mode, lhs, rhs, opts)
-	local options = { noremap = true }
 
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
 
 -- Telescope
 map("n", "<leader>pp", "<cmd>Telescope<cr>")
@@ -135,7 +208,6 @@ map("v", ">", ">gv")
 -- Allow CTRL + V to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
 --
--- todo add lsp
 -- todo add a way to format files 
 -- todo add cheat sheet?
 -- todo add debugger?

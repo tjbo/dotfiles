@@ -650,7 +650,7 @@
 			<key>Minimum Contrast</key>
 			<real>0.41863421815814378</real>
 			<key>Mouse Reporting</key>
-			<true/>
+			<false/>
 			<key>Name</key>
 			<string>New Profile</string>
 			<key>Non Ascii Font</key>

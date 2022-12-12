@@ -9,6 +9,7 @@ imports = [ <home-manager/nix-darwin> ];
     [ 
       pkgs.neovim
       pkgs.vim 
+      pkgs.fd
     ];
 
   # Use a custom configuration.nix location.
@@ -35,6 +36,7 @@ users.users.tjbo = {
 home-manager.users.tjbo= { pkgs, ... }: {
 home.packages = with pkgs; [
    # alacritty
+    cargo
     delta
     fzf
    # fd
@@ -44,13 +46,21 @@ home.packages = with pkgs; [
     lazygit
     neofetch
     nixpkgs-fmt
-    # nodejs
+    nodejs
+    nodePackages.typescript
+    nodePackages.typescript-language-server
+    sumneko-lua-language-server
+    vscode-extensions.chenglou92.rescript-vscode
+    # nvimpager: currently broken 
     pure-prompt
     # ripgrep
     # tabbed
     # udevil
     # udisks
-   vifm
+    rustc
+    rust-analyzer
+    vifm
+    yarn
   ];
 
   #config files for lazygit
