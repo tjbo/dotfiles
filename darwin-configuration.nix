@@ -47,8 +47,12 @@ home.packages = with pkgs; [
     neofetch
     nixpkgs-fmt
     nodejs
+
+  
+    nodePackages.eslint
     nodePackages.typescript
     nodePackages.typescript-language-server
+    stylua
     sumneko-lua-language-server
     vscode-extensions.chenglou92.rescript-vscode
     # nvimpager: currently broken 
