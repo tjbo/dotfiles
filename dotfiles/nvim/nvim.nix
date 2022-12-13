@@ -10,16 +10,29 @@ let
       hash = "sha256-aASUXqZD6ytt1vNxQiENDI44iDQ2tCg1DiBp9f7RFoI=";
     };
   };
+  lightline-statusline-tabs = pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "statuslinetabs";
+      src = pkgs.fetchFromGitHub {
+      owner = "akinsho";
+      repo = "lightline-statuslinetabs";
+      rev = "master";
+      hash ="sha256-WigOGD31hiK2HqY4tBHZ6qIPyVdEBKwjoSDomuuNi9w=";
+  };
+  };
 in
-
 {
   enable = true;
   viAlias = true;
   plugins = with pkgs.vimPlugins; [
+    # lightline-statusline-tabs
     vim-nix
+    vimPlugins.nvim-cmp
     vim-rescript
-    vimPlugins.coq_nvim
+    vimPlugins.cmp-nvim-lsp
+    vimPlugins.cmp-cmdline
+    vimPlugins.cmp-path
     vimPlugins.gitsigns-nvim
+    vimPlugins.vim-code-dark
     vimPlugins.lightline-vim 
     vimPlugins.null-ls-nvim
     vimPlugins.nvim-lspconfig

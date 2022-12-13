@@ -27,7 +27,7 @@ o.incsearch = true
 
 -- colors
 o.termguicolors = true
-c("colorscheme slate")
+c("colorscheme codedark")
 
 g.mapleader = " "
 o.completeopt = { "menu", "menuone", "noselect" }
@@ -49,10 +49,6 @@ o.clipboard:prepend({ "unnamedplus" })
 g.vifm_replace_netrw = 1
 g.vifm_replace_netrw_cmd = "Vifm"
 g.vifm_embed_split = 1
---
--- todo: remove trailing white space on save, maybe this is
--- fixed once adding a formatter
--- api.nvim_create_autocmd({ "BufWritePre" }, {pattern = { "*" },  command = [[%s/\s\+$//e]], })
 
 -- can this be working?
 -- o.undodir = "Users/tjbo/.local/share/nvim/undo"
@@ -86,6 +82,7 @@ end
 -- Defines a read-write directory for treesitters in nvim's cache dir
 local parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
 vim.fn.mkdir(parser_install_dir, "p")
+
 -- Prevents reinstall of treesitter plugins every boot
 vim.opt.runtimepath:append(parser_install_dir)
 
@@ -162,14 +159,64 @@ require("gitsigns").setup({
         },
 })
 
--- require'neo-tree'.setup({
---         close_if_last_window: true,
--- });
-
 ----------------------------------------------------------------------
 -- Lsp
 ----------------------------------------------------------------------
 local null_ls = require("null-ls")
+
+local cmp = require("cmp")
+
+cmp.setup({
+        snippet = {
+                -- REQUIRED - you must specify a snippet engine
+                expand = function(args)
+                        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+                        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                end,
+        },
+        window = {
+                completion = {
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                        col_offset = -3,
+                        side_padding = 0,
+                },
+                documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert({
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<C-Space>"] = cmp.mapping.complete(),
+                ["<C-e>"] = cmp.mapping.abort(),
+                ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
+        sources = cmp.config.sources({
+                { name = "nvim_lsp" },
+                { name = "vsnip" }, -- For vsnip users.
+                -- { name = 'luasnip' }, -- For luasnip users.
+                -- { name = 'ultisnips' }, -- For ultisnips users.
+                -- { name = 'snippy' }, -- For snippy users.
+        }, {
+                { name = "buffer" },
+        }),
+})
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+                { name = "path" },
+        }, {
+                {
+                        name = "cmdline",
+                        option = {
+                                ignore_cmds = { "Man", "!", "wq" },
+                        },
+                },
+        }),
+})
 
 null_ls.setup({
         sources = {
@@ -209,32 +256,22 @@ local on_attach = function(client, bufnr)
         -- end, bufopts)
 end
 
--- must be set before require
-local coq_settings = {
-        auto_start = true,
-        match = {
-                max_results = 15,
-        },
-        xdg = true,
-}
-
-api.nvim_set_var("coq_settings", coq_settings)
-
 local lspconfig = require("lspconfig")
-local coq = require("coq")
 
+-- vimPlugins.cmp-cmdline
 -- couldn't install dependencies without setting this option
 -- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
 
 lspconfig.gopls.setup({ on_attach = on_attach })
 
 -- Javascript & Typescript
-lspconfig["tsserver"].setup(coq.lsp_ensure_capabilities({
+lspconfig["tsserver"].setup({
         cmd = { "typescript-language-server", "--stdio", "--tsserver-path", "/Users/tjbo/.nix-profile/bin/tsserver" },
-}))
+        capabilities = capabilities,
+})
 
 -- Lua
-lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
+lspconfig.sumneko_lua.setup({
         settings = {
                 Lua = {
                         diagnostics = {
@@ -242,19 +279,38 @@ lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
                         },
                 },
         },
-}))
+        capabilities = capabilities,
+})
 
 -- Rescript
-lspconfig.rescriptls.setup(coq.lsp_ensure_capabilities({
+lspconfig.rescriptls.setup({
         cmd = {
                 "node",
                 "/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
                 "--stdio",
         },
-}))
+        capabilities = capabilities,
+})
 
 -- Rust
-lspconfig.rust_analyzer.setup({ cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" } })
+lspconfig.rust_analyzer.setup({
+        cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
+        capabilities = capabilities,
+})
+
+----------------------------------------------------------------------
+-- Keymaps
+----------------------------------------------------------------------
+
+g["lightline"] = {
+        -- active = {
+        --         left = { { "mode" }, { "statuslinetabs" } },
+        -- },
+        colorscheme = "wombat",
+        -- component_expand = {
+        --         statuslinetabs = "lightline#statuslinetabs#show",
+        -- },
+}
 
 ----------------------------------------------------------------------
 -- Keymaps
@@ -282,9 +338,3 @@ map("v", ">", ">gv")
 -- Allow CTRL + V to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
 --
--- todo add a way to format files
--- todo add cheat sheet?
--- todo add debugger?
--- todo add some way to multiplex the terminal
--- todo add nvimpager as pager
--- todo I don't think config for lazy git is working
