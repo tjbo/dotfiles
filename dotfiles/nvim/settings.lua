@@ -8,7 +8,8 @@ local api = vim.api
 -- General Options
 ----------------------------------------------------------------------
 o.history = 9999
--- Number column
+
+-- number column
 o.number = true
 o.numberwidth = 2
 o.relativenumber = true
@@ -21,9 +22,8 @@ o.tabstop = 2
 o.wrap = false
 
 -- search
-o.hlsearch = true 
+o.hlsearch = true
 o.incsearch = true
-
 
 -- colors
 o.termguicolors = true
@@ -45,7 +45,7 @@ o.wildmode = { "list:longest,full" }
 -- allows system clipboard to work
 o.clipboard:prepend({ "unnamedplus" })
 
--- vifm 
+-- vifm
 g.vifm_replace_netrw = 1
 g.vifm_replace_netrw_cmd = "Vifm"
 g.vifm_embed_split = 1
@@ -179,6 +179,9 @@ null_ls.setup({
         },
 })
 
+-- auto format on write
+c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+
 local on_attach = function(client, bufnr)
         api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -199,18 +202,39 @@ local on_attach = function(client, bufnr)
         map("n", "<space>rn", vim.lsp.buf.rename, bufopts)
         map("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
         map("n", "gr", vim.lsp.buf.references, bufopts)
-                map("n", "<leader>ff", ':lua vim.lsp.buf.format({ async = true })<cr>', bufopts)
+
+        -- not working
+        -- map("n", "<space>f", function()
+        -- vim.lsp.buf.format({ async = true })
+        -- end, bufopts)
 end
 
-require("lspconfig").gopls.setup({ on_attach = on_attach })
+-- must be set before require
+local coq_settings = {
+        auto_start = true,
+        match = {
+                max_results = 15,
+        },
+        xdg = true,
+}
+
+api.nvim_set_var("coq_settings", coq_settings)
+
+local lspconfig = require("lspconfig")
+local coq = require("coq")
+
+-- couldn't install dependencies without setting this option
+-- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
+
+lspconfig.gopls.setup({ on_attach = on_attach })
 
 -- Javascript & Typescript
-require("lspconfig")["tsserver"].setup({
+lspconfig["tsserver"].setup(coq.lsp_ensure_capabilities({
         cmd = { "typescript-language-server", "--stdio", "--tsserver-path", "/Users/tjbo/.nix-profile/bin/tsserver" },
-})
+}))
 
 -- Lua
-require("lspconfig").sumneko_lua.setup({
+lspconfig.sumneko_lua.setup(coq.lsp_ensure_capabilities({
         settings = {
                 Lua = {
                         diagnostics = {
@@ -218,19 +242,19 @@ require("lspconfig").sumneko_lua.setup({
                         },
                 },
         },
-})
+}))
 
 -- Rescript
-require("lspconfig").rescriptls.setup({
+lspconfig.rescriptls.setup(coq.lsp_ensure_capabilities({
         cmd = {
                 "node",
                 "/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
                 "--stdio",
         },
-})
+}))
 
 -- Rust
-require("lspconfig").rust_analyzer.setup({ cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" } })
+lspconfig.rust_analyzer.setup({ cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" } })
 
 ----------------------------------------------------------------------
 -- Keymaps
@@ -242,7 +266,7 @@ map("n", "<leader>pf", "<cmd>Telescope find_files<cr>")
 map("n", "<leader>pt", "<cmd>Telescope treesitter<cr>")
 map("n", "<leader>pb", "<cmd>Telescope buffers<cr>")
 
--- clears the search highlight 
+-- clears the search highlight
 map("n", "<C-L>", ":nohlsearch<CR><C-L>")
 --
 -- Vifm

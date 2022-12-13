@@ -18,6 +18,7 @@ in
   plugins = with pkgs.vimPlugins; [
     vim-nix
     vim-rescript
+    vimPlugins.coq_nvim
     vimPlugins.gitsigns-nvim
     vimPlugins.lightline-vim 
     vimPlugins.null-ls-nvim

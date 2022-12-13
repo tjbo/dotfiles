@@ -6,6 +6,7 @@ in
 {
   # change directories
   "cda" = "cd ${dotfiles_dir}/alacritty";
+  "cdb" = "cd ../";
   "cdc" = "cd ${config_dir}";
   "cddf" = "cd ${dotfiles_dir}";
   "cddf2" = "cd ~/.dotfiles";
