@@ -7,12 +7,25 @@ local api = vim.api
 ----------------------------------------------------------------------
 -- General Options
 ----------------------------------------------------------------------
+-- turn off auto comment insertion
+api.nvim_create_autocmd("BufEnter", {
+        callback = function()
+                o.formatoptions = o.formatoptions - { "c", "r", "o" }
+        end,
+})
+
 o.history = 9999
 
 -- number column
 o.number = true
 o.numberwidth = 2
 o.relativenumber = true
+
+-- default splits to vertical
+o.diffopt:append({ "vertical" })
+
+-- open help windows vertically
+c([[autocmd FileType help wincmd L]])
 
 -- better spacing when using tabs
 o.expandtab = true
@@ -166,11 +179,15 @@ local null_ls = require("null-ls")
 
 local cmp = require("cmp")
 
+local t = function(str)
+        return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 cmp.setup({
         snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
                         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                         -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
                         -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -194,8 +211,8 @@ cmp.setup({
                         i = function(a, b)
                                 if cmp.visible() then
                                         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                                elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                                        vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), "m", true)
+                                        -- elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                                        -- vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), "m", true)
                                 else
                                         vim.api.nvim_feedkeys(t("<Tab>"), "n", true) -- fallback()
                                 end
@@ -326,12 +343,6 @@ g["lightline"] = {
 -- Keymaps
 ----------------------------------------------------------------------
 
--- Telescope
-map("n", "<leader>pp", "<cmd>Telescope<cr>")
-map("n", "<leader>pf", "<cmd>Telescope find_files<cr>")
-map("n", "<leader>pt", "<cmd>Telescope treesitter<cr>")
-map("n", "<leader>pb", "<cmd>Telescope buffers<cr>")
-
 -- clears the search highlight
 map("n", "<C-L>", ":nohlsearch<CR><C-L>")
 --
@@ -339,12 +350,33 @@ map("n", "<C-L>", ":nohlsearch<CR><C-L>")
 map("n", "<leader>pd", ":below 100 TabVifm<cr>")
 
 -- Todo: Switch between tabs
--- map("n", "<C-Tab>", ":bnext<cr>")
+map("n", "<C-tab>", "<cmd>tabnext<cr>")
+map("n", "<C-S-tab>", "<cmd>tabprev<cr>")
+map("n", "<C-n>", "<cmd>tabnew<cr>")
 
 -- Keeps selection when indenting in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- Allow CTRL + V to paste from system clipboard
+-- Allow <ctrl+v> to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
---
+
+local wk = require("which-key")
+map("n", "<leader>w", "<cmd>WhichKey<cr>")
+
+wk.register({
+        ["<leader>"] = {
+                name = "Gitsigns",
+                g = {
+                        n = { "<cmd>Gitsigns next_hunk<cr>", "Gitsigns - Next Hunk" },
+                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Gitsigns - Stage Hunk" },
+                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Gitsigns - Reset Hunk" },
+                },
+                t = {
+                        name = "Telescope", -- optional group name
+                        f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+                        t = { "<cmd>Telescope treesitter<cr>", "Treesitter" }, -- additional options for creating the keymap
+                        b = { "<cmd>Telescope buffers<cr>", "Buffers" },
+                },
+        },
+})

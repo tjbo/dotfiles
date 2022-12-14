@@ -66,9 +66,12 @@ home.packages = with pkgs; [
     vifm
     yarn
   ];
-
+   
   #config files for lazygit
-  home.file.".config/lazygit/config.yml".text = builtins.readFile(dotfiles/lazygit/config.yml);
+  # home.file.".config/lazygit/config.yml".text =
+  #   builtins.readFile(dotfiles/lazygit/config.yml); for
+  #   linux
+  home.file ."/Library/Application Support/lazygit/config.yml".text =builtins.readFile(dotfiles/lazygit/config.yml); 
 
   # config files for vifm
   # home.file.".config/vifm/vifmrc".text = builtins.readFile(../vifm/vifmrc);

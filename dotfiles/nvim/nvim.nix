@@ -43,6 +43,7 @@ in
     vimPlugins.vim-commentary # adds easy way to comment / uncomment locs
     vimPlugins.vim-lastplace # opens file where you were last
     vimPlugins.vimwiki
+    vimPlugins.which-key-nvim
   ];
   extraConfig = "luafile ~/.config/nvim/settings.lua"; 
 }

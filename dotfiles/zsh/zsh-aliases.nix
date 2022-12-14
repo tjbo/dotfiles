@@ -48,6 +48,12 @@ in
 
   "reload" = "source ${config_dir}/zsh/.zshrc"; 
 
+  "yra" = "yarn run android";
+  "yrd" = "yarn run develop";
+  "yri" = "yarn run ios";
+  "yrr" = "yarn run rescript";
+  "yrs" = "yarn run start";
+
 
 
 }

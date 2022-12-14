@@ -8,10 +8,12 @@ gui:
       - '#efefef' 
   showBottomLine: false
   showRandomTip: false
-
+  showFileTree: false
 git:
   paging: 
     colorArg: always
     pager: delta --dark --paging=never --side-by-side  
-
 promptToReturnFromSubprocess: false
+showCommandLog: false
+os:
+  openCommand: 'nvim -d {{filename}}'

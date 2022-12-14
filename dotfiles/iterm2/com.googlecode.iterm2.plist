@@ -248,13 +248,6 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x32-0x100000</key>
-		<dict>
-			<key>Action</key>
-			<integer>29</integer>
-			<key>Text</key>
-			<string>2F9496E4-2EF3-421A-B6F1-6B7A06E77003</string>
-		</dict>
 		<key>0x32-0x140000</key>
 		<dict>
 			<key>Action</key>
@@ -262,31 +255,10 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x33-0x100000</key>
-		<dict>
-			<key>Action</key>
-			<integer>29</integer>
-			<key>Text</key>
-			<string>2F9496E4-2EF3-421A-B6F1-6B7A06E77003</string>
-		</dict>
-		<key>0x34-0x100000</key>
-		<dict>
-			<key>Action</key>
-			<integer>28</integer>
-			<key>Text</key>
-			<string>2F9496E4-2EF3-421A-B6F1-6B7A06E77003</string>
-		</dict>
 		<key>0x47-0x120000</key>
 		<dict>
 			<key>Action</key>
 			<integer>58</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0x4a-0x120000</key>
-		<dict>
-			<key>Action</key>
-			<integer>31</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
@@ -318,12 +290,16 @@
 			<key>Text</key>
 			<string>2F9496E4-2EF3-421A-B6F1-6B7A06E77003</string>
 		</dict>
-		<key>0x64-0x40000</key>
+		<key>0x64-0x80000-0x2</key>
 		<dict>
 			<key>Action</key>
 			<integer>8</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
 		<key>0x67-0x100000</key>
 		<dict>
@@ -332,26 +308,71 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x67-0x40000</key>
+		<key>0x67-0x80000-0x5</key>
 		<dict>
 			<key>Action</key>
 			<integer>4</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
-		<key>0x74-0x40000</key>
+		<key>0x68-0x80000-0x4</key>
+		<dict>
+			<key>Action</key>
+			<integer>28</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>2F9496E4-2EF3-421A-B6F1-6B7A06E77003</string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
+		<key>0x6a-0x80000-0x26</key>
+		<dict>
+			<key>Action</key>
+			<integer>31</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
+		<key>0x74-0x80000-0x11</key>
 		<dict>
 			<key>Action</key>
 			<integer>5</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
-		<key>0x75-0x40000</key>
+		<key>0x76-0x80000-0x9</key>
+		<dict>
+			<key>Action</key>
+			<integer>29</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>2F9496E4-2EF3-421A-B6F1-6B7A06E77003</string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
+		<key>0xf700-0x280000-0x7e</key>
 		<dict>
 			<key>Action</key>
 			<integer>9</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
@@ -1024,7 +1045,7 @@
 			<key>Mouse Reporting</key>
 			<false/>
 			<key>Name</key>
-			<string>New Profile</string>
+			<string>default</string>
 			<key>Non Ascii Font</key>
 			<string>Monaco 12</string>
 			<key>Non-ASCII Anti Aliased</key>
@@ -1877,7 +1898,7 @@
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>RightCommand</key>
-	<integer>3</integer>
+	<integer>8</integer>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1897,7 +1918,7 @@
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>SwitchPaneModifier</key>
-	<integer>9</integer>
+	<integer>1</integer>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
