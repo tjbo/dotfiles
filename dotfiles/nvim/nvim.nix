@@ -24,11 +24,10 @@ in
   enable = true;
   viAlias = true;
   plugins = with pkgs.vimPlugins; [
-    # lightline-statusline-tabs
     vim-nix
     vimPlugins.nvim-cmp
-    vim-rescript
     vimPlugins.cmp-nvim-lsp
+    vim-rescript
     vimPlugins.cmp-cmdline
     vimPlugins.cmp-path
     vimPlugins.gitsigns-nvim
