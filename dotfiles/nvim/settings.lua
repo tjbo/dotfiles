@@ -17,6 +17,9 @@ api.nvim_create_autocmd("BufEnter", {
         end,
 })
 
+-- highlights current row of cursor
+o.cursorline = true
+
 o.history = 9999
 
 -- number column
@@ -135,7 +138,7 @@ require("nvim-treesitter.configs").setup({
 ----------------------------------------------------------------------
 require("gitsigns").setup({
         on_attach = function(buffer)
-                local gs = require("gitsigns")
+                local gs = package.loaded.gitsigns
                 wk.register({
                         ["<leader>"] = {
                                 name = "Gitsigns",
@@ -144,27 +147,18 @@ require("gitsigns").setup({
                                                 function()
                                                         gs.blame_line({ full = true })
                                                 end,
-                                                "Blame line",
+                                                "Blame",
                                         },
-                                        d = {
-                                                function()
-                                                        gs.diffthis()
-                                                end,
-                                                "Diff this",
-                                        },
+                                        d = { "<cmd>Gitsigns diffthis<CR>", "Diff" },
                                         D = {
                                                 function()
                                                         gs.diffthis("~")
                                                 end,
-                                                "Diff this",
+                                                "Diff to head",
                                         },
-
                                         n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
                                         r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
                                         s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-
-                                        -- map('n', '<leader>hR', gs.reset_buffer)
-                                        -- map('n', '<leader>hS', gs.stage_buffer)
                                         u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
                                         l = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
                                         w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
