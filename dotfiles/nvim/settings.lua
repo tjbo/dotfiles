@@ -5,7 +5,7 @@ local o = vim.opt
 local api = vim.api
 
 ----------------------------------------------------------------------
--- General Options
+-- General
 ----------------------------------------------------------------------
 o.showmode = false
 
@@ -54,8 +54,6 @@ o.signcolumn = "yes:2"
 
 -- Command Menu Settings
 o.wildmode = { "list:longest,full" }
--- todo: autowrapping doesn't work
--- o.formatoptions:append { "t" }
 
 -- allows system clipboard to work
 o.clipboard:prepend({ "unnamedplus" })
@@ -99,7 +97,7 @@ local parser_install_dir = fn.stdpath("cache") .. "/treesitters"
 fn.mkdir(parser_install_dir, "p")
 
 -- Prevents reinstall of treesitter plugins every boot
-vim.opt.runtimepath:append(parser_install_dir)
+o.runtimepath:append(parser_install_dir)
 
 require("nvim-treesitter.configs").setup({
         ensure_installed = {
