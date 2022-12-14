@@ -358,7 +358,7 @@ map("n", "<C-n>", "<cmd>tabnew<cr>")
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- Allow <ctrl+v> to paste from system clipboard
+-- Allows <ctrl+v> to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
 
 local wk = require("which-key")
@@ -373,6 +373,8 @@ wk.register({
                         r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
                         s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
                         u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
+                        h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
+                        w = { "<cmd>Gitsigns toggle_word_dff<cr>", "Toggle word diff" },
                 },
                 t = {
                         name = "Telescope", -- optional group name
