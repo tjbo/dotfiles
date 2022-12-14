@@ -7,6 +7,8 @@ local api = vim.api
 ----------------------------------------------------------------------
 -- General Options
 ----------------------------------------------------------------------
+o.showmode = false
+
 -- turn off auto comment insertion
 api.nvim_create_autocmd("BufEnter", {
         callback = function()
@@ -93,8 +95,8 @@ end
 -- Tree Sitter Plugin
 ----------------------------------------------------------------------
 -- Defines a read-write directory for treesitters in nvim's cache dir
-local parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
-vim.fn.mkdir(parser_install_dir, "p")
+local parser_install_dir = fn.stdpath("cache") .. "/treesitters"
+fn.mkdir(parser_install_dir, "p")
 
 -- Prevents reinstall of treesitter plugins every boot
 vim.opt.runtimepath:append(parser_install_dir)
@@ -333,7 +335,7 @@ g["lightline"] = {
         -- active = {
         --         left = { { "mode" }, { "statuslinetabs" } },
         -- },
-        colorscheme = "wombat",
+        colorscheme = "solarized",
         -- component_expand = {
         --         statuslinetabs = "lightline#statuslinetabs#show",
         -- },
