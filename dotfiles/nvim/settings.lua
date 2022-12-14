@@ -368,15 +368,17 @@ wk.register({
         ["<leader>"] = {
                 name = "Gitsigns",
                 g = {
-                        n = { "<cmd>Gitsigns next_hunk<cr>", "Gitsigns - Next Hunk" },
-                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Gitsigns - Stage Hunk" },
-                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Gitsigns - Reset Hunk" },
+                        b = { "<cmd>Gitsigns blame_line<cr>", "Blame line" },
+                        n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
+                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+                        u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
                 },
                 t = {
                         name = "Telescope", -- optional group name
-                        f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+                        f = { "<cmd>Telescope find_files<cr>", "Find file" }, -- create a binding with label
                         t = { "<cmd>Telescope treesitter<cr>", "Treesitter" }, -- additional options for creating the keymap
-                        b = { "<cmd>Telescope buffers<cr>", "Buffers" },
+                        b = { "<cmd>Telescope buffers<cr>", "Fzf buffers" },
                 },
         },
 })
