@@ -3,6 +3,7 @@ local g = vim.g
 local c = vim.cmd
 local o = vim.opt
 local api = vim.api
+local wk = require("which-key")
 
 ----------------------------------------------------------------------
 -- General
@@ -134,6 +135,43 @@ require("nvim-treesitter.configs").setup({
 ----------------------------------------------------------------------
 require("gitsigns").setup({
         on_attach = function(buffer)
+                local gs = require("gitsigns")
+                wk.register({
+                        ["<leader>"] = {
+                                name = "Gitsigns",
+                                g = {
+                                        b = {
+                                                function()
+                                                        gs.blame_line({ full = true })
+                                                end,
+                                                "Blame line",
+                                        },
+                                        d = {
+                                                function()
+                                                        gs.diffthis()
+                                                end,
+                                                "Diff this",
+                                        },
+                                        D = {
+                                                function()
+                                                        gs.diffthis("~")
+                                                end,
+                                                "Diff this",
+                                        },
+
+                                        n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
+                                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+                                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+
+                                        -- map('n', '<leader>hR', gs.reset_buffer)
+                                        -- map('n', '<leader>hS', gs.stage_buffer)
+                                        u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
+                                        l = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
+                                        w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
+                                },
+                        },
+                })
+
                 c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
                 c("highlight GitSignsChange guibg=NONE")
                 c("highlight GitSignsDelete guibg=NONE")
@@ -361,21 +399,10 @@ map("v", ">", ">gv")
 -- Allows <ctrl+v> to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
 
-local wk = require("which-key")
 map("n", "<leader>w", "<cmd>WhichKey<cr>")
 
 wk.register({
         ["<leader>"] = {
-                name = "Gitsigns",
-                g = {
-                        b = { "<cmd>Gitsigns blame_line<cr>", "Blame line" },
-                        n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
-                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
-                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-                        u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
-                        h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
-                        w = { "<cmd>Gitsigns toggle_word_dff<cr>", "Toggle word diff" },
-                },
                 t = {
                         name = "Telescope", -- optional group name
                         f = { "<cmd>Telescope find_files<cr>", "Find file" }, -- create a binding with label
