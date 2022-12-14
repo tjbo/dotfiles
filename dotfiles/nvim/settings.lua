@@ -149,6 +149,7 @@ require("gitsigns").setup({
                                                 end,
                                                 "Blame",
                                         },
+                                        c = { gs.toggle_current_line_blame, "Toggle blame line" },
                                         d = { "<cmd>Gitsigns diffthis<CR>", "Diff" },
                                         D = {
                                                 function()
