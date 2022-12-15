@@ -168,12 +168,12 @@ require("gitsigns").setup({
                 })
 
                 c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
-                c("highlight GitSignsChange guibg=NONE")
-                c("highlight GitSignsDelete guibg=NONE")
+                c("highlight GitSignsChange guibg=NONE guifg=ORANGE")
+                c("highlight GitSignsDelete guibg=NONE guifg=RED")
                 c("highlight SignColumn guibg=NONE")
-                c("highlight DiffAdd guibg=#d2ebbe guifg=NONE ctermbg=none")
-                c("highlight DiffChange guibg=#dad085 guifg=NONE ctermbg=none")
-                c("highlight DiffDelete guibg=#f0a0c0 guifg=NONE ctermbg=none")
+                c("highlight DiffAdd guibg=GREEN guifg=NONE ctermbg=none")
+                c("highlight DiffChange guibg=ORANGE guifg=NONE ctermbg=none")
+                c("highlight DiffDelete guibg=RED guifg=NONE ctermbg=none")
         end,
         signs = {
                 add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
