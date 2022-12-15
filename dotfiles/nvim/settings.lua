@@ -35,7 +35,7 @@ c([[autocmd FileType help wincmd L]])
 
 -- better spacing when using tabs
 o.expandtab = false
-o.tabstop = 1
+o.tabstop = 2
 o.shiftwidth = 0
 o.softtabstop = 0
 o.smarttab = true
@@ -370,6 +370,8 @@ require("telescope").setup({
 		},
 	},
 })
+
+require("telescope").load_extension("file_browser")
 
 ----------------------------------------------------------------------
 -- Lightline

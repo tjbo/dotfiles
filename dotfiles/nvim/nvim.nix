@@ -29,6 +29,7 @@ in
     vim-nix
     vimPlugins.nvim-cmp
     vimPlugins.cmp-nvim-lsp
+    vimPlugins.indent-blankline-nvim
     vim-rescript
     vimPlugins.cmp-cmdline
     vimPlugins.cmp-path
