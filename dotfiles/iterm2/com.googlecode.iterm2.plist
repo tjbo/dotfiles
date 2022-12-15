@@ -728,6 +728,8 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
+	<key>HTMLTabTitles</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideActivityIndicator</key>
@@ -2370,7 +2372,7 @@
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
 	<key>PerPaneBackgroundImage</key>
-	<true/>
+	<false/>
 	<key>PointerActions</key>
 	<dict/>
 	<key>Print In Black And White</key>
@@ -2378,7 +2380,7 @@
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>RightCommand</key>
-	<integer>8</integer>
+	<integer>1</integer>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>SeparateStatusBarsPerPane</key>
@@ -2396,9 +2398,9 @@
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.15442402067367256</real>
+	<real>0.20597864239792166</real>
 	<key>StretchTabsToFillBar</key>
-	<true/>
+	<false/>
 	<key>SwitchPaneModifier</key>
 	<integer>5</integer>
 	<key>SwitchTabModifier</key>
@@ -2414,9 +2416,9 @@
 	<key>TabsHaveCloseButton</key>
 	<false/>
 	<key>TerminalMargin</key>
-	<integer>20</integer>
+	<integer>0</integer>
 	<key>TerminalVMargin</key>
-	<integer>10</integer>
+	<integer>0</integer>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>

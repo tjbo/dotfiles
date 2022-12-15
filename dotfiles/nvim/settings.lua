@@ -39,6 +39,7 @@ o.tabstop = 2
 o.shiftwidth = 0
 o.softtabstop = 0
 o.smarttab = true
+
 -- search
 o.hlsearch = true
 o.incsearch = true
@@ -66,22 +67,24 @@ g.vifm_replace_netrw = 1
 g.vifm_replace_netrw_cmd = "Vifm"
 g.vifm_embed_split = 1
 
--- can this be working?
--- o.undodir = "Users/tjbo/.local/share/nvim/undo"
--- o.backup = true
--- o.backupdir = "/User/tjbo/.local/share/nvim/backups"
--- o.backupext = ".bak"
+-- allows persistent undos
+o.undodir = "/tmp/nvim_undos"
+o.undofile = true
 
--- c("silent !mkdir /Users/tjbo/.local/share/nvim/backups> /dev/null 2>&1")
--- -- auto back up with timestamp
--- api.nvim_create_autocmd('BufWritePre', {
---   group = api.nvim_create_augroup('timestamp_backupext', { clear = true }),
---   desc = 'Add timestamp to backup extension',
---   pattern = '*',
---   callback = function()
---     o.backupext = '-' .. vim.fn.strftime('%Y%m%d%H%M')
---   end,
--- })
+-- backups config
+o.backupdir = "/tmp/nvim_backups"
+o.backup = true
+
+-- Add timestamp as extension for backup files
+api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("timestamp_backupext", { clear = true }),
+	desc = "Add timestamp to backup extension",
+	pattern = "*",
+	callback = function()
+		o.backupext = "-" .. vim.fn.strftime("%Y%m%d%H%M")
+	end,
+})
+
 -- Map keys function
 function map(mode, lhs, rhs, opts)
 	local options = { noremap = true }
@@ -390,10 +393,9 @@ g["lightline"] = {
 ----------------------------------------------------------------------
 -- Keymaps
 ----------------------------------------------------------------------
-
 -- clears the search highlight
 map("n", "<C-L>", ":nohlsearch<CR><C-L>")
---
+
 -- Vifm
 map("n", "<leader>pd", ":below 100 TabVifm<cr>")
 
