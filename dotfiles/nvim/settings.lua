@@ -35,9 +35,9 @@ c([[autocmd FileType help wincmd L]])
 
 -- better spacing when using tabs
 o.expandtab = true
-o.softtabstop = 2
+o.softtabstop = 1
 o.smartindent = true
-o.tabstop = 2
+o.tabstop = 1
 o.wrap = false
 
 -- search
@@ -359,7 +359,21 @@ lspconfig.rust_analyzer.setup({
 })
 
 ----------------------------------------------------------------------
--- Keymaps
+-- Telescope
+----------------------------------------------------------------------
+
+require("telescope").setup({
+        defaults = {
+                mappings = {
+                        i = {
+                                ["<C-c>"] = require("telescope.actions").close,
+                        },
+                },
+        },
+})
+
+----------------------------------------------------------------------
+-- Lightline
 ----------------------------------------------------------------------
 
 g["lightline"] = {
@@ -394,15 +408,17 @@ map("v", ">", ">gv")
 -- Allows <ctrl+v> to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
 
-map("n", "<leader>w", "<cmd>WhichKey<cr>")
+map("n", "<leader>/", "<cmd>WhichKey<cr>")
 
 wk.register({
         ["<leader>"] = {
                 t = {
-                        name = "Telescope", -- optional group name
-                        f = { "<cmd>Telescope find_files<cr>", "Find file" }, -- create a binding with label
-                        t = { "<cmd>Telescope treesitter<cr>", "Treesitter" }, -- additional options for creating the keymap
-                        b = { "<cmd>Telescope buffers<cr>", "Fzf buffers" },
+                        name = "Telescope",
+                        b = { "<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>", "List buffers" },
+                        f = { "<cmd>lua require('telescope.builtin').find_files({ previewer= false })<cr>", "Find file" },
+                        g = { "<cmd>Telescope live_grep<cr>", "Find symbols" },
+                        r = { "<cmd>Telescope lsp_references<cr>", "Find references" },
+                        t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
                 },
         },
 })

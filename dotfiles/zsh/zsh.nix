@@ -1,6 +1,6 @@
 with import <nixpkgs> {};
 {
-  dotDir = ".config/zsh";
+  # dotDir = "/Users/tjbo/.config/zsh/";
   enableAutosuggestions = true;
   enableCompletion = true;
   enableSyntaxHighlighting = true;
@@ -10,25 +10,27 @@ with import <nixpkgs> {};
   history = {
     expireDuplicatesFirst = true;
     extended = false;
+    # path = "/Users/tjbo/.config/zsh/.zsh_history";
     ignoreDups = true;
     ignorePatterns = [ "rm *" "pkill *" ];
     ignoreSpace = true;
-    path = "/home/tjbo/.config/zsh/.zsh_history";
     save = 20000;
     share = true;
     size = 10000;
   };
   initExtra = ''
-    prompt pure 
+    autoload -U promptinit; promptinit
+    prompt pure
     # handles vim bindings
     source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     '';
-  initExtraFirst = "autoload -U promptinit";
+  initExtraFirst = "";
   localVariables = {
     EDITOR = "nvim";
     PURE_PROMPT_SYMBOL = "=>";
     CASE_SENSITIVE = true;
     KEY_TIMEOUT = 1;
+    RPROMPT = "";
   }; # Extra local variables defined at the top of .zshrc.
   loginExtra = ""; # Extra commands that should be added to .zlogin.
   logoutExtra = ""; # Extra commands that should be added to .zlogout.

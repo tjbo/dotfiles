@@ -35,7 +35,8 @@ users.users.tjbo = {
 };
 home-manager.users.tjbo= { pkgs, ... }: {
 home.packages = with pkgs; [
-   # alacritty
+    ripgrep #required for telescope   
+  # alacritty
     cargo
     delta
     fzf
