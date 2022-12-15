@@ -25,6 +25,7 @@ in
   viAlias = true;
   plugins = with pkgs.vimPlugins; [
     vimPlugins.plenary-nvim
+    vimPlugins.vim-surround 
     vim-nix
     vimPlugins.nvim-cmp
     vimPlugins.cmp-nvim-lsp
