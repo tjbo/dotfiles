@@ -415,10 +415,20 @@ wk.register({
                 t = {
                         name = "Telescope",
                         b = { "<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>", "List buffers" },
+                        c = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy search in current buffer" },
+                        d = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
                         f = { "<cmd>lua require('telescope.builtin').find_files({ previewer= false })<cr>", "Find file" },
-                        g = { "<cmd>Telescope live_grep<cr>", "Find symbols" },
-                        r = { "<cmd>Telescope lsp_references<cr>", "Find references" },
+                        g = { "<cmd>Telescope live_grep<cr>", "Live grep for CWD" },
+                        -- this seems to be a lil broken, with grep preview vs other preview
+                        j = { "<cmd>lua require('telescope.builtin').jumplist({ previewer= false })<cr>", "Jump list" },
+                        h = {
+                                "<cmd>lua require('telescope.builtin').command_history({ previewer= false })<cr>",
+                                "List command hisotry",
+                        },
+                        r = { "<cmd>Telescope lsp_references<cr>", "Find references of" },
+                        s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List symbols" },
                         t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
+                        v = { "<cmd>Telescope registers<cr>", "Registers" },
                 },
         },
 })
