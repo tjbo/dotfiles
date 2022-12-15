@@ -46,7 +46,7 @@ in
   # "bh" = "~/.config/dotfiles/rebuild-home.sh";
   "bs" = "darwin-rebuild switch && reload";
 
-  "reload" = "source ${config_dir}/zsh/.zshrc"; 
+  "reload" = "source ~/.zshrc"; 
 
   "yra" = "yarn run android";
   "yrd" = "yarn run develop";

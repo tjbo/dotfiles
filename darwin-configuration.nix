@@ -1,15 +1,14 @@
 
 { config, pkgs, ... }:
 
+
 {
 imports = [ <home-manager/nix-darwin> ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
+  environment.systemPackages = with pkgs; 
     [ 
-      pkgs.neovim
-      pkgs.vim 
-      pkgs.fd
+      neovim
     ];
 
   # Use a custom configuration.nix location.
@@ -33,35 +32,27 @@ users.users.tjbo = {
   name = "tjbo";
   home = "/Users/tjbo";
 };
+
 home-manager.users.tjbo= { pkgs, ... }: {
 home.packages = with pkgs; [
-    ripgrep #required for telescope   
-  # alacritty
+    fd
+    ripgrep
     cargo
     delta
     fzf
-   # fd
-   # gh
    # todo: configure git 
    # htop
     lazygit
     neofetch
     nixpkgs-fmt
     nodejs
-
-  
     nodePackages.eslint
     nodePackages.typescript
     nodePackages.typescript-language-server
     stylua
     sumneko-lua-language-server
     vscode-extensions.chenglou92.rescript-vscode
-    # nvimpager: currently broken 
     pure-prompt
-    # ripgrep
-    # tabbed
-    # udevil
-    # udisks
     rustc
     rust-analyzer
     vifm
@@ -69,9 +60,6 @@ home.packages = with pkgs; [
   ];
    
   #config files for lazygit
-  # home.file.".config/lazygit/config.yml".text =
-  #   builtins.readFile(dotfiles/lazygit/config.yml); for
-  #   linux
   home.file ."/Library/Application Support/lazygit/config.yml".text =builtins.readFile(dotfiles/lazygit/config.yml); 
 
   # config files for vifm
