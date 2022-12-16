@@ -23,14 +23,20 @@ with import <nixpkgs> {};
     prompt pure
     # handles vim bindings
     source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    source "$(fzf-share)/completion.zsh"
+    source "/Users/tjbo/.config/zsh/fzf-bindings.zsh"
     '';
   initExtraFirst = "";
   localVariables = {
+    # this breaks lazy git
+    # TERMINFO="/Users/tjbo/.config/iterm2/terminfo.src";
+    # TERM = "iterm2"; 
     EDITOR = "nvim";
     PURE_PROMPT_SYMBOL = "=>";
     CASE_SENSITIVE = true;
     KEY_TIMEOUT = 1;
     RPROMPT = "";
+    FZF_DEFAULT_OPTS="--height 100% --border";
   }; # Extra local variables defined at the top of .zshrc.
   loginExtra = ""; # Extra commands that should be added to .zlogin.
   logoutExtra = ""; # Extra commands that should be added to .zlogout.

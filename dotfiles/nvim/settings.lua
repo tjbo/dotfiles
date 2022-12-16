@@ -17,9 +17,13 @@ api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
+-- so cursor stays in middle
+o.scrolloff = 999
+
 -- highlights current row of cursor
 o.cursorline = true
 
+-- history
 o.history = 9999
 
 -- number column
@@ -35,7 +39,7 @@ c([[autocmd FileType help wincmd L]])
 
 -- better spacing when using tabs
 o.expandtab = false
-o.tabstop = 2
+o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = 0
 o.smarttab = true
@@ -47,6 +51,11 @@ o.incsearch = true
 -- colors
 o.termguicolors = true
 c("colorscheme codedark")
+
+-- sets bg transparency
+-- api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- c(":hi LineNr guibg=NONE guifg=#ffffff")
 
 g.mapleader = " "
 o.completeopt = { "menu", "menuone", "noselect" }
@@ -125,6 +134,7 @@ require("nvim-treesitter.configs").setup({
 		"vim",
 		"yaml",
 	},
+	auto_install = true,
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
@@ -218,41 +228,54 @@ local t = function(str)
 	return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+local has_words_before = function()
+	unpack = unpack or table.unpack
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 		end,
 	},
 	window = {
 		completion = {
 			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
 			col_offset = -3,
-			side_padding = 0,
+			side_padding = 1,
 		},
 		documentation = cmp.config.window.bordered(),
+
+		dofile,
 	},
+
 	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-		["<Tab>"] = cmp.mapping({
-			i = function(a, b)
-				if cmp.visible() then
-					cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-					-- elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-					-- vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), "m", true)
+		["<C-b>"] = cmp.mapping.scroll_docs(-2),
+		["<C-f>"] = cmp.mapping.scroll_docs(2),
+		["<C-a>"] = cmp.mapping.abort(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<Tab>"] = function(fallback)
+			if not cmp.select_next_item() then
+				-- currently does not work for vsnip
+				if vim.bo.buftype ~= "prompt" and has_words_before() then
+					cmp.complete()
 				else
-					vim.api.nvim_feedkeys(t("<Tab>"), "n", true) -- fallback()
+					fallback()
 				end
-			end,
-		}),
+			end
+		end,
+		["<S-Tab>"] = function(fallback)
+			if not cmp.select_prev_item() then
+				if vim.bo.buftype ~= "prompt" and has_words_before() then
+					cmp.complete()
+				else
+					fallback()
+				end
+			end
+		end,
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
@@ -366,11 +389,20 @@ lspconfig.rust_analyzer.setup({
 
 require("telescope").setup({
 	defaults = {
+		layout_config = {
+			horizontal = { width = 0.99, height = 0.99 },
+			vertical = { width = 0.99 },
+		},
 		mappings = {
 			i = {
 				["<C-c>"] = require("telescope.actions").close,
 			},
 		},
+		-- pickers = {
+		-- 	find_files = {
+		-- 		theme = "dropdown",
+		-- 	},
+		-- },
 	},
 })
 
@@ -413,25 +445,37 @@ map("i", "<c-v>", "<c-r>+")
 
 map("n", "<leader>/", "<cmd>WhichKey<cr>")
 
+map("n", "<PageUp>", "<C-b>")
+
 wk.register({
 	["<leader>"] = {
 		t = {
 			name = "Telescope",
-			b = { "<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>", "List buffers" },
-			c = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy search in current buffer" },
-			d = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
-			f = { "<cmd>lua require('telescope.builtin').find_files({ previewer= false })<cr>", "Find file" },
-			g = { "<cmd>Telescope live_grep<cr>", "Live grep for CWD" },
-			-- this seems to be a lil broken, with grep preview vs other preview
-			j = { "<cmd>lua require('telescope.builtin').jumplist({ previewer= false })<cr>", "Jump list" },
-			h = {
-				"<cmd>lua require('telescope.builtin').command_history({ previewer= false })<cr>",
-				"List command hisotry",
+			b = {
+				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
+				"List open buffers in current neovim instance",
 			},
-			r = { "<cmd>Telescope lsp_references<cr>", "Find references of" },
-			s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List symbols" },
+			c = {
+				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
+				"Fuzzy search current buffer",
+			},
+			d = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
+			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find file" },
+			g = { "<cmd>Telescope git_status<cr>", "List active git files" },
+			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
+			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
+			h = {
+				"<cmd>lua require('telescope.builtin').command_history()<cr>",
+				"List nvim command history",
+			},
+			-- r = { "<cmd>Telescope lsp_references<cr>", "List LSP refs for word under cursor " },
+			r = { "<cmd>Telescope registers<cr>", "Registers" },
+			s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List workspace symbols" },
 			t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
-			v = { "<cmd>Telescope registers<cr>", "Registers" },
+			w = {
+				"<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep > ') })<cr>",
+				"Search for string under curse in cwd",
+			},
 		},
 	},
 })

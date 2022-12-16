@@ -36,10 +36,10 @@ users.users.tjbo = {
 home-manager.users.tjbo= { pkgs, ... }: {
 home.packages = with pkgs; [
     fd
+    fzf
     ripgrep
     cargo
     delta
-    fzf
    # todo: configure git 
    # htop
     lazygit
@@ -68,6 +68,12 @@ home.packages = with pkgs; [
 
   # neovim settings
   home.file.".config/nvim/settings.lua".source = dotfiles/nvim/settings.lua;
+
+  # zsh keybindings for fzf
+  home.file.".config/zsh/fzf-bindings.zsh".source = dotfiles/zsh/fzf-bindings.zsh;
+
+  # iterm2 definition
+  # home.file.".config/iterm2/terminfo.src".source = dotfiles/iterm2/terminfo.src;
 
   programs.neovim = import dotfiles/nvim/nvim.nix;
   # programs.alacritty = import ../alacritty/alacritty.nix;
