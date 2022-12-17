@@ -47,6 +47,7 @@ in
   "bs" = "darwin-rebuild switch && reload";
 
   "reload" = "source ~/.zshrc"; 
+ "rni"="react-native run-ios";
 
   "yra" = "yarn run android";
   "yrd" = "yarn run develop";
@@ -59,7 +60,6 @@ in
 }
 
 
-#alias rni="react-native run-ios"
 #alias rna="react-native run-android"
 
 

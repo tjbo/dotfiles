@@ -4,8 +4,6 @@
 
 {
 imports = [ <home-manager/nix-darwin> ];
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; 
     [ 
       neovim
@@ -33,6 +31,16 @@ users.users.tjbo = {
   home = "/Users/tjbo";
 };
 
+homebrew = {
+  enable = true;
+  onActivation.autoUpdate = true;
+  casks = [
+    "alt-tab"
+    "react-native-debugger"
+    "visual-studio-code"
+  ];
+};
+
 home-manager.users.tjbo= { pkgs, ... }: {
 home.packages = with pkgs; [
     fd
@@ -45,8 +53,12 @@ home.packages = with pkgs; [
     lazygit
     neofetch
     nixpkgs-fmt
-    nodejs
+    nodejs-16_x # timer-labs project specific dependency,
+    # I think there is a way to build these with nix so I
+    # can have different versions of nodejs for different
+    # projects
     nodePackages.eslint
+    nodePackages.react-native-cli
     nodePackages.typescript
     nodePackages.typescript-language-server
     stylua

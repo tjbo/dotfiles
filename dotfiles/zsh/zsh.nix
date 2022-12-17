@@ -31,6 +31,9 @@ with import <nixpkgs> {};
     # this breaks lazy git
     # TERMINFO="/Users/tjbo/.config/iterm2/terminfo.src";
     # TERM = "iterm2"; 
+    NODE_OPTIONS = "--openssl-legacy-provider"; 
+    # right now above is project specific and should be
+    # moved
     EDITOR = "nvim";
     PURE_PROMPT_SYMBOL = "=>";
     CASE_SENSITIVE = true;
