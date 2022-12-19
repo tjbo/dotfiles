@@ -3,11 +3,15 @@
 
 
 {
-imports = [ <home-manager/nix-darwin> ];
-  environment.systemPackages = with pkgs; 
-    [ 
+  imports = [ <home-manager/nix-darwin> ];
+  environment.systemPackages = with pkgs;
+    [
+      btop
+      nixFlakes
       neovim
     ];
+
+  nix.extraOptions = "experimental-features = nix-command flakes";
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
@@ -18,7 +22,7 @@ imports = [ <home-manager/nix-darwin> ];
   # nix.package = pkgs.nix;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
+  programs.zsh.enable = true; # default shell on catalina
   # programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
@@ -26,72 +30,74 @@ imports = [ <home-manager/nix-darwin> ];
   system.stateVersion = 4;
 
 
-users.users.tjbo = {
-  name = "tjbo";
-  home = "/Users/tjbo";
-};
+  users.users.tjbo = {
+    name = "tjbo";
+    home = "/Users/tjbo";
+  };
 
-homebrew = {
-  enable = true;
-  onActivation.autoUpdate = true;
-  casks = [
-    "alt-tab"
-    "react-native-debugger"
-    "visual-studio-code"
-  ];
-};
+  homebrew = {
+    enable = true;
+    onActivation.autoUpdate = true;
+    casks = [
+      "alt-tab"
+      "react-native-debugger"
+      "visual-studio-code"
+    ];
+  };
 
-home-manager.users.tjbo= { pkgs, ... }: {
-home.packages = with pkgs; [
-    fd
-    fzf
-    ripgrep
-    cargo
-    delta
-   # todo: configure git 
-   # htop
-    lazygit
-    neofetch
-    nixpkgs-fmt
-    nodejs-16_x # timer-labs project specific dependency,
-    # I think there is a way to build these with nix so I
-    # can have different versions of nodejs for different
-    # projects
-    nodePackages.eslint
-    nodePackages.react-native-cli
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-    stylua
-    sumneko-lua-language-server
-    vscode-extensions.chenglou92.rescript-vscode
-    pure-prompt
-    rustc
-    rust-analyzer
-    vifm
-    yarn
-  ];
-   
-  #config files for lazygit
-  home.file ."/Library/Application Support/lazygit/config.yml".text =builtins.readFile(dotfiles/lazygit/config.yml); 
 
-  # config files for vifm
-  # home.file.".config/vifm/vifmrc".text = builtins.readFile(../vifm/vifmrc);
-  # home.file.".config/vifm/colors/slate.vifm".text = builtins.readFile(../vifm/colors/slate.vifm);
+  # add some post install hook if possible
+  # launchctl unload -w/System/Library/LaunchAgents/com.apple.photoanalysisd.plist -w
 
-  # neovim settings
-  home.file.".config/nvim/settings.lua".source = dotfiles/nvim/settings.lua;
+  home-manager.users.tjbo = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      fd
+      fzf
+      ripgrep
+      cargo
+      delta
+      # todo: configure git 
+      lazygit
+      neofetch
+      nixpkgs-fmt
+      nodejs-16_x # this can be updated... different
+      # versions will be run in flake.nix 
+      nodePackages.eslint
+      nodePackages.react-native-cli
+      nodePackages.typescript
+      nodePackages.typescript-language-server
+      stylua
+      sumneko-lua-language-server
+      vscode-extensions.chenglou92.rescript-vscode
+      pure-prompt
+      rustc
+      rust-analyzer
+      rnix-lsp
+      vifm
+      yarn
+    ];
 
-  # zsh keybindings for fzf
-  home.file.".config/zsh/fzf-bindings.zsh".source = dotfiles/zsh/fzf-bindings.zsh;
+    #config files for lazygit
+    home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (dotfiles/lazygit/config.yml);
 
-  # iterm2 definition
-  # home.file.".config/iterm2/terminfo.src".source = dotfiles/iterm2/terminfo.src;
+    # config files for vifm
+    # home.file.".config/vifm/vifmrc".text = builtins.readFile(../vifm/vifmrc);
+    # home.file.".config/vifm/colors/slate.vifm".text = builtins.readFile(../vifm/colors/slate.vifm);
 
-  programs.neovim = import dotfiles/nvim/nvim.nix;
-  # programs.alacritty = import ../alacritty/alacritty.nix;
-  # programs.fzf = import ~/.config/dotfiles/fzf/fzf.nix;
-  # programs.vscode = import ../vscode/vscode.nix;
-  programs.zsh = import dotfiles/zsh/zsh.nix;	
-	home.stateVersion = "23.05";
-};
+    # neovim settings
+    home.file.".config/nvim/settings.lua".source = dotfiles/nvim/settings.lua;
+
+    # zsh keybindings for fzf
+    home.file.".config/zsh/fzf-bindings.zsh".source = dotfiles/zsh/fzf-bindings.zsh;
+
+    # iterm2 definition
+    # home.file.".config/iterm2/terminfo.src".source = dotfiles/iterm2/terminfo.src;
+
+    programs.neovim = import dotfiles/nvim/nvim.nix;
+    # programs.alacritty = import ../alacritty/alacritty.nix;
+    # programs.fzf = import ~/.config/dotfiles/fzf/fzf.nix;
+    # programs.vscode = import ../vscode/vscode.nix;
+    programs.zsh = import dotfiles/zsh/zsh.nix;
+    home.stateVersion = "23.05";
+  };
 }

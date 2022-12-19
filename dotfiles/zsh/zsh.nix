@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+with import <nixpkgs> { };
 {
   # dotDir = "/Users/tjbo/.config/zsh/";
   enableAutosuggestions = true;
@@ -25,21 +25,22 @@ with import <nixpkgs> {};
     source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     source "$(fzf-share)/completion.zsh"
     source "/Users/tjbo/.config/zsh/fzf-bindings.zsh"
-    '';
+  '';
   initExtraFirst = "";
   localVariables = {
     # this breaks lazy git
     # TERMINFO="/Users/tjbo/.config/iterm2/terminfo.src";
     # TERM = "iterm2"; 
-    NODE_OPTIONS = "--openssl-legacy-provider"; 
+    CASE_SENSITIVE = true;
+    EDITOR = "nvim";
+    FZF_DEFAULT_OPTS = "--height 100% --border";
+    # MAN_PAGER = "/usr/local/bin/nvr -c 'Man!' -o -";
+    # NODE_OPTIONS = "--openssl-legacy-provider"; 
     # right now above is project specific and should be
     # moved
-    EDITOR = "nvim";
-    PURE_PROMPT_SYMBOL = "=>";
-    CASE_SENSITIVE = true;
     KEY_TIMEOUT = 1;
+    PURE_PROMPT_SYMBOL = "=>";
     RPROMPT = "";
-    FZF_DEFAULT_OPTS="--height 100% --border";
   }; # Extra local variables defined at the top of .zshrc.
   loginExtra = ""; # Extra commands that should be added to .zlogin.
   logoutExtra = ""; # Extra commands that should be added to .zlogout.
