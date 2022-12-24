@@ -1,4 +1,3 @@
-
 { config, pkgs, ... }:
 
 
@@ -51,17 +50,18 @@
 
   home-manager.users.tjbo = { pkgs, ... }: {
     home.packages = with pkgs; [
+      gnused
       fd
       fzf
       ripgrep
       cargo
       delta
       # todo: configure git 
+      hack-font
       lazygit
       neofetch
       nixpkgs-fmt
-      nodejs-16_x # this can be updated... different
-      # versions will be run in flake.nix 
+      nodejs
       nodePackages.eslint
       nodePackages.react-native-cli
       nodePackages.typescript

@@ -156,8 +156,8 @@ require("gitsigns").setup({
 		local gs = package.loaded.gitsigns
 		wk.register({
 			["<leader>"] = {
-				name = "Gitsigns",
 				g = {
+					name = "Gitsigns",
 					b = {
 						function()
 							gs.blame_line({ full = true })
@@ -173,6 +173,7 @@ require("gitsigns").setup({
 						"Diff to head",
 					},
 					n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
+					p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
 					r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
 					s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
 					u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
@@ -311,13 +312,10 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.eslint,
 		null_ls.builtins.code_actions.statix,
-		null_ls.builtins.diagnostics.deadnix,
+		-- null_ls.builtins.diagnostics.deadnix,
 		-- null_ls.builtins.completion.spell,
 	},
 })
-
--- auto format on write
-c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 
 local on_attach = function(client, bufnr)
 	api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -325,20 +323,57 @@ local on_attach = function(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	map("n", "gD", vim.lsp.buf.declaration, bufopts)
-	map("n", "gd", vim.lsp.buf.definition, bufopts)
-	map("n", "K", vim.lsp.buf.hover, bufopts)
-	map("n", "gi", vim.lsp.buf.implementation, bufopts)
-	map("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-	map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-	map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-	map("n", "<space>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, bufopts)
-	map("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-	map("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-	map("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-	map("n", "gr", vim.lsp.buf.references, bufopts)
+
+	-- map("n", "gd", vim.lsp.buf.definition, bufopts)
+	-- map("n", "K", vim.lsp.buf.hover, bufopts)
+	-- map("n", "gi", vim.lsp.buf.implementation, bufopts)
+	-- map("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+	-- map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+	-- map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+	-- map("n", "<space>wl", function()
+	-- 	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	-- end, bufopts)
+	-- map("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+	-- map("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+	-- map("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+	-- map("n", "gr", vim.lsp.buf.references, bufopts)
+	c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+
+	wk.register({
+		["<leader>"] = {
+			l = {
+				name = "Lsp",
+				D = {
+					vim.lsp.buf.declaration,
+					"Declaration",
+					bufopts,
+				},
+				d = {
+					vim.lsp.buf.definition,
+					"Definition",
+					bufopts,
+				},
+				f = {
+					function()
+						vim.lsp.buf.format({ async = true })
+					end,
+					"Format",
+					bufopts,
+				},
+				h = {
+					vim.lsp.buf.hover,
+					"Search in current file",
+					bufopts,
+				},
+
+				-- I think this is broken in the plugin
+				-- w = {
+				-- 	"<leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>",
+				-- 	"Search word",
+				-- },
+			},
+		},
+	})
 
 	-- not working
 	-- map("n", "<space>f", function()
@@ -358,6 +393,7 @@ lspconfig.gopls.setup({ on_attach = on_attach })
 lspconfig["tsserver"].setup({
 	cmd = { "typescript-language-server", "--stdio", "--tsserver-path", "/Users/tjbo/.nix-profile/bin/tsserver" },
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Lua
@@ -370,10 +406,13 @@ lspconfig.sumneko_lua.setup({
 		},
 	},
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- NixOS
-lspconfig.rnix.setup({})
+lspconfig.rnix.setup({
+	on_attach = on_attach,
+})
 
 -- Rescript
 lspconfig.rescriptls.setup({
@@ -383,12 +422,14 @@ lspconfig.rescriptls.setup({
 		"--stdio",
 	},
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Rust
 lspconfig.rust_analyzer.setup({
 	cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 ----------------------------------------------------------------------
@@ -414,7 +455,36 @@ require("telescope").setup({
 	},
 })
 
-require("telescope").load_extension("file_browser")
+----------------------------------------------------------------------
+-- Spectre
+----------------------------------------------------------------------
+require("spectre").setup()
+
+wk.register({
+	["<leader>"] = {
+		s = {
+			name = "Spectre",
+			o = {
+				"<cmd>lua require('spectre').open()<CR>",
+				"Open spectre",
+			},
+			a = {
+				"<cmd>lua require('spectre.actions').run_replace()<CR>",
+				"Replace all",
+			},
+			c = {
+				"lua require('spectre').open_file_search()<CR>",
+				"Search in current file",
+			},
+
+			-- I think this is broken in the plugin
+			-- w = {
+			-- 	"<leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>",
+			-- 	"Search word",
+			-- },
+		},
+	},
+})
 
 ----------------------------------------------------------------------
 -- Lightline
@@ -436,9 +506,6 @@ g["lightline"] = {
 -- clears the search highlight
 map("n", "<C-L>", ":nohlsearch<CR><C-L>")
 
--- Vifm
-map("n", "<leader>pd", ":below 100 TabVifm<cr>")
-
 -- Todo: Switch between tabs
 map("n", "<C-tab>", "<cmd>tabnext<cr>")
 map("n", "<C-S-tab>", "<cmd>tabprev<cr>")
@@ -457,6 +524,10 @@ map("n", "<PageUp>", "<C-b>")
 
 wk.register({
 	["<leader>"] = {
+		f = {
+			name = "Files",
+			f = { ":below 100 TabVifm<cr>", "Open files" },
+		},
 		t = {
 			name = "Telescope",
 			b = {

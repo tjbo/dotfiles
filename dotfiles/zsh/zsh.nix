@@ -34,8 +34,7 @@ with import <nixpkgs> { };
     CASE_SENSITIVE = true;
     EDITOR = "nvim";
     FZF_DEFAULT_OPTS = "--height 100% --border";
-    # MAN_PAGER = "/usr/local/bin/nvr -c 'Man!' -o -";
-    # NODE_OPTIONS = "--openssl-legacy-provider"; 
+    NODE_OPTIONS = "--openssl-legacy-provider";
     # right now above is project specific and should be
     # moved
     KEY_TIMEOUT = 1;

@@ -1,7 +1,7 @@
-let 
-    dotfiles_dir = "~/.nixpkgs/dotfiles";
-    config_dir = "~/.config";
-    nixpkgs_dir = "~/.nixpkgs";
+let
+  dotfiles_dir = "~/.nixpkgs/dotfiles";
+  config_dir = "~/.config";
+  nixpkgs_dir = "~/.nixpkgs";
 in
 {
   # change directories
@@ -16,11 +16,11 @@ in
   "cddt" = "cd ~/Desktop";
   "cddl" = "cd ~/Downloads";
   "cdp" = "cd ~/Projects/";
-  "cdt"="cd ~/Projects/timer-labs-app/";
-  "cdta"="cd ~/Projects/timer-labs-app/app";
-  "cdtf"="cd ~/Projects/timer-labs-app/functions";
-  "cdtd"="cd ~/Projects/timer-labs-app/db";
-  "cdtv"="cd ~/Projects/timer-labs-app/vpc";
+  "cdtl" = "cd ~/Projects/timer-labs-app/";
+  "cdtla" = "cd ~/Projects/timer-labs-app/app";
+  "cdtlf" = "cd ~/Projects/timer-labs-app/functions";
+  "cdtld" = "cd ~/Projects/timer-labs-app/db";
+  "cdtlv" = "cd ~/Projects/timer-labs-app/vpc";
 
   # fast edit
   "e" = "nvim";
@@ -46,8 +46,8 @@ in
   # "bh" = "~/.config/dotfiles/rebuild-home.sh";
   "bs" = "darwin-rebuild switch && reload";
 
-  "reload" = "source ~/.zshrc"; 
- "rni"="react-native run-ios";
+  "reload" = "source ~/.zshrc";
+  "rni" = "react-native run-ios";
 
   "yra" = "yarn run android";
   "yrd" = "yarn run develop";
