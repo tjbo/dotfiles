@@ -2,53 +2,44 @@
 {
   enable = true;
   settings = {
-    colors=
+    colors =
       {
-      primary= {
-        background= "#11121D";
-        foreground= "#a9b1d6";
+        primary = {
+          background = "#11121D";
+          foreground = "#a9b1d6";
+        };
+        normal = {
+          black = "#32344a";
+          red = "#f7768e";
+          green = "#9ece6a";
+          yellow = "#e0af68";
+          blue = "#7aa2f7";
+          magenta = "#ad8ee6";
+          cyan = "#449dab";
+          white = "#787c99";
+        };
+        bright = {
+          black = "#444b6a";
+          red = "#ff7a93";
+          green = "#b9f27c";
+          yellow = "#ff9e64";
+          blue = "#7da6ff";
+          magenta = "#bb9af7";
+          cyan = "#0db9d7";
+          white = "#acb0d0";
+        };
       };
-      normal= {
-        black= "#32344a";
-        red= "#f7768e";
-        green= "#9ece6a";
-        yellow= "#e0af68";
-        blue= "#7aa2f7";
-        magenta= "#ad8ee6";
-        cyan= "#449dab";
-        white= "#787c99";
-      };
-      bright = {
-        black= "#444b6a";
-        red= "#ff7a93";
-        green= "#b9f27c";
-        yellow= "#ff9e64";
-        blue= "#7da6ff";
-        magenta= "#bb9af7";
-        cyan= "#0db9d7";
-        white= "#acb0d0";
-      };
-    };
     font = {
-      draw_bold_text_with_bright_colors= true;
+      draw_bold_text_with_bright_colors = true;
       size = 18;
     };
-  window = {
-    opacity = .98; 
-    padding = {
-       x= 0;
-       y= 0;
-     };
-     startup_mode = "Fullscreen";  
-  # Startup Mode (changes require restart)
-  #
-  # Values for `startup_mode`:
-  #   - Windowed
-  #   - Maximized
-  #   - Fullscreen
-  #
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-   };
+    window = {
+      opacity = .98;
+      padding = {
+        x = 0;
+        y = 0;
+      };
+      startup_mode = "Fullscreen";
+    };
   };
 }

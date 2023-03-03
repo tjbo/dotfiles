@@ -1,15 +1,29 @@
 with import <nixpkgs> { };
 
 let
-  vim-rescript = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "vim-rescript";
-    src = pkgs.fetchFromGitHub {
-      owner = "rescript-lang";
-      repo = "vim-rescript";
-      rev = "master";
-      hash = "sha256-aASUXqZD6ytt1vNxQiENDI44iDQ2tCg1DiBp9f7RFoI=";
+  vim-rescript = pkgs.vimUtils.buildVimPluginFrom2Nix
+    {
+      name = "vim-rescript";
+      src = pkgs.fetchFromGitHub {
+        owner = "rescript-lang";
+        repo = "vim-rescript";
+        rev = "master";
+        hash = "sha256-aASUXqZD6ytt1vNxQiENDI44iDQ2tCg1DiBp9f7RFoI=";
+      };
     };
-  };
+  vim-lsp-saga = pkgs.vimUtils.buildVimPluginFrom2Nix
+    {
+
+      name = "vim-lsp-saga";
+      src = pkgs.fetchFromGitHub {
+        owner = "glepnir";
+        repo = "lspsaga.nvim";
+        rev = "master";
+        hash =
+          "sha256-i7N0vnzynzHj+mGthkDYVZmqYqvfqpr9XMwmGGUM4qI=";
+      };
+
+    };
 in
 {
   enable = true;
@@ -23,8 +37,10 @@ in
     vimPlugins.cmp-nvim-lsp
     vimPlugins.indent-blankline-nvim
     vim-rescript
+    vim-lsp-saga
     vimPlugins.cmp-cmdline
     vimPlugins.cmp-path
+    vimPlugins.nvim-web-devicons
     vimPlugins.gitsigns-nvim
     vimPlugins.vim-code-dark
     vimPlugins.lightline-vim
@@ -35,9 +51,7 @@ in
     vimPlugins.telescope-nvim
     vimPlugins.vim-commentary # adds easy way to comment / uncomment locs
     vimPlugins.vim-lastplace # opens file where you were last
-    vimPlugins.vifm-vim
     vimPlugins.vimwiki
-    vimPlugins.nvim-spectre
     vimPlugins.which-key-nvim
   ];
   extraConfig = "luafile ~/.config/nvim/settings.lua";

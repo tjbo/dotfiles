@@ -21,10 +21,13 @@ in
   "cdtlf" = "cd ~/Projects/timer-labs-app/functions";
   "cdtld" = "cd ~/Projects/timer-labs-app/db";
   "cdtlv" = "cd ~/Projects/timer-labs-app/vpc";
+  "cdtlw" = "cd ~/Projects/timer-labs-web/";
+  "cdvw" = "cd ~/vimwiki";
 
   # fast edit
   "e" = "nvim";
   "ea" = "nvim ${dotfiles_dir}/alacritty/alacritty.nix";
+  "ek" = "nvim ${dotfiles_dir}/kitty/kitty.conf";
   "ez" = "nvim ${dotfiles_dir}/zsh/zsh.nix";
   "eza" = "nvim ${dotfiles_dir}/zsh/zsh-aliases.nix";
   "ev" = "nvim ${dotfiles_dir}/nvim/nvim.nix";
@@ -50,13 +53,15 @@ in
   "rni" = "react-native run-ios";
 
   "yra" = "yarn run android";
+  "yrb" = "yarn run build";
+  "yrc" = "yarn run clean";
   "yrd" = "yarn run develop";
   "yri" = "yarn run ios";
   "yrr" = "yarn run rescript";
   "yrs" = "yarn run start";
 
-
-
+  # podfiles
+  "pi" = "pod install";
 }
 
 

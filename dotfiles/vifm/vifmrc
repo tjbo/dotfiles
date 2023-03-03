@@ -31,7 +31,7 @@ set trash
 
 " This is how many directories to store in the directory history.
 
-set history=100
+set history=999
 
 " Automatically resolve symbolic links on l or Enter.
 
@@ -66,16 +66,13 @@ colorscheme Slate slate Default-256 Default
 set timefmt=%m/%d\ %H:%M
 
 " Show list of matches on tab completion in command-line mode
-
 set wildmenu
 
 " Display completions in a form of popup with descriptions of the matches
-
 set wildstyle=popup
 
 " Display suggestions in normal, visual and view modes for keys, marks and
 " registers (at most 5 files).  In other view, when available.
-
 set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
 " Ignore case in search patterns unless it contains at least one uppercase
@@ -85,15 +82,13 @@ set ignorecase
 set smartcase
 
 " Don't highlight search results automatically
-
 set nohlsearch
 
 " Use increment searching (search while typing)
 set incsearch
 
 " Try to leave some space from cursor to upper/lower border in lists
-
-set scrolloff=4
+set scrolloff=999
 
 " Don't do too many requests to slow file systems
 
@@ -523,5 +518,4 @@ nnoremap <c-u> <c-w>x
 " It can be used in some shell script that gets run from inside vifm, for
 " example, like this:
 "     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
-"
 " let $VIFM_SERVER_NAME = v:servername

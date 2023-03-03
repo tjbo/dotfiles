@@ -1,0 +1,53 @@
+" automatically converted from Vim color scheme codedark
+
+highlight clear
+
+highlight Win guifg=#d4d4d4 guibg=#1e1e1e gui=none
+highlight OtherWin guifg=#5a5a5a ctermbg=-1 cterm=none
+" no conversion defined for AuxWin
+" no conversion defined for OddLine
+
+highlight TopLine guifg=#d4d4d4 guibg=#252526 gui=none
+highlight TopLineSel guifg=#d4d4d4 guibg=#373737 gui=none
+
+highlight TabLine guifg=#d4d4d4 guibg=#2d2d2d gui=none
+highlight TabLineSel guifg=#d4d4d4 guibg=#1e1e1e gui=none
+
+highlight JobLine guifg=#d4d4d4 guibg=#373737 gui=none
+highlight StatusLine guifg=#d4d4d4 guibg=#373737 gui=none
+highlight Border guifg=#444444 guibg=#1e1e1e gui=none
+
+highlight CurrLine guifg=#51504f guibg=#aeafad gui=none
+highlight OtherLine guifg=#1e1e1e guibg=#d4d4d4 gui=none
+highlight LineNr guifg=#5a5a5a guibg=#1e1e1e gui=none
+
+highlight Selected ctermfg=0 guibg=#264f78 gui=none
+highlight CmpMismatch guifg=#d4d4d4 guibg=#005f87 gui=none
+
+highlight SuggestBox guifg=#d4d4d4 guibg=#1e1e1e gui=none
+highlight WildMenu guifg=#bbbbbb guibg=#2d2d30 gui=none
+
+highlight CmdLine guifg=#d4d4d4 guibg=#1e1e1e gui=none
+highlight ErrorMsg guifg=#f44747 guibg=#1e1e1e gui=none
+
+highlight Directory guifg=#c586c0 ctermbg=-1 cterm=none
+highlight Executable guifg=#c586c0 ctermbg=-1 cterm=none
+highlight Socket guifg=#d4d4d4 ctermbg=-1 cterm=none
+highlight Device guifg=#d4d4d4 ctermbg=-1 cterm=none
+highlight Fifo guifg=#ce9178 ctermbg=-1 cterm=none
+highlight Link guifg=#b5cea8 ctermbg=-1 cterm=none
+highlight BrokenLink ctermfg=0 guibg=#373737 gui=none
+" no conversion defined for HardLink
+
+" no conversion defined for User1..User9
+
+" warnings:
+" - incomplete source color scheme: missing bg of NonText
+" - incomplete source color scheme: missing fg of Visual
+" - incomplete source color scheme: missing bg of Keyword
+" - incomplete source color scheme: missing bg of Macro
+" - incomplete source color scheme: missing bg of Debug
+" - incomplete source color scheme: missing bg of Delimiter
+" - incomplete source color scheme: missing bg of String
+" - incomplete source color scheme: missing bg of Number
+" - incomplete source color scheme: missing fg of Todo

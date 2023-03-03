@@ -1,6 +1,4 @@
 { config, pkgs, ... }:
-
-
 {
   imports = [ <home-manager/nix-darwin> ];
   environment.systemPackages = with pkgs;
@@ -39,22 +37,27 @@
     onActivation.autoUpdate = true;
     casks = [
       "alt-tab"
+      "android-studio"
+      "kitty"
+      "iterm2"
+      "loom"
       "react-native-debugger"
       "visual-studio-code"
+      "zulu11"
     ];
   };
 
-
   # add some post install hook if possible
   # launchctl unload -w/System/Library/LaunchAgents/com.apple.photoanalysisd.plist -w
-
   home-manager.users.tjbo = { pkgs, ... }: {
     home.packages = with pkgs; [
-      gnused
+      bundletool
       fd
       fzf
+      jdk11
       ripgrep
       cargo
+      cocoapods
       delta
       # todo: configure git 
       hack-font
@@ -63,26 +66,25 @@
       nixpkgs-fmt
       nodejs
       nodePackages.eslint
+      nodePackages.vscode-langservers-extracted
       nodePackages.react-native-cli
       nodePackages.typescript
       nodePackages.typescript-language-server
+      nodePackages.serverless
       stylua
       sumneko-lua-language-server
       vscode-extensions.chenglou92.rescript-vscode
       pure-prompt
-      rustc
+      # rustc
+      # rustup
       rust-analyzer
       rnix-lsp
       vifm
       yarn
     ];
 
-    #config files for lazygit
+    # config files for lazygit
     home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (dotfiles/lazygit/config.yml);
-
-    # config files for vifm
-    # home.file.".config/vifm/vifmrc".text = builtins.readFile(../vifm/vifmrc);
-    # home.file.".config/vifm/colors/slate.vifm".text = builtins.readFile(../vifm/colors/slate.vifm);
 
     # neovim settings
     home.file.".config/nvim/settings.lua".source = dotfiles/nvim/settings.lua;
@@ -90,13 +92,10 @@
     # zsh keybindings for fzf
     home.file.".config/zsh/fzf-bindings.zsh".source = dotfiles/zsh/fzf-bindings.zsh;
 
-    # iterm2 definition
-    # home.file.".config/iterm2/terminfo.src".source = dotfiles/iterm2/terminfo.src;
+    # config for kitty
+    home.file.".config/kitty/kitty.conf".source = dotfiles/kitty/kitty.conf;
 
     programs.neovim = import dotfiles/nvim/nvim.nix;
-    # programs.alacritty = import ../alacritty/alacritty.nix;
-    # programs.fzf = import ~/.config/dotfiles/fzf/fzf.nix;
-    # programs.vscode = import ../vscode/vscode.nix;
     programs.zsh = import dotfiles/zsh/zsh.nix;
     home.stateVersion = "23.05";
   };

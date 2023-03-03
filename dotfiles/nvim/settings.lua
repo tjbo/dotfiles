@@ -55,11 +55,6 @@ o.incsearch = true
 o.termguicolors = true
 c("colorscheme codedark")
 
--- sets bg transparency
--- api.nvim_set_hl(0, "Normal", { bg = "none" })
--- api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
--- c(":hi LineNr guibg=NONE guifg=#ffffff")
-
 g.mapleader = " "
 o.completeopt = { "menu", "menuone", "noselect" }
 o.textwidth = 60
@@ -73,11 +68,6 @@ o.wildmode = { "list:longest,full" }
 
 -- allows system clipboard to work
 o.clipboard:prepend({ "unnamedplus" })
-
--- vifm
-g.vifm_replace_netrw = 1
-g.vifm_replace_netrw_cmd = "Vifm"
-g.vifm_embed_split = 1
 
 -- allows persistent undos
 o.undodir = "/tmp/nvim_undos"
@@ -110,6 +100,9 @@ end
 ----------------------------------------------------------------------
 -- Tree Sitter Plugin
 ----------------------------------------------------------------------
+
+require("nvim-web-devicons").setup({})
+
 -- Defines a read-write directory for treesitters in nvim's cache dir
 local parser_install_dir = fn.stdpath("cache") .. "/treesitters"
 fn.mkdir(parser_install_dir, "p")
@@ -312,6 +305,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.eslint,
 		null_ls.builtins.code_actions.statix,
+		null_ls.builtins.formatting.prettier,
 		-- null_ls.builtins.diagnostics.deadnix,
 		-- null_ls.builtins.completion.spell,
 	},
@@ -321,64 +315,39 @@ local on_attach = function(client, bufnr)
 	api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-	-- map("n", "gd", vim.lsp.buf.definition, bufopts)
-	-- map("n", "K", vim.lsp.buf.hover, bufopts)
-	-- map("n", "gi", vim.lsp.buf.implementation, bufopts)
-	-- map("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-	-- map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-	-- map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-	-- map("n", "<space>wl", function()
-	-- 	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	-- end, bufopts)
-	-- map("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-	-- map("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-	-- map("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-	-- map("n", "gr", vim.lsp.buf.references, bufopts)
 	c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 
-	wk.register({
-		["<leader>"] = {
-			l = {
-				name = "Lsp",
-				D = {
-					vim.lsp.buf.declaration,
-					"Declaration",
-					bufopts,
-				},
-				d = {
-					vim.lsp.buf.definition,
-					"Definition",
-					bufopts,
-				},
-				f = {
-					function()
-						vim.lsp.buf.format({ async = true })
-					end,
-					"Format",
-					bufopts,
-				},
-				h = {
-					vim.lsp.buf.hover,
-					"Search in current file",
-					bufopts,
-				},
-
-				-- I think this is broken in the plugin
-				-- w = {
-				-- 	"<leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>",
-				-- 	"Search word",
-				-- },
-			},
-		},
-	})
-
-	-- not working
-	-- map("n", "<space>f", function()
-	-- vim.lsp.buf.format({ async = true })
-	-- end, bufopts)
+	-- wk.register({
+	-- 	["<leader>"] = {
+	-- 		l = {
+	-- 			name = "Lsp",
+	-- 			D = {
+	-- 				vim.lsp.buf.declaration,
+	-- 				"Declaration",
+	-- 				bufopts,
+	-- 			},
+	-- 			d = {
+	-- 				vim.lsp.buf.definition,
+	-- 				"Definition",
+	-- 				bufopts,
+	-- 			},
+	-- 			f = {
+	-- 				function()
+	-- 					vim.lsp.buf.format({ async = true })
+	-- 				end,
+	-- 				"Format",
+	-- 				bufopts,
+	-- 			},
+	-- 			h = {
+	-- 				vim.lsp.buf.hover,
+	-- 				"Search in current file",
+	-- 				bufopts,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- })
 end
 
 local lspconfig = require("lspconfig")
@@ -386,11 +355,16 @@ local lspconfig = require("lspconfig")
 -- vimPlugins.cmp-cmdline
 -- couldn't install dependencies without setting this option
 -- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
-
 lspconfig.gopls.setup({ on_attach = on_attach })
+
+lspconfig.jsonls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
 
 -- Javascript & Typescript
 lspconfig["tsserver"].setup({
+	filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
 	cmd = { "typescript-language-server", "--stdio", "--tsserver-path", "/Users/tjbo/.nix-profile/bin/tsserver" },
 	capabilities = capabilities,
 	on_attach = on_attach,
@@ -423,6 +397,9 @@ lspconfig.rescriptls.setup({
 	},
 	capabilities = capabilities,
 	on_attach = on_attach,
+	settings = {
+		askToStartBuild = false,
+	},
 })
 
 -- Rust
@@ -430,6 +407,17 @@ lspconfig.rust_analyzer.setup({
 	cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
 	on_attach = on_attach,
+})
+
+----------------------------------------------------------------------
+-- Diagnostics
+----------------------------------------------------------------------
+
+require("lspsaga").setup({})
+
+vim.diagnostic.config({
+	signs = true,
+	virtual_text = false, -- Turn off inline diagnostics
 })
 
 ----------------------------------------------------------------------
@@ -452,37 +440,6 @@ require("telescope").setup({
 		-- 		theme = "dropdown",
 		-- 	},
 		-- },
-	},
-})
-
-----------------------------------------------------------------------
--- Spectre
-----------------------------------------------------------------------
-require("spectre").setup()
-
-wk.register({
-	["<leader>"] = {
-		s = {
-			name = "Spectre",
-			o = {
-				"<cmd>lua require('spectre').open()<CR>",
-				"Open spectre",
-			},
-			a = {
-				"<cmd>lua require('spectre.actions').run_replace()<CR>",
-				"Replace all",
-			},
-			c = {
-				"lua require('spectre').open_file_search()<CR>",
-				"Search in current file",
-			},
-
-			-- I think this is broken in the plugin
-			-- w = {
-			-- 	"<leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>",
-			-- 	"Search word",
-			-- },
-		},
 	},
 })
 
@@ -524,9 +481,66 @@ map("n", "<PageUp>", "<C-b>")
 
 wk.register({
 	["<leader>"] = {
-		f = {
-			name = "Files",
-			f = { ":below 100 TabVifm<cr>", "Open files" },
+		w = {
+			name = "VimWiki",
+			m = { "<cmd>VimwikiMakeDiaryNote<cr>", "Make new diary note" },
+			w = { "<cmd>VimwikiIndex<cr>", "Go to notes index" },
+			i = { "<cmd>VimwikiDiaryIndex<cr>", "Go to diary index" },
+			g = { "<cmd>VimwikiDiaryGenerateLinks<cr>", "Generate diary links" },
+		},
+		d = {
+			name = "Diagnostics",
+			c = {
+
+				"<cmd>Lspsaga show_cursor_diagnostics<CR>",
+				"Show diagnostics for current cursor",
+			},
+
+			s = {
+				"<cmd>Lspsaga show_line_diagnostics<CR>",
+				"Show diagnostics for current line",
+			},
+			e = {
+				"<cmd> lua require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>",
+				"Go to next error,",
+			},
+			n = {
+				"<cmd>Lspsaga diagnostic_jump_next<CR>",
+				"Go to next diagnostic",
+			},
+			p = {
+				"<cmd>Lspsaga diagnostic_jump_prev<CR>",
+				"Go to prev diagnostic",
+			},
+		},
+		l = {
+			name = "Language",
+			p = {
+				"<cmd>Lspsaga peek_definition<CR>",
+				"Show definition",
+			},
+			g = {
+
+				"<cmd>Lspsaga goto_definition<CR>",
+				"Go to definition",
+			},
+			d = {
+
+				"<cmd>Lspsaga hover_doc<CR>",
+				"Peek documentation",
+			},
+		},
+
+		r = {
+			name = "Rename all in file",
+			r = {
+				"<cmd>Lspsaga rename<CR>",
+				"Rename",
+			},
+			a = {
+				"<cmd>Lspsaga rename ++project<CR>",
+				"Rename all in project",
+			},
 		},
 		t = {
 			name = "Telescope",

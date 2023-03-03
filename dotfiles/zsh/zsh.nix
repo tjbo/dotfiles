@@ -14,30 +14,38 @@ with import <nixpkgs> { };
     ignoreDups = true;
     ignorePatterns = [ "rm *" "pkill *" ];
     ignoreSpace = true;
-    save = 20000;
+    save = 1000;
     share = true;
-    size = 10000;
+    size = 1000;
   };
   initExtra = ''
     autoload -U promptinit; promptinit
     prompt pure
-    # handles vim bindings
+
+    # handles vim bindings for zsh
     source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+    # fzf
     source "$(fzf-share)/completion.zsh"
     source "/Users/tjbo/.config/zsh/fzf-bindings.zsh"
+    
+    export NODE_OPTIONS="--openssl-legacy-provider"
+
+    export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
+    export PATH=$PATH:$ANDROID_HOME/emulator
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+    # can move this
+    source $HOME/.cargo/env
   '';
   initExtraFirst = "";
   localVariables = {
-    # this breaks lazy git
-    # TERMINFO="/Users/tjbo/.config/iterm2/terminfo.src";
-    # TERM = "iterm2"; 
     CASE_SENSITIVE = true;
     EDITOR = "nvim";
     FZF_DEFAULT_OPTS = "--height 100% --border";
-    NODE_OPTIONS = "--openssl-legacy-provider";
-    # right now above is project specific and should be
-    # moved
     KEY_TIMEOUT = 1;
+    VIFM = "/Users/tjbo/.config/vifm/";
+    MYVIFMRC = "/Users/tjbo/.config/vifm/vifmrc";
     PURE_PROMPT_SYMBOL = "=>";
     RPROMPT = "";
   }; # Extra local variables defined at the top of .zshrc.
