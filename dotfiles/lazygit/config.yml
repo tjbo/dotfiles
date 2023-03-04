@@ -1,6 +1,10 @@
 gui:
   sidePanelWidth: 0.25
   theme:
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse
     activeBorderColor:
       - green
       - bold
@@ -12,7 +16,7 @@ gui:
 git:
   paging: 
     colorArg: always
-    pager: delta --dark --paging=never --side-by-side  
+    pager: delta --dark --paging=never --line-numbers --navigate
 promptToReturnFromSubprocess: false
 showCommandLog: false
 os:

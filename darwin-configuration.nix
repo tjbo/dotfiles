@@ -63,6 +63,7 @@
       hack-font
       lazygit
       neofetch
+      nerdfonts
       nixpkgs-fmt
       nodejs
       nodePackages.eslint
