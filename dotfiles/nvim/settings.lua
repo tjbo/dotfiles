@@ -552,7 +552,7 @@ wk.register({
 			name = "Telescope",
 			b = {
 				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
-				"List open buffers in current neovim instance",
+				"List open buffers",
 			},
 			c = {
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
@@ -560,21 +560,15 @@ wk.register({
 			},
 			d = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find file" },
-			g = { "<cmd>Telescope git_status<cr>", "List active git files" },
 			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
 			h = {
 				"<cmd>lua require('telescope.builtin').command_history()<cr>",
 				"List nvim command history",
 			},
-			-- r = { "<cmd>Telescope lsp_references<cr>", "List LSP refs for word under cursor " },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List workspace symbols" },
 			t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
-			w = {
-				"<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep > ') })<cr>",
-				"Search for string under curse in cwd",
-			},
 		},
 	},
 })
