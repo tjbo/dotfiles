@@ -10,18 +10,22 @@ in
   "cdc" = "cd ${config_dir}";
   "cddf" = "cd ${dotfiles_dir}";
   "cddf2" = "cd ~/.dotfiles";
+  "cdhttag" = "cd ~/Projects/howtotuneaguitar.org";
   "cdn" = "cd ${nixpkgs_dir}";
   "cdv" = "cd ${dotfiles_dir}/nvim";
   "cdz" = "cd ${dotfiles_dir}/zsh";
   "cddt" = "cd ~/Desktop";
   "cddl" = "cd ~/Downloads";
   "cdp" = "cd ~/Projects/";
+  "cdcl" = "cd ~/Projects/crescentlenders.com/";
+  "cdpr" = "cd ~/Projects/prototypable.io/";
   "cdtl" = "cd ~/Projects/timer-labs-app/";
   "cdtla" = "cd ~/Projects/timer-labs-app/app";
+  "cdpp" = "cd ~/Projects/proxypack/";
   "cdtlf" = "cd ~/Projects/timer-labs-app/functions";
   "cdtld" = "cd ~/Projects/timer-labs-app/db";
   "cdtlv" = "cd ~/Projects/timer-labs-app/vpc";
-  "cdtlw" = "cd ~/Projects/timer-labs-web/";
+  "cdtlw" = "cd ~/Projects/timerlabs.com/";
   "cdvw" = "cd ~/vimwiki";
 
   # fast edit

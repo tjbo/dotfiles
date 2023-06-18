@@ -19,6 +19,7 @@ with import <nixpkgs> { };
     size = 1000;
   };
   initExtra = ''
+    unsetopt beep
     autoload -U promptinit; promptinit
     prompt pure
 

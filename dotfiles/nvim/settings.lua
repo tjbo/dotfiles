@@ -292,6 +292,7 @@ cmp.setup({
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
@@ -307,17 +308,27 @@ cmp.setup.cmdline(":", {
 })
 
 null_ls.setup({
+	debug = true,
 	sources = {
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.eslint,
 		null_ls.builtins.code_actions.statix,
-		null_ls.builtins.formatting.prettier,
-		-- null_ls.builtins.diagnostics.deadnix,
-		-- null_ls.builtins.completion.spell,
+		null_ls.builtins.formatting.prettier.with({
+			extra_args = { "--no-semi", "--bracket-same-line" },
+			filetypes = {
+				"css",
+				"javascript",
+				"typescript",
+			},
+		}),
 	},
 })
 
 local on_attach = function(client, bufnr)
+	if client.name == "tsserver" then
+		client.server_capabilities.documentFormattingProvider = false
+	end
+
 	api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
@@ -376,6 +387,12 @@ lspconfig["tsserver"].setup({
 	on_attach = on_attach,
 })
 
+-- -- CSS
+-- lspconfig.cssls.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- })
+
 -- Lua
 lspconfig.sumneko_lua.setup({
 	settings = {
@@ -413,6 +430,26 @@ lspconfig.rust_analyzer.setup({
 	cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
 	on_attach = on_attach,
+})
+
+-- Tailwind
+lspconfig.tailwindcss.setup({
+	cmd = { "tailwindcss-language-server", "--stdio" },
+	settings = {
+		tailwindCSS = {
+			classAttributes = { "className" },
+			lint = {
+				cssConflict = "warning",
+				invalidApply = "error",
+				invalidConfigPath = "error",
+				invalidScreen = "error",
+				invalidTailwindDirective = "error",
+				invalidVariant = "error",
+				recommendedVariantOrder = "warning",
+			},
+			validate = true,
+		},
+	},
 })
 
 ----------------------------------------------------------------------
@@ -487,13 +524,6 @@ map("n", "<PageUp>", "<C-b>")
 
 wk.register({
 	["<leader>"] = {
-		w = {
-			name = "VimWiki",
-			m = { "<cmd>VimwikiMakeDiaryNote<cr>", "Make new diary note" },
-			w = { "<cmd>VimwikiIndex<cr>", "Go to notes index" },
-			i = { "<cmd>VimwikiDiaryIndex<cr>", "Go to diary index" },
-			g = { "<cmd>VimwikiDiaryGenerateLinks<cr>", "Generate diary links" },
-		},
 		d = {
 			name = "Diagnostics",
 			c = {
@@ -536,12 +566,11 @@ wk.register({
 				"Peek documentation",
 			},
 		},
-
 		r = {
-			name = "Rename all in file",
+			name = "Rename",
 			r = {
 				"<cmd>Lspsaga rename<CR>",
-				"Rename",
+				"Rename all in file",
 			},
 			a = {
 				"<cmd>Lspsaga rename ++project<CR>",
@@ -571,4 +600,11 @@ wk.register({
 			t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
 		},
 	},
+}, {
+
+	window = {
+		border = "single",
+		position = "top",
+	},
+	show_help = false,
 })

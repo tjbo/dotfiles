@@ -37,6 +37,7 @@
     onActivation.autoUpdate = true;
     casks = [
       "alt-tab"
+      "chromium"
       "android-studio"
       "kitty"
       "iterm2"
@@ -66,7 +67,13 @@
       nerdfonts
       nixpkgs-fmt
       nodejs
+      netlify-cli
+      nodePackages.create-react-app
+      nodePackages."@tailwindcss/language-server"
+      nodePackages.prettier
+      nodePackages.vscode-langservers-extracted
       nodePackages.eslint
+      nodePackages.gatsby-cli
       nodePackages.vscode-langservers-extracted
       nodePackages.react-native-cli
       nodePackages.typescript
