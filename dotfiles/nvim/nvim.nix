@@ -48,10 +48,10 @@ in
     vimPlugins.nvim-lspconfig
     vimPlugins.nvim-lsputils
     vimPlugins.nvim-treesitter
-    vimPlugins.telescope-nvim
+    vimPlugins.telescope-nvim # a modal panel that is used for pickers 
     vimPlugins.vim-commentary # adds easy way to comment / uncomment locs
     vimPlugins.vim-lastplace # opens file where you were last
-    vimPlugins.which-key-nvim
+    vimPlugins.which-key-nvim # shows a menu of custom key commands 
   ];
   extraConfig = "luafile ~/.config/nvim/settings.lua";
 }

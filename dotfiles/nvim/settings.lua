@@ -157,7 +157,7 @@ require("gitsigns").setup({
 		wk.register({
 			["<leader>"] = {
 				g = {
-					name = "Gitsigns",
+					name = "Git",
 					b = {
 						function()
 							gs.blame_line({ full = true })
@@ -177,7 +177,8 @@ require("gitsigns").setup({
 					r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
 					s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
 					u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
-					l = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
+					h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
+					l = { "<cmd>lua require('telescope.builtin').git_files()<cr>", "Show Git Files" },
 					w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
 				},
 			},
