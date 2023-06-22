@@ -503,6 +503,8 @@ wk.register({
 				"Fuzzy search current buffer",
 			},
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find file" },
+			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent files" },
+
 			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
 			h = {
