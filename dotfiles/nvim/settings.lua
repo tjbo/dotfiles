@@ -388,8 +388,10 @@ null_ls.setup({
 		null_ls.builtins.formatting.prettier.with({
 			extra_args = { "--no-semi", "--bracket-same-line" },
 			filetypes = {
+				"CSS",
 				"css",
 				"javascript",
+				"JavaScript",
 				"typescript",
 			},
 		}),
@@ -508,6 +510,10 @@ lspconfig.tailwindcss.setup({
 -- Diagnostics
 ----------------------------------------------------------------------
 vim.diagnostic.config({
+	float = {
+		scope = "c",
+		header = "",
+	},
 	signs = true,
 	virtual_text = false,
 })
@@ -562,7 +568,7 @@ wk.register({
 		d = {
 			name = "Diagnostics",
 			d = {
-				"<cmd>lua vim.diagnostic.open_float(0, {scope = 'c', header=''})<CR>",
+				"<cmd>lua vim.diagnostic.open_float()<CR>",
 				"Show Diagnostic For Error",
 			},
 			n = {
