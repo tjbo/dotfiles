@@ -23,8 +23,8 @@ in
     vimPlugins.nvim-cmp # auto-completion engine plugin
     vimPlugins.cmp-nvim-lsp # nvim-cmp source 
     vimPlugins.cmp-cmdline # nvim-cmp source
-    vimPlugins.cmp-path
-    vimPlugins.cmp-buffer
+    vimPlugins.cmp-path # nvim-cmp source
+    vimPlugins.cmp-buffer # nvim-cmp source
     vimPlugins.lspkind-nvim # adds vscode-like pictograms to neovim built-in LSP 
     vimPlugins.indent-blankline-nvim # adds indentation guides 
     vimPlugins.nvim-web-devicons # web dev icons
