@@ -104,9 +104,8 @@ function map(mode, lhs, rhs, opts)
 end
 
 ----------------------------------------------------------------------
--- Tree Sitter Plugin
+-- TreeSitter
 ----------------------------------------------------------------------
-
 require("nvim-web-devicons").setup({})
 
 -- Defines a read-write directory for treesitters in nvim's cache dir
@@ -149,7 +148,7 @@ require("nvim-treesitter.configs").setup({
 })
 
 ----------------------------------------------------------------------
--- Git Signs Plugin
+-- GitSigns
 ----------------------------------------------------------------------
 require("gitsigns").setup({
 	on_attach = function(buffer)
@@ -178,7 +177,6 @@ require("gitsigns").setup({
 					s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
 					u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
 					h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
-					l = { "<cmd>lua require('telescope.builtin').git_files()<cr>", "Show Git Files" },
 					w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
 				},
 			},
@@ -344,7 +342,9 @@ lspconfig.jsonls.setup({
 	on_attach = on_attach,
 })
 
--- Javascript & Typescript
+----------------------------------------------------------------------
+-- Lsp - JavaScript & TypeScript
+----------------------------------------------------------------------
 lspconfig["tsserver"].setup({
 	filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
 	cmd = { "typescript-language-server", "--stdio", "--tsserver-path", "/Users/tjbo/.nix-profile/bin/tsserver" },
@@ -352,13 +352,9 @@ lspconfig["tsserver"].setup({
 	on_attach = on_attach,
 })
 
--- ToDo CSS:
--- lspconfig.cssls.setup({
--- 	capabilities = capabilities,
--- 	on_attach = on_attach,
--- })
-
--- Lua
+----------------------------------------------------------------------
+-- Lsp - Lua
+----------------------------------------------------------------------
 lspconfig.sumneko_lua.setup({
 	settings = {
 		Lua = {
@@ -371,12 +367,16 @@ lspconfig.sumneko_lua.setup({
 	on_attach = on_attach,
 })
 
--- NixOS
+----------------------------------------------------------------------
+-- Lsp - Nix
+----------------------------------------------------------------------
 lspconfig.rnix.setup({
 	on_attach = on_attach,
 })
 
--- Rescript
+----------------------------------------------------------------------
+-- Lsp - Rescript
+----------------------------------------------------------------------
 lspconfig.rescriptls.setup({
 	cmd = {
 		"node",
@@ -390,14 +390,18 @@ lspconfig.rescriptls.setup({
 	},
 })
 
+----------------------------------------------------------------------
 -- Rust
+----------------------------------------------------------------------
 lspconfig.rust_analyzer.setup({
 	cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
--- Tailwind
+----------------------------------------------------------------------
+-- CSS & Tailwind
+----------------------------------------------------------------------
 lspconfig.tailwindcss.setup({
 	cmd = { "tailwindcss-language-server", "--stdio" },
 	settings = {
@@ -417,6 +421,12 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
+-- Need to fix CSS formatter:
+-- lspconfig.cssls.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- })
+
 ----------------------------------------------------------------------
 -- Diagnostics
 ----------------------------------------------------------------------
@@ -428,7 +438,6 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 -- Telescope
 ----------------------------------------------------------------------
-
 require("telescope").setup({
 	defaults = {
 		layout_config = {
@@ -494,23 +503,24 @@ wk.register({
 				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
 				"List open buffers",
 			},
-			d = {
-				"<cmd>Telescope diagnostics<cr>",
-				"List diagnositcs",
-			},
+
 			c = {
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
 				"Fuzzy search current buffer",
 			},
+			d = {
+				"<cmd>Telescope diagnostics<cr>",
+				"List diagnositcs",
+			},
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find file" },
-			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent files" },
-
-			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
-			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
+			g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Show Git Files" },
 			h = {
 				"<cmd>lua require('telescope.builtin').command_history()<cr>",
 				"List nvim command history",
 			},
+			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
+			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
+			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List workspace symbols" },
 			t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
