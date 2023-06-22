@@ -5,6 +5,17 @@ local o = vim.opt
 local api = vim.api
 local wk = require("which-key")
 
+local wkOpts = {
+	plugins = {
+		marks = false,
+	},
+	layout = {
+		height = { min = 8, max = 250 }, -- min and max height of the column
+	},
+}
+
+c("highlight DiagnosticError guifg='BrightRed'")
+
 ----------------------------------------------------------------------
 -- Icons
 ----------------------------------------------------------------------
@@ -180,7 +191,7 @@ require("gitsigns").setup({
 					w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
 				},
 			},
-		})
+		}, wkOpts)
 
 		c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
 		c("highlight GitSignsChange guibg=NONE guifg=ORANGE")
@@ -485,8 +496,8 @@ wk.register({
 		d = {
 			name = "Diagnostics",
 			d = {
-				"<cmd>lua vim.diagnostic.open_float(0, {scope = 'line'})<CR>",
-				"Show Line",
+				"<cmd>lua vim.diagnostic.open_float(0, {scope = 'c', header=''})<CR>",
+				"Show Diagnostic For Error",
 			},
 			n = {
 				"<cmd>lua vim.diagnostic.goto_next()<CR>",
@@ -532,4 +543,4 @@ wk.register({
 		position = "top",
 	},
 	show_help = false,
-})
+}, wkOpts)
