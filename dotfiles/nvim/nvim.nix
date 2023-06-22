@@ -25,6 +25,7 @@ in
     vimPlugins.cmp-cmdline # nvim-cmp source
     vimPlugins.cmp-path
     vimPlugins.cmp-buffer
+    vimPlugins.lspkind-nvim # adds vscode-like pictograms to neovim built-in LSP 
     vimPlugins.indent-blankline-nvim # adds indentation guides 
     vimPlugins.nvim-web-devicons # web dev icons
     vimPlugins.gitsigns-nvim # for symbols and to navigate doc based on git status 

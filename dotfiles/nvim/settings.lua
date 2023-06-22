@@ -249,10 +249,8 @@ require("gitsigns").setup({
 })
 
 ----------------------------------------------------------------------
--- Lsp
+-- AutoCompletion
 ----------------------------------------------------------------------
-local null_ls = require("null-ls")
-
 local cmp = require("cmp")
 
 local t = function(str)
@@ -266,6 +264,29 @@ local has_words_before = function()
 end
 
 cmp.setup({
+	enabled = function()
+		-- disable completion in comments
+		local context = require("cmp.config.context")
+		-- keep command mode completion enabled when cursor is in a comment
+		if vim.api.nvim_get_mode().mode == "c" then
+			return true
+		else
+			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+		end
+	end,
+	formatting = {
+		format = function(entry, vim_item)
+			if vim.tbl_contains({ "path" }, entry.source.name) then
+				local icon, hl_group = require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+				if icon then
+					vim_item.kind = icon
+					vim_item.kind_hl_group = hl_group
+					return vim_item
+				end
+			end
+			return require("lspkind").cmp_format({ with_text = false })(entry, vim_item)
+		end,
+	},
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
@@ -335,6 +356,29 @@ cmp.setup.cmdline(":", {
 		},
 	}),
 })
+
+-- gray
+vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
+-- blue
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
+-- light blue
+vim.api.nvim_set_hl(0, "CmpItemKindVariable", { bg = "NONE", fg = "#9CDCFE" })
+vim.api.nvim_set_hl(0, "CmpItemKindInterface", { link = "CmpItemKindVariable" })
+vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "CmpItemKindVariable" })
+-- pink
+vim.api.nvim_set_hl(0, "CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
+vim.api.nvim_set_hl(0, "CmpItemKindMethod", { link = "CmpItemKindFunction" })
+-- front
+vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
+vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
+vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
+
+----------------------------------------------------------------------
+-- Lsp
+----------------------------------------------------------------------
+
+local null_ls = require("null-ls")
 
 null_ls.setup({
 	debug = true,
