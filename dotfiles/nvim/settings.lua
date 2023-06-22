@@ -119,6 +119,7 @@ o.runtimepath:append(parser_install_dir)
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"bash",
+		"css",
 		"html",
 		"http",
 		"javascript",
@@ -282,10 +283,7 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		{ name = "vsnip" }, -- For vsnip users.
-		-- { name = 'luasnip' }, -- For luasnip users.
-		-- { name = 'ultisnips' }, -- For ultisnips users.
-		-- { name = 'snippy' }, -- For snippy users.
+		{ name = "vsnip" },
 	}, {
 		{ name = "buffer" },
 	}),
@@ -295,9 +293,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		-- { name = "path" },
-	}, {
+	sources = cmp.config.sources({}, {
 		{
 			name = "cmdline",
 			option = {
@@ -331,40 +327,8 @@ local on_attach = function(client, bufnr)
 
 	api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	-- Mappings.
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
 	c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
-
-	-- wk.register({
-	-- 	["<leader>"] = {
-	-- 		l = {
-	-- 			name = "Lsp",
-	-- 			D = {
-	-- 				vim.lsp.buf.declaration,
-	-- 				"Declaration",
-	-- 				bufopts,
-	-- 			},
-	-- 			d = {
-	-- 				vim.lsp.buf.definition,
-	-- 				"Definition",
-	-- 				bufopts,
-	-- 			},
-	-- 			f = {
-	-- 				function()
-	-- 					vim.lsp.buf.format({ async = true })
-	-- 				end,
-	-- 				"Format",
-	-- 				bufopts,
-	-- 			},
-	-- 			h = {
-	-- 				vim.lsp.buf.hover,
-	-- 				"Search in current file",
-	-- 				bufopts,
-	-- 			},
-	-- 		},
-	-- 	},
-	-- })
 end
 
 local lspconfig = require("lspconfig")
@@ -387,7 +351,7 @@ lspconfig["tsserver"].setup({
 	on_attach = on_attach,
 })
 
--- -- CSS
+-- ToDo CSS:
 -- lspconfig.cssls.setup({
 -- 	capabilities = capabilities,
 -- 	on_attach = on_attach,
@@ -460,7 +424,7 @@ require("lspsaga").setup({})
 
 vim.diagnostic.config({
 	signs = true,
-	virtual_text = false, -- Turn off inline diagnostics
+	virtual_text = false,
 })
 
 ----------------------------------------------------------------------
@@ -491,13 +455,7 @@ require("telescope").setup({
 ----------------------------------------------------------------------
 
 g["lightline"] = {
-	-- active = {
-	--         left = { { "mode" }, { "statuslinetabs" } },
-	-- },
-	colorscheme = "solarized",
-	-- component_expand = {
-	--         statuslinetabs = "lightline#statuslinetabs#show",
-	-- },
+	colorscheme = "one",
 }
 
 ----------------------------------------------------------------------
@@ -526,12 +484,7 @@ wk.register({
 	["<leader>"] = {
 		d = {
 			name = "Diagnostics",
-			c = {
-
-				"<cmd>Lspsaga show_cursor_diagnostics<CR>",
-				"Show diagnostics for current cursor",
-			},
-
+			l = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
 			s = {
 				"<cmd>Lspsaga show_line_diagnostics<CR>",
 				"Show diagnostics for current line",
@@ -587,7 +540,6 @@ wk.register({
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
 				"Fuzzy search current buffer",
 			},
-			d = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find file" },
 			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
@@ -601,7 +553,6 @@ wk.register({
 		},
 	},
 }, {
-
 	window = {
 		border = "single",
 		position = "top",
