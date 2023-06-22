@@ -476,9 +476,7 @@ map("v", ">", ">gv")
 
 -- Allows <ctrl+v> to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
-
 map("n", "<leader>/", "<cmd>WhichKey<cr>")
-
 map("n", "<PageUp>", "<C-b>")
 
 wk.register({
