@@ -20,11 +20,12 @@ in
     vim-rescript # support for writing rescript
     vimPlugins.plenary-nvim # dependency for another plugin
     vimPlugins.vim-vsnip
-    vimPlugins.nvim-cmp
-    vimPlugins.cmp-nvim-lsp
-    vimPlugins.indent-blankline-nvim # adds indentation guides 
-    vimPlugins.cmp-cmdline
+    vimPlugins.nvim-cmp # auto-completion engine plugin
+    vimPlugins.cmp-nvim-lsp # nvim-cmp source 
+    vimPlugins.cmp-cmdline # nvim-cmp source
     vimPlugins.cmp-path
+    vimPlugins.cmp-buffer
+    vimPlugins.indent-blankline-nvim # adds indentation guides 
     vimPlugins.nvim-web-devicons # web dev icons
     vimPlugins.gitsigns-nvim # for symbols and to navigate doc based on git status 
     vimPlugins.vim-code-dark # main color scheme 

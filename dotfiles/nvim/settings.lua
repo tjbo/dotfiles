@@ -282,7 +282,6 @@ cmp.setup({
 
 		dofile,
 	},
-
 	mapping = cmp.mapping.preset.insert({
 		["<C-b>"] = cmp.mapping.scroll_docs(-2),
 		["<C-f>"] = cmp.mapping.scroll_docs(2),
@@ -317,6 +316,13 @@ cmp.setup({
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
 
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
