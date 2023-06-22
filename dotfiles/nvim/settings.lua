@@ -5,14 +5,31 @@ local o = vim.opt
 local api = vim.api
 local wk = require("which-key")
 
-local wkOpts = {
+----------------------------------------------------------------------
+-- Which Key
+----------------------------------------------------------------------
+wk.setup({
+	presets = {
+		operators = false,
+		motions = false,
+		text_objects = false,
+		windows = true,
+	},
 	plugins = {
 		marks = false,
+		registers = false,
+		spelling = {
+			enabled = false,
+		},
 	},
 	layout = {
-		height = { min = 8, max = 250 }, -- min and max height of the column
+		height = { min = 30, max = 250 }, -- min and max height of the column
 	},
-}
+	window = {
+		padding = { 2, 2, 2, 2 },
+		winblend = 10,
+	},
+})
 
 c("highlight DiagnosticError guifg='BrightRed'")
 
@@ -191,7 +208,7 @@ require("gitsigns").setup({
 					w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
 				},
 			},
-		}, wkOpts)
+		})
 
 		c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
 		c("highlight GitSignsChange guibg=NONE guifg=ORANGE")
@@ -543,4 +560,4 @@ wk.register({
 		position = "top",
 	},
 	show_help = false,
-}, wkOpts)
+})
