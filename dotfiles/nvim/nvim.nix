@@ -38,6 +38,7 @@ in
     vim-lsp-saga
     vimPlugins.cmp-cmdline
     vimPlugins.cmp-path
+    vimPlugins.trouble-nvim
     vimPlugins.nvim-web-devicons # icons
     vimPlugins.gitsigns-nvim # for managing git
     vimPlugins.vim-code-dark # main color scheme 
