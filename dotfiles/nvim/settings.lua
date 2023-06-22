@@ -513,7 +513,6 @@ wk.register({
 				"Go to definition",
 			},
 			d = {
-
 				"<cmd>Lspsaga hover_doc<CR>",
 				"Peek documentation",
 			},
