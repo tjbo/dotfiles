@@ -11,17 +11,6 @@ let
         hash = "sha256-aASUXqZD6ytt1vNxQiENDI44iDQ2tCg1DiBp9f7RFoI=";
       };
     };
-  vim-lsp-saga = pkgs.vimUtils.buildVimPluginFrom2Nix
-    {
-      name = "vim-lsp-saga";
-      src = pkgs.fetchFromGitHub {
-        owner = "glepnir";
-        repo = "lspsaga.nvim";
-        rev = "master";
-        hash =
-          "sha256-i7N0vnzynzHj+mGthkDYVZmqYqvfqpr9XMwmGGUM4qI=";
-      };
-    };
 in
 {
   enable = true;
@@ -35,10 +24,8 @@ in
     vimPlugins.cmp-nvim-lsp
     vimPlugins.indent-blankline-nvim # adds indentation guides 
     vim-rescript # needed for rescript to work
-    vim-lsp-saga
     vimPlugins.cmp-cmdline
     vimPlugins.cmp-path
-    vimPlugins.trouble-nvim
     vimPlugins.nvim-web-devicons # icons
     vimPlugins.gitsigns-nvim # for managing git
     vimPlugins.vim-code-dark # main color scheme 

@@ -420,9 +420,6 @@ lspconfig.tailwindcss.setup({
 ----------------------------------------------------------------------
 -- Diagnostics
 ----------------------------------------------------------------------
-
-require("lspsaga").setup({})
-
 vim.diagnostic.config({
 	signs = true,
 	virtual_text = false,
@@ -443,11 +440,6 @@ require("telescope").setup({
 				["<C-c>"] = require("telescope.actions").close,
 			},
 		},
-		-- pickers = {
-		-- 	find_files = {
-		-- 		theme = "dropdown",
-		-- 	},
-		-- },
 	},
 })
 
@@ -483,49 +475,17 @@ wk.register({
 	["<leader>"] = {
 		d = {
 			name = "Diagnostics",
-			l = { "<cmd>Telescope diagnostics<cr>", "List diagnositcs" },
-			s = {
-				"<cmd>Lspsaga show_line_diagnostics<CR>",
-				"Show diagnostics for current line",
-			},
-			e = {
-				"<cmd> lua require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>",
-				"Go to next error,",
+			d = {
+				"<cmd>lua vim.diagnostic.open_float(0, {scope = 'line'})<CR>",
+				"Show Line",
 			},
 			n = {
-				"<cmd>Lspsaga diagnostic_jump_next<CR>",
-				"Go to next diagnostic",
+				"<cmd>lua vim.diagnostic.goto_next()<CR>",
+				"Next Diagnostic",
 			},
 			p = {
-				"<cmd>Lspsaga diagnostic_jump_prev<CR>",
-				"Go to prev diagnostic",
-			},
-		},
-		l = {
-			name = "Language",
-			p = {
-				"<cmd>Lspsaga peek_definition<CR>",
-				"Show definition",
-			},
-			g = {
-
-				"<cmd>Lspsaga goto_definition<CR>",
-				"Go to definition",
-			},
-			d = {
-				"<cmd>Lspsaga hover_doc<CR>",
-				"Peek documentation",
-			},
-		},
-		r = {
-			name = "Rename",
-			r = {
-				"<cmd>Lspsaga rename<CR>",
-				"Rename all in file",
-			},
-			a = {
-				"<cmd>Lspsaga rename ++project<CR>",
-				"Rename all in project",
+				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
+				"Prev Diagnostic",
 			},
 		},
 		t = {
@@ -533,6 +493,10 @@ wk.register({
 			b = {
 				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
 				"List open buffers",
+			},
+			d = {
+				"<cmd>Telescope diagnostics<cr>",
+				"List diagnositcs",
 			},
 			c = {
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
