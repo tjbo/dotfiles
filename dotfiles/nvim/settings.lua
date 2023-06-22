@@ -23,7 +23,7 @@ wk.setup({
 		},
 	},
 	layout = {
-		height = { min = 30, max = 250 }, -- min and max height of the column
+		height = { min = 30, max = 250 },
 	},
 	window = {
 		padding = { 2, 2, 2, 2 },
@@ -31,7 +31,7 @@ wk.setup({
 	},
 })
 
-c("highlight DiagnosticError guifg='BrightRed'")
+-- c("highlight DiagnosticError guifg='BrightRed'")
 
 ----------------------------------------------------------------------
 -- Icons

@@ -16,14 +16,13 @@ in
   enable = true;
   viAlias = true;
   plugins = with pkgs.vimPlugins; [
+    vim-nix # support for writing nix 
+    vim-rescript # support for writing rescript
     vimPlugins.plenary-nvim # dependency for another plugin
-    vimPlugins.vim-surround
-    vim-nix # syntax for nix
     vimPlugins.vim-vsnip
     vimPlugins.nvim-cmp
     vimPlugins.cmp-nvim-lsp
     vimPlugins.indent-blankline-nvim # adds indentation guides 
-    vim-rescript # needed for rescript to work
     vimPlugins.cmp-cmdline
     vimPlugins.cmp-path
     vimPlugins.nvim-web-devicons # web dev icons
