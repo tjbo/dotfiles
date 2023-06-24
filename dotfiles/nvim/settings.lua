@@ -533,6 +533,11 @@ require("telescope").setup({
 			},
 		},
 	},
+	pickers = {
+		diagnostics = {
+			previewer = false,
+		},
+	},
 })
 
 ----------------------------------------------------------------------
@@ -584,29 +589,29 @@ wk.register({
 			name = "Telescope",
 			b = {
 				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
-				"List open buffers",
+				"List Open Buffers",
 			},
-
 			c = {
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
-				"Fuzzy search current buffer",
+				"Fuzzy Search Current Buffer",
 			},
 			d = {
 				"<cmd>Telescope diagnostics<cr>",
-				"List diagnositcs",
+				"List Diagnositcs For All Open Buffers",
 			},
-			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find file" },
+			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
 			g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Show Git Files" },
 			h = {
 				"<cmd>lua require('telescope.builtin').command_history()<cr>",
-				"List nvim command history",
+				"List Command History",
 			},
-			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump list" },
-			l = { "<cmd>Telescope live_grep<cr>", "Live grep for cwd" },
-			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent files" },
+			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
+			l = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
+			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
-			s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List workspace symbols" },
+			s = { "<cmd>Telescope spell_suggest<cr>", "Spell Suggest for Cursor" },
 			t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
+			z = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List Workspace Symbols" },
 		},
 	},
 }, {

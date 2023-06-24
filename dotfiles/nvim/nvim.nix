@@ -18,7 +18,7 @@ in
   plugins = with pkgs.vimPlugins; [
     vim-nix # support for writing nix 
     vim-rescript # support for writing rescript
-    vimPlugins.plenary-nvim # dependency for another plugin
+    vimPlugins.plenary-nvim # dependency needed for telescope 
     vimPlugins.vim-vsnip
     vimPlugins.nvim-cmp # auto-completion engine plugin
     vimPlugins.cmp-nvim-lsp # nvim-cmp source 
