@@ -16,6 +16,7 @@ in
   enable = true;
   viAlias = true;
   plugins = with pkgs.vimPlugins; [
+    vimPlugins.alpha-nvim # presents dashboard on startup 
     vim-nix # support for writing nix 
     vim-rescript # support for writing rescript
     vimPlugins.plenary-nvim # dependency needed for telescope 

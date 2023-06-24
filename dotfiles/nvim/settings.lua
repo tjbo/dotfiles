@@ -5,6 +5,8 @@ local o = vim.opt
 local api = vim.api
 local wk = require("which-key")
 
+require("alpha").setup(require("alpha.themes.startify").config)
+
 ----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
@@ -190,13 +192,7 @@ require("gitsigns").setup({
 						"Blame",
 					},
 					c = { gs.toggle_current_line_blame, "Toggle blame line" },
-					d = { "<cmd>Gitsigns diffthis<CR>", "Diff" },
-					D = {
-						function()
-							gs.diffthis("~")
-						end,
-						"Diff to head",
-					},
+					d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
 					n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
 					p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
 					r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
@@ -243,6 +239,13 @@ require("gitsigns").setup({
 			linehl = "GitSignsChangeLn",
 		},
 		untracked = { hl = "GitSignsAdd", text = "┆", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+	},
+	preview_config = {
+		border = "none",
+		style = "minimal",
+		relative = "cursor",
+		row = 0,
+		col = 1,
 	},
 })
 
