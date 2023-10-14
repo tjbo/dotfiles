@@ -5,8 +5,6 @@ local o = vim.opt
 local api = vim.api
 local wk = require("which-key")
 
-require("alpha").setup(require("alpha.themes.startify").config)
-
 ----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
@@ -134,7 +132,6 @@ end
 ----------------------------------------------------------------------
 -- TreeSitter
 ----------------------------------------------------------------------
-require("nvim-web-devicons").setup({})
 
 -- Defines a read-write directory for treesitters in nvim's cache dir
 local parser_install_dir = fn.stdpath("cache") .. "/treesitters"
@@ -544,12 +541,65 @@ require("telescope").setup({
 })
 
 ----------------------------------------------------------------------
--- Lightline
+-- LuaLine
 ----------------------------------------------------------------------
 
-g["lightline"] = {
-	colorscheme = "one",
-}
+require("lualine").setup({
+	options = {
+		icons_enabled = true,
+		theme = "codedark",
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+		},
+	},
+	sections = {
+		lualine_a = { "mode" },
+		-- lualine_b = { "branch", "diff", "diagnostics" },
+		lualine_b = { "branch" },
+		lualine_c = {
+			{
+				"filename",
+				file_status = true, -- Displays file status (readonly status, modified status)
+				newfile_status = true, -- Display new file status (new file means no write after created)
+				path = 3,
+			},
+		},
+		lualine_x = {
+			"encoding",
+			{
+				"filetype",
+				colored = true, -- Displays filetype icon in color if set to true
+				icon_only = false, -- Display only an icon for filetype
+				icon = { align = "right" }, -- Display filetype icon on the right hand side
+			},
+		},
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		-- lualine_c = { "filename" },
+		-- lualine_x = { "location" },
+		lualine_y = {},
+		lualine_z = {},
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {},
+})
 
 ----------------------------------------------------------------------
 -- Keymaps
@@ -603,7 +653,7 @@ wk.register({
 				"List Diagnositcs For All Open Buffers",
 			},
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
-			g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Show Git Files" },
+			g = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Go to implementation" },
 			h = {
 				"<cmd>lua require('telescope.builtin').command_history()<cr>",
 				"List Command History",

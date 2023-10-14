@@ -17,7 +17,6 @@ with import <nixpkgs> { };
     size = 1000;
   };
   initExtra = ''
-
     export PATH=~/.npm-packages/bin:$PATH
     export NODE_PATH=~/.npm-packages/lib/node_modules
 

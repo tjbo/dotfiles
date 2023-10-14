@@ -16,7 +16,6 @@ in
   enable = true;
   viAlias = true;
   plugins = with pkgs.vimPlugins; [
-    vimPlugins.alpha-nvim # presents dashboard on startup 
     vim-nix # support for writing nix 
     vim-rescript # support for writing rescript
     vimPlugins.plenary-nvim # dependency needed for telescope 
@@ -31,7 +30,7 @@ in
     vimPlugins.nvim-web-devicons # web dev icons
     vimPlugins.gitsigns-nvim # for symbols and to navigate doc based on git status 
     vimPlugins.vim-code-dark # main color scheme 
-    vimPlugins.lightline-vim # for bottom status bar
+    vimPlugins.lualine-nvim # for bottom status
     vimPlugins.null-ls-nvim # provides a way for non-LSP sources to hook into vims LSP client
     vimPlugins.nvim-lspconfig # for setting up configs for LSP client 
     vimPlugins.nvim-lsputils # todo: figureout if I need this

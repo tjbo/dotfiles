@@ -24,6 +24,10 @@ in
   "cdtld" = "cd ~/Projects/timer-labs-app/db";
   "cdtlv" = "cd ~/Projects/timer-labs-app/vpc";
   "cdtlw" = "cd ~/Projects/timerlabs.com/";
+  "cdtatw" = "cd ~/Projects/10adventures-web-front-end/src/componentstw/";
+  "cdtac" = "cd ~/Projects/10adventures-web-front-end/src/components";
+  "cdta" = "cd ~/Projects/10adventures-web-front-end";
+
 
   # fast edit
   "e" = "nvim";
@@ -57,6 +61,7 @@ in
   "yri" = "yarn run ios";
   "yrr" = "yarn run rescript";
   "yrs" = "yarn run start";
+  "yrw" = "yarn run watch";
 
   # podfiles
   "pi" = "pod install";

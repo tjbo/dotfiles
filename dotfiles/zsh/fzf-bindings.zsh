@@ -118,3 +118,8 @@ bindkey -M viins '^H' fzf-history-widget
   eval $__fzf_key_bindings_options
   'unset' '__fzf_key_bindings_options'
 }
+
+
+bindkey -M emacs '^E' edit-command-line 
+bindkey -M vicmd '^E' edit-command-line
+bindkey -M viins '^E' edit-command-line
