@@ -32,7 +32,7 @@
     casks = [
       "alt-tab"
       "chromium"
-      "android-studio"
+      # "android-studio" installed manually as there currently isn't a package in nix for darwin
       "kitty"
       "iterm2"
       "loom"

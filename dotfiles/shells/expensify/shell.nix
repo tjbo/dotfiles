@@ -28,6 +28,7 @@ rec {
 
   name = "webdev";
   buildInputs = with pkgs; [
+    bundler
     nodejs-16
     nodePackages.node-gyp
     (yarn.override { nodejs = nodejs-16; })

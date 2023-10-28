@@ -120,6 +120,6 @@ bindkey -M viins '^H' fzf-history-widget
 }
 
 
-bindkey -M emacs '^E' edit-command-line 
-bindkey -M vicmd '^E' edit-command-line
-bindkey -M viins '^E' edit-command-line
+# bindkey -M emacs '^E' edit-command-line 
+# bindkey -M vicmd '^E' edit-command-line
+# bindkey -M viins '^E' edit-command-line

@@ -544,10 +544,29 @@ require("telescope").setup({
 -- LuaLine
 ----------------------------------------------------------------------
 
+local custom_ayudark = require("lualine.themes.ayu_dark")
+
+local green = "#5af78e"
+local dark_bg1 = "#282a36"
+local blue = "#57c7ff"
+
+-- Change the background of lualine_c section for normal mode
+custom_ayudark.normal.c.fg = "#e6e1cf"
+-- custom_ayudark.normal.a.bg = "#57c7ff"
+-- custom_ayudark.normal.b.bg = dark_bg1
+-- custom_ayudark.normal.c.bg = dark_bg1
+-- custom_ayudark.normal.z.bg = green
+
+-- normal = {
+--   c = { fg = colors.color9, bg = colors.color2 },
+--   a = { fg = colors.color2, bg = colors.color10, gui = 'bold' },
+--   b = { fg = colors.color4, bg = colors.color5 },
+-- },
+
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "codedark",
+		theme = custom_ayudark,
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
@@ -595,7 +614,21 @@ require("lualine").setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
-	tabline = {},
+	tabline = {
+		lualine_a = {
+			{
+				"tabs",
+				mode = 2,
+				-- Automatically updates active tab color to match color of other components (will be overidden if buffers_color is set)
+				use_mode_colors = true,
+			},
+		},
+		lualine_b = {},
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = {},
+	},
 	winbar = {},
 	inactive_winbar = {},
 	extensions = {},
