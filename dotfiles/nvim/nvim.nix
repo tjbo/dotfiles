@@ -1,14 +1,14 @@
 with import <nixpkgs> { };
 
 let
-  vim-rescript = pkgs.vimUtils.buildVimPluginFrom2Nix
+  vim-rescript = pkgs.vimUtils.buildVimPlugin
     {
       name = "vim-rescript";
       src = pkgs.fetchFromGitHub {
         owner = "rescript-lang";
         repo = "vim-rescript";
         rev = "master";
-        hash = "sha256-aASUXqZD6ytt1vNxQiENDI44iDQ2tCg1DiBp9f7RFoI=";
+	hash = "sha256-JpEO1Zb+mm9dJISriticFmtPeVwZGpUAFv18wV6/dIg=";
       };
     };
 in

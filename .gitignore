@@ -2,3 +2,6 @@
 
 # Local Netlify folder
 .netlify
+
+# Currently the unbuntu build builds to a folder in dotfiles, maybe move this
+dotfiles/nix/nix/**

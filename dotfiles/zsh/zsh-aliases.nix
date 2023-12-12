@@ -1,5 +1,4 @@
-let
-  dotfiles_dir = "~/.nixpkgs/dotfiles";
+let dotfiles_dir = "/home/tjbo/dotfiles";
   config_dir = "~/.config";
   nixpkgs_dir = "~/.nixpkgs";
 in
@@ -48,9 +47,10 @@ in
   "gs" = "git status";
 
   # better ls
-  "ls" = "ls -AGFhoTl";
+  "ls" = "ls -AGFhol";
 
   "bs" = "darwin-rebuild switch && reload";
+  "bs2" = "home-manager --file /home/tjbo/dotfiles/ubuntu/home.nix switch";
 
   "reload" = "source ~/.zshrc";
 
