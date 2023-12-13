@@ -34,9 +34,8 @@ in
   "eza" = "nvim ${dotfiles_dir}/zsh/zsh-aliases.nix";
   "ev" = "nvim ${dotfiles_dir}/nvim/nvim.nix";
   "evs" = "nvim ${dotfiles_dir}/nvim/settings.lua";
-  "eh" = "nvim ${dotfiles_dir}/nixos/home.nix";
-  "es" = "nvim ${dotfiles_dir}/nixos/configuration.nix";
-  "ed" = "nvim ${nixpkgs_dir}/darwin-configuration.nix";
+  "es1" = "nvim ${nixpkgs_dir}/darwin-configuration.nix";
+  "es2" = "nvim ${nixpkgs_dir}/ubuntu/home.nix";
 
   # clear
   "c" = "clear";
