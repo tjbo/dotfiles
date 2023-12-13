@@ -2,7 +2,9 @@ with import <nixpkgs> { };
 {
   enableAutosuggestions = true;
   enableCompletion = true;
-  enableSyntaxHighlighting = true;
+  syntaxHighlighting = {
+    enable = true;
+  };
   enable = true;
   enableVteIntegration = true;
   envExtra = ""; # extra commands to add to zshenv
