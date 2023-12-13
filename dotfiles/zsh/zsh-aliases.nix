@@ -1,13 +1,13 @@
-let dotfiles_dir = "/home/tjbo/dotfiles";
+let
+  dotfiles_dir = "~/nixpkgs/dotfiles";
   config_dir = "~/.config";
-  nixpkgs_dir = "~/.nixpkgs";
+  nixpkgs_dir = "~/nixpkgs";
 in
 {
   # change directories
   "cdb" = "cd ../";
   "cdc" = "cd ${config_dir}";
   "cddf" = "cd ${dotfiles_dir}";
-  "cddf2" = "cd ~/.dotfiles";
   "cdn" = "cd ${nixpkgs_dir}";
   "cdv" = "cd ${dotfiles_dir}/nvim";
   "cdz" = "cd ${dotfiles_dir}/zsh";
@@ -26,7 +26,6 @@ in
   "cdtatw" = "cd ~/Projects/10adventures-web-front-end/src/componentstw/";
   "cdtac" = "cd ~/Projects/10adventures-web-front-end/src/components";
   "cdta" = "cd ~/Projects/10adventures-web-front-end";
-
 
   # fast edit
   "e" = "nvim";
@@ -49,8 +48,9 @@ in
   # better ls
   "ls" = "ls -AGFhol";
 
-  "bs" = "darwin-rebuild switch && reload";
-  "bs2" = "home-manager --file /home/tjbo/dotfiles/ubuntu/home.nix switch";
+  # build systems
+  "bs1" = "darwin-rebuild switch && reload";
+  "bs2" = "home-manager --file ${nixpkgs_dir}/ubuntu/home.nix switch";
 
   "reload" = "source ~/.zshrc";
 
