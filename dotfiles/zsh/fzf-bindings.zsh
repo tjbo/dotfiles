@@ -65,10 +65,6 @@ fzf-file-widget() {
   zle reset-prompt
   return $ret
 }
-zle     -N            fzf-file-widget
-bindkey -M emacs '^F' fzf-file-widget
-bindkey -M vicmd '^F' fzf-file-widget
-bindkey -M viins '^F' fzf-file-widget
 
 # ALT-C - cd into the selected directory
 fzf-cd-widget() {
@@ -88,10 +84,6 @@ fzf-cd-widget() {
   zle reset-prompt
   return $ret
 }
-zle     -N             fzf-cd-widget
-bindkey -M emacs '^[t' fzf-cd-widget
-bindkey -M vicmd '^[t' fzf-cd-widget
-bindkey -M viins '^[t' fzf-cd-widget
 
 # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {
@@ -110,17 +102,8 @@ fzf-history-widget() {
   return $ret
 }
 
-zle     -N             fzf-history-widget
-bindkey -M emacs '^[h' fzf-history-widget
-bindkey -M vicmd '^[h' fzf-history-widget
-bindkey -M viins '^[h' fzf-history-widget
-
 } always {
   eval $__fzf_key_bindings_options
   'unset' '__fzf_key_bindings_options'
 }
 
-
-bindkey -M emacs '^[e' edit-command-line 
-bindkey -M vicmd '^[e' edit-command-line
-bindkey -M viins '^[e' edit-command-line
