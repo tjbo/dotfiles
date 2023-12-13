@@ -3,9 +3,9 @@
 zvm_bindkey viins '^[p' up-line-or-history
 zvm_bindkey viins '^[n' down-line-or-history
 
-bindkey -M viins '^[l' clear-screen 
 bindkey -M viins '^[c' self-insert
 bindkey -M viins '^[e' edit-command-line
+bindkey -M viins '^[l' clear-screen 
 
 # fzf shortcuts
 bindkey -M viins '^[h' fzf-history-widget

@@ -33,6 +33,9 @@ with import <nixpkgs> { };
     source "$(fzf-share)/completion.zsh"
     source ~/.config/zsh/fzf-bindings.zsh
 
+    autoload -z edit-command-line
+    zle -N edit-command-line
+
     # keybinds
     source ~/.config/zsh/custom-key-bindings.zsh
     
