@@ -31,7 +31,10 @@ with import <nixpkgs> { };
 
     # fzf
     source "$(fzf-share)/completion.zsh"
-    source "/Users/tjbo/.config/zsh/fzf-bindings.zsh"
+    source ~/.config/zsh/fzf-bindings.zsh
+
+    # keybinds
+    source ~/.config/zsh/custom-key-bindings.zsh
     
     export NODE_OPTIONS="--openssl-legacy-provider"
     export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
@@ -40,6 +43,8 @@ with import <nixpkgs> { };
 
     # can move this
     source $HOME/.cargo/env
+
+
   '';
   initExtraFirst = "";
   localVariables = {
