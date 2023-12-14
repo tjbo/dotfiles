@@ -26,33 +26,34 @@ with import <nixpkgs> { };
     autoload -U promptinit; promptinit
     prompt pure
 
-    # handles vim bindings for zsh
-    source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
     # fzf
     source "$(fzf-share)/completion.zsh"
     source ~/.config/zsh/fzf-bindings.zsh
 
+    # load edit-command-line
     autoload -z edit-command-line
     zle -N edit-command-line
 
+    # handles vi bindings for zsh
+    source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
     # keybinds
     source ~/.config/zsh/custom-key-bindings.zsh
-    
     export NODE_OPTIONS="--openssl-legacy-provider"
     export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
     export PATH=$PATH:$ANDROID_HOME/emulator
     export PATH=$PATH:$ANDROID_HOME/platform-tools
 
     # can move this
-    source $HOME/.cargo/env
-
-
+    # source $HOME/.cargo/env
   '';
   initExtraFirst = "";
   localVariables = {
     CASE_SENSITIVE = true;
+    GIT_EDITOR = "nvim";
     EDITOR = "nvim";
+    VISUAL = "nvim";
     FZF_DEFAULT_OPTS = "--height 100% --border";
     KEY_TIMEOUT = 1;
     VIFM = "/Users/tjbo/.config/vifm/";

@@ -21,4 +21,4 @@ git:
 promptToReturnFromSubprocess: false
 showCommandLog: false
 os:
-  openCommand: 'nvim -d {{filename}}'
+  editPreset: "nvim"

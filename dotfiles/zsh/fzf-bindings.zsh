@@ -107,3 +107,22 @@ fzf-history-widget() {
   'unset' '__fzf_key_bindings_options'
 }
 
+# fzf shortcuts
+zle -N fzf-cd-widget
+zle -N fzf-history-widget
+zle -N fzf-file-widget
+
+
+
+bindkey -M emacs '^[t' fzf-cd-widget
+bindkey -M vicmd '^[t' fzf-cd-widget
+bindkey -M viins '^[t' fzf-cd-widget
+
+bindkey -M viins '^[f' fzf-file-widget
+bindkey -M vicmd '^[f' fzf-file-widget
+bindkey -M emacs '^[f' fzf-file-widget
+
+bindkey -M emacs '^[h' fzf-history-widget
+bindkey -M vicmd '^[h' fzf-history-widget
+bindkey -M viins '^[h' fzf-history-widget
+
