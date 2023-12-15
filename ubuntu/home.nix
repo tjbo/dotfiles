@@ -47,12 +47,9 @@
   home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/zsh/fzf-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/fzf-bindings.zsh;
   home.file.".config/zsh/custom-key-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/custom-key-bindings.zsh;
-
   programs.neovim = import ../dotfiles/nvim/nvim.nix; # copy lazygit config 
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
   programs.zsh = import ../dotfiles/zsh/zsh.nix;
 
   programs.git = {
