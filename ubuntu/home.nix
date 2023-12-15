@@ -18,6 +18,7 @@
     pkgs.git
     pkgs.hack-font
     pkgs.lazygit
+    pkgs."lua-language-server"
     pkgs.neofetch
     pkgs.nerdfonts
     pkgs.nixpkgs-fmt
@@ -30,7 +31,6 @@
     pkgs.nodePackages.eslint
     pkgs.nodePackages.typescript
     pkgs.nodePackages.typescript-language-server
-    # pkgs.lua_ls
     pkgs.stylua
     pkgs.vscode-extensions.chenglou92.rescript-vscode
     pkgs.rust-analyzer

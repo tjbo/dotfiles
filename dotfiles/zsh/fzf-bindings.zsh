@@ -114,15 +114,15 @@ zle -N fzf-file-widget
 
 
 
-bindkey -M emacs '^[t' fzf-cd-widget
-bindkey -M vicmd '^[t' fzf-cd-widget
-bindkey -M viins '^[t' fzf-cd-widget
+# bindkey -M emacs '^[t' fzf-cd-widget
+# bindkey -M vicmd '^[t' fzf-cd-widget
+# bindkey -M viins '^[t' fzf-cd-widget
 
-bindkey -M viins '^[f' fzf-file-widget
-bindkey -M vicmd '^[f' fzf-file-widget
-bindkey -M emacs '^[f' fzf-file-widget
+# bindkey -M viins '^f' fzf-file-widget
+# bindkey -M vicmd '^[f' fzf-file-widget
+# bindkey -M emacs '^[f' fzf-file-widget
 
-bindkey -M emacs '^[h' fzf-history-widget
-bindkey -M vicmd '^[h' fzf-history-widget
-bindkey -M viins '^[h' fzf-history-widget
+bindkey -M emacs '^H' fzf-history-widget
+bindkey -M vicmd '^H' fzf-history-widget
+bindkey -M viins '^H' fzf-history-widget
 

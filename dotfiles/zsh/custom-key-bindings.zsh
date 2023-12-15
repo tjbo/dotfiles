@@ -1,29 +1,38 @@
-# one way to figure out how to bind shortcut keys in ZSH
-# is to "cat" and then press short cut
+# Useful
+# 1. zle -al = list all registered zle commands 
+# 2. https://wiki.zshell.dev/docs/guides/syntax/bindkey
+# 3. figure out a key, "cat" and then press short cut key
 
-# bindkey -M viins -rp ''
-# bindkey "^D" list-choices
-# bindkey "^E" end-of-line
-# bindkey "^F" forward-char
-# bindkey "^G" list-expand
-# bindkey "^H" vi-backward-delete-char
-# bindkey "^I" expand-or-complete
-# bindkey "^J" accept-line
-bindkey "^K" zvm_forward_kill_line
+bindkey -r "^A" 
+bindkey -r "^B"
+bindkey -r "^C" 
+bindkey -r "^D"
+bindkey -r "^E"
+bindkey -r "^F"
+bindkey -r "^G"
+bindkey -r "^H"
+bindkey -r "^I"
+bindkey -r "^J"
+bindkey -r "^K"
+# bindkey "^K" zvm_forward_kill_line
 bindkey "^L" clear-screen
-# bindkey "^M" accept-line
+bindkey -r "^M" 
 bindkey "^N" down-line-or-history
 # bindkey "^O" self-insert
 bindkey "^P" up-line-or-history
 bindkey "^Q" vi-quoted-insert
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
-# bindkey "^T" self-insert
-# bindkey "^U" zvm_viins_undo
-bindkey "^V" vi-quoted-insert
-# bindkey "^W" backward-kill-word
+# bindkey "^T" self-insert // if we delete this does it still work in nvim? 
+bindkey -r "^T"
+bindkey -r "^U"
+bindkey -r "^V"
+bindkey -r "^v"
+# bindkey "^V" vi-quoted-insert
+bindkey -r "^W"
+bindkey -r "^Y"
 # bindkey "^Y" yank
-# bindkey "^Z" self-insert
+bindkey -r "^Z"
 bindkey "^[" zvm_readkeys_handler
 bindkey "^[OA" up-line-or-history
 bindkey "^[OB" down-line-or-history
@@ -33,15 +42,7 @@ bindkey "^[[200~" bracketed-paste
 bindkey "^[[3~" delete-char
 bindkey "^[[A" up-line-or-history
 bindkey "^[[B" down-line-or-history
-# bindkey "^[[C" vi-forward-char
-# bindkey "^[[D" vi-backward-char
-# bindkey "^[[F" end-of-line
-# bindkey "^[[H" beginning-of-line
 bindkey "^[c" self-insert
-# bindkey "^[d" fzf-cd-widget
-# bindkey "^[e" edit-command-line
-# bindkey "^[f" fzf-file-widget
-# bindkey "^[h" fzf-history-widget
 bindkey "^[l" clear-screen
 bindkey -R "^\\\\"-"^\^" self-insert
 bindkey "^_" undo
