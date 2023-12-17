@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  programs.home-manager.enable = true;
   home.username = "tjbo";
   home.homeDirectory = "/home/tjbo";
   home.stateVersion = "23.11"; # Please read the comment before changing.
@@ -7,6 +8,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.rustc
     pkgs.bundletool
     pkgs.libgcc
     pkgs.fd
@@ -37,6 +39,7 @@
     pkgs.rnix-lsp
     pkgs.yarn
     pkgs.pure-prompt
+    pkgs.nushell
   ];
 
   home.sessionVariables = {
@@ -47,9 +50,9 @@
   home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/zsh/fzf-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/fzf-bindings.zsh;
   home.file.".config/zsh/custom-key-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/custom-key-bindings.zsh;
-  programs.neovim = import ../dotfiles/nvim/nvim.nix; # copy lazygit config 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+
+  programs.nushell = import ../dotfiles/nushell/nushell.nix;
+  programs.neovim = import ../dotfiles/nvim/nvim.nix;
   programs.zsh = import ../dotfiles/zsh/zsh.nix;
 
   programs.git = {
