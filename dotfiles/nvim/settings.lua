@@ -32,12 +32,6 @@ wk.setup({
 })
 
 ----------------------------------------------------------------------
--- Icons
-----------------------------------------------------------------------
-
-require("nvim-web-devicons").setup({})
-
-----------------------------------------------------------------------
 -- General
 ----------------------------------------------------------------------
 o.showmode = false
@@ -377,28 +371,12 @@ vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 -- Lsp
 ----------------------------------------------------------------------
 
-local null_ls = require("null-ls")
-
-null_ls.setup({
-	debug = true,
-	sources = {
-		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.diagnostics.eslint,
-		null_ls.builtins.code_actions.statix,
-		null_ls.builtins.formatting.prettier.with({
-			extra_args = { "--no-semi", "--bracket-same-line" },
-			filetypes = {
-				"CSS",
-				"css",
-				"javascript",
-				"JavaScript",
-				"typescript",
-			},
-		}),
-	},
-})
+-- this formats our code
+require("lsp-format").setup {}
 
 local on_attach = function(client, bufnr)
+	require("lsp-format").on_attach(client, bufnr)
+
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
 	end

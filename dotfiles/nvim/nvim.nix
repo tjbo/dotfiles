@@ -8,7 +8,7 @@ let
         owner = "rescript-lang";
         repo = "vim-rescript";
         rev = "master";
-	hash = "sha256-JpEO1Zb+mm9dJISriticFmtPeVwZGpUAFv18wV6/dIg=";
+        hash = "sha256-JpEO1Zb+mm9dJISriticFmtPeVwZGpUAFv18wV6/dIg=";
       };
     };
 in
@@ -31,7 +31,7 @@ in
     vimPlugins.gitsigns-nvim # for symbols and to navigate doc based on git status 
     vimPlugins.vim-code-dark # main color scheme 
     vimPlugins.lualine-nvim # for bottom status
-    vimPlugins.null-ls-nvim # provides a way for non-LSP sources to hook into vims LSP client
+    vimPlugins.lsp-format-nvim
     vimPlugins.nvim-lspconfig # for setting up configs for LSP client 
     vimPlugins.nvim-lsputils # todo: figureout if I need this
     vimPlugins.nvim-treesitter #todo: do I need this?

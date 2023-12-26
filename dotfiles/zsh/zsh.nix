@@ -39,7 +39,6 @@ with import <nixpkgs> { };
     source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
     # keybinds
-    source ~/.config/zsh/custom-key-bindings.zsh
     export NODE_OPTIONS="--openssl-legacy-provider"
     export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
     export PATH=$PATH:$ANDROID_HOME/emulator
