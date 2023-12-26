@@ -14,6 +14,14 @@ alias cdp = cd ~/Projects
 alias bs1 = darwin-rebuild switch and reload
 alias bs2 = home-manager --file ~/nixpkgs/ubuntu/home.nix switch
 
+
+# clear
+alias c = clear
+
+# git
+alias g = lazygit
+alias gs = git status
+
 # yarn
 alias yra = yarn run android
 alias yrb = yarn run build
