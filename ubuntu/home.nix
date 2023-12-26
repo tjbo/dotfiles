@@ -29,6 +29,7 @@
     pkgs.nodePackages.create-react-app
     pkgs.nodePackages."@tailwindcss/language-server"
     pkgs.nodePackages.vscode-langservers-extracted
+    pkgs.rustfmt
     pkgs.nodePackages.prettier
     pkgs.nodePackages.eslint
     pkgs.nodePackages.typescript
@@ -49,7 +50,7 @@
   home.file .".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
   home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/zsh/fzf-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/fzf-bindings.zsh;
-  home.file.".config/zsh/custom-key-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/custom-key-bindings.zsh;
+  home.file.".config/nushell/env.nu".source = ~/nixpkgs/dotfiles/nushell/env.nu;
 
   programs.nushell = import ../dotfiles/nushell/nushell.nix;
   programs.neovim = import ../dotfiles/nvim/nvim.nix;
