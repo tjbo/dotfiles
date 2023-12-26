@@ -55,8 +55,6 @@ with import <nixpkgs> { };
     VISUAL = "nvim";
     FZF_DEFAULT_OPTS = "--height 100% --border";
     KEY_TIMEOUT = 1;
-    VIFM = "/Users/tjbo/.config/vifm/";
-    MYVIFMRC = "/Users/tjbo/.config/vifm/vifmrc";
     PURE_PROMPT_SYMBOL = "=>";
     RPROMPT = "";
   };

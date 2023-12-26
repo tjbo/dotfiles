@@ -43,11 +43,13 @@
     pkgs.nushell
   ];
 
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+  programs.git = {
+    enable = true;
+    userName = "tjbo";
+    userEmail = "tom@prototypable.ca";
   };
 
-  home.file .".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
+  home.file.".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
   home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/zsh/fzf-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/fzf-bindings.zsh;
   home.file.".config/nushell/env.nu".source = ~/nixpkgs/dotfiles/nushell/env.nu;
@@ -56,11 +58,7 @@
   programs.neovim = import ../dotfiles/nvim/nvim.nix;
   programs.zsh = import ../dotfiles/zsh/zsh.nix;
 
-  programs.git = {
-    enable = true;
-    userName = "tjbo";
-    userEmail = "tom@prototypable.ca";
-  };
+
 
 }
 
