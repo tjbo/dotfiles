@@ -6,6 +6,12 @@ local api = vim.api
 local wk = require("which-key")
 
 ----------------------------------------------------------------------
+-- Icons
+----------------------------------------------------------------------
+
+require("nvim-web-devicons").setup({})
+
+----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
 wk.setup({
@@ -451,7 +457,7 @@ lspconfig.rescriptls.setup({
 -- Rust
 ----------------------------------------------------------------------
 lspconfig.rust_analyzer.setup({
-	cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
+	-- cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
@@ -666,8 +672,8 @@ wk.register({
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
 			g = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Go to implementation" },
 			h = {
-				"<cmd>lua require('telescope.builtin').command_history()<cr>",
-				"List Command History",
+				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
+				"Help Tags",
 			},
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
 			l = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
