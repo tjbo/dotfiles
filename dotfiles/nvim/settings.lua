@@ -507,6 +507,7 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 require("telescope").setup({
 	defaults = {
+		wrap_results = true,
 		layout_config = {
 			horizontal = { width = 0.99, height = 0.99 },
 			vertical = { width = 0.99 },
@@ -519,7 +520,7 @@ require("telescope").setup({
 	},
 	pickers = {
 		diagnostics = {
-			previewer = false,
+			previewer = true,
 		},
 	},
 })
@@ -666,7 +667,7 @@ wk.register({
 				"Fuzzy Search Current Buffer",
 			},
 			d = {
-				"<cmd>Telescope diagnostics<cr>",
+				"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
 				"List Diagnositcs For All Open Buffers",
 			},
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
