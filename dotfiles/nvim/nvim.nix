@@ -20,6 +20,7 @@ in
     vim-rescript # support for writing rescript
     vimPlugins.plenary-nvim # dependency needed for telescope 
     vimPlugins.vim-vsnip
+    vimPlugins.vim-prettier
     vimPlugins.nvim-cmp # auto-completion engine plugin
     vimPlugins.cmp-nvim-lsp # nvim-cmp source 
     vimPlugins.cmp-cmdline # nvim-cmp source

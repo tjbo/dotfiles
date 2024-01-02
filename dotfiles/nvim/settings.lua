@@ -6,6 +6,12 @@ local api = vim.api
 local wk = require("which-key")
 
 ----------------------------------------------------------------------
+-- Icons
+----------------------------------------------------------------------
+
+require("nvim-web-devicons").setup({})
+
+----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
 wk.setup({
@@ -297,9 +303,9 @@ cmp.setup({
 		dofile,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-2),
-		["<C-f>"] = cmp.mapping.scroll_docs(2),
-		["<C-a>"] = cmp.mapping.abort(),
+		["<C-k>"] = cmp.mapping.scroll_docs(-2),
+		["<C-j>"] = cmp.mapping.scroll_docs(2),
+		["<C-w>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = function(fallback)
 			if not cmp.select_next_item() then
@@ -384,8 +390,11 @@ local on_attach = function(client, bufnr)
 	api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+	-- c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 end
+
+
+require("lspconfig").gopls.setup { on_attach = on_attach }
 
 local lspconfig = require("lspconfig")
 
@@ -402,17 +411,18 @@ lspconfig.jsonls.setup({
 ----------------------------------------------------------------------
 -- Lsp - JavaScript & TypeScript
 ----------------------------------------------------------------------
-lspconfig["tsserver"].setup({
-	filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
-	cmd = { "typescript-language-server", "--stdio", "--tsserver-path", "/Users/tjbo/.nix-profile/bin/tsserver" },
-	capabilities = capabilities,
-	on_attach = on_attach,
+require('lspconfig').eslint.setup({
+	-- right now using vim.prettier which seems to do the job better than all the nvim plugins
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+	on_attach = function(client, bufnr)
+		c([[autocmd BufWritePre <buffer> Prettier]])
+	end,
 })
 
 ----------------------------------------------------------------------
 -- Lsp - Lua
 ----------------------------------------------------------------------
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -451,7 +461,8 @@ lspconfig.rescriptls.setup({
 -- Rust
 ----------------------------------------------------------------------
 lspconfig.rust_analyzer.setup({
-	cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
+	-- This didn't work on my ubuntu system, but check macos before removing completely
+	-- cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
@@ -501,6 +512,7 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 require("telescope").setup({
 	defaults = {
+		wrap_results = true,
 		layout_config = {
 			horizontal = { width = 0.99, height = 0.99 },
 			vertical = { width = 0.99 },
@@ -513,6 +525,9 @@ require("telescope").setup({
 	},
 	pickers = {
 		diagnostics = {
+			previewer = true,
+		},
+		oldfiles = {
 			previewer = false,
 		},
 	},
@@ -660,14 +675,14 @@ wk.register({
 				"Fuzzy Search Current Buffer",
 			},
 			d = {
-				"<cmd>Telescope diagnostics<cr>",
+				"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
 				"List Diagnositcs For All Open Buffers",
 			},
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
 			g = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Go to implementation" },
 			h = {
-				"<cmd>lua require('telescope.builtin').command_history()<cr>",
-				"List Command History",
+				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
+				"Help Tags",
 			},
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
 			l = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },

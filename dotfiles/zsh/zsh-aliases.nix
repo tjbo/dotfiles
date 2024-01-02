@@ -7,6 +7,7 @@ in
   # change directories
   "cdb" = "cd ../";
   "cdc" = "cd ${config_dir}";
+  "cde" = "cd ~/Projects/eitherorelse.com";
   "cddf" = "cd ${dotfiles_dir}";
   "cdn" = "cd ${nixpkgs_dir}";
   "cdv" = "cd ${dotfiles_dir}/nvim";
