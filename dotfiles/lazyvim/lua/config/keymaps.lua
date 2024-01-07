@@ -27,3 +27,9 @@ unset("n", "[w")
 set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 set("n", "<leader>dn", diagnostic_goto(true), { desc = "Next Diagnostic" })
 set("n", "<leader>dp", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+
+-- floating terminal
+unset("n", "<leader>ft")
+unset("n", "<leader>fT")
+unset("n", "<c-/>")
+unset("n", "<c-_>")
