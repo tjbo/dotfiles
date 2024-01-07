@@ -8,3 +8,4 @@
 - disable trouble or fix it?
 - remap lsp: https://www.lazyvim.org/keymaps#lsp
 - consider this: nvim-treesitter-textobjects
+- in a plugin if we return a function for keymaps instead of object it will overwrite entire keymaps

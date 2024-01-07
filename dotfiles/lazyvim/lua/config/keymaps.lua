@@ -33,3 +33,21 @@ unset("n", "<leader>ft")
 unset("n", "<leader>fT")
 unset("n", "<c-/>")
 unset("n", "<c-_>")
+
+-- windows
+set("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
+set("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+set("n", "<leader>w-", "<C-W>s", { desc = "Split window below", remap = true })
+set("n", "<leader>w|", "<C-W>v", { desc = "Split window right", remap = true })
+unset("n", "<leader>|")
+unset("n", "<leader>-")
+
+-- tabs
+unset("n", "<leader><tab>l")
+unset("n", "<leader><tab>f")
+unset("n", "<leader><tab><tab>")
+unset("n", "<leader><tab>d")
+unset("n", "<leader><tab>]")
+unset("n", "<leader><tab>[")
+
+-- buffers are in bufferline plugin
