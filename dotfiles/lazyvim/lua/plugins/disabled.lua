@@ -6,4 +6,7 @@ return {
   { "vim-illuminate", enabled = false },
   { "mini.bufremove", enabled = false },
   { "nvim-treesitter-context", enabled = false },
+  { "mini.indentscope", enabled = false },
+  { "alpha-nvim", enabled = false },
+  { "vim-startuptime", enabled = false },
 }

@@ -7,3 +7,4 @@
 - figure out what to do with diagnostics?
 - disable trouble or fix it?
 - remap lsp: https://www.lazyvim.org/keymaps#lsp
+- consider this: nvim-treesitter-textobjects
