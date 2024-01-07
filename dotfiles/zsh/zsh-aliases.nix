@@ -10,7 +10,7 @@ in
   "cde" = "cd ~/Projects/eitherorelse.com";
   "cddf" = "cd ${dotfiles_dir}";
   "cdn" = "cd ${nixpkgs_dir}";
-  "cdv" = "cd ${dotfiles_dir}/nvim";
+  "cdv" = "cd ${dotfiles_dir}/lazyvim";
   "cdz" = "cd ${dotfiles_dir}/zsh";
   "cddt" = "cd ~/Desktop";
   "cddl" = "cd ~/Downloads";
@@ -33,8 +33,10 @@ in
   "ek" = "nvim ${dotfiles_dir}/kitty/kitty.conf";
   "ez" = "nvim ${dotfiles_dir}/zsh/zsh.nix";
   "eza" = "nvim ${dotfiles_dir}/zsh/zsh-aliases.nix";
-  "ev" = "nvim ${dotfiles_dir}/nvim/nvim.nix";
-  "evs" = "nvim ${dotfiles_dir}/nvim/settings.lua";
+  "ev" = "nvim ${dotfiles_dir}/lazyvim/lua/config/lazy.lua";
+  "eva" = "nvim ${dotfiles_dir}/lazyvim/lua/config/autocmds.lua";
+  "evo" = "nvim ${dotfiles_dir}/lazyvim/lua/config/options.lua";
+  "evk" = "nvim ${dotfiles_dir}/lazyvim/lua/config/keymaps.lua";
   "es1" = "nvim ${nixpkgs_dir}/darwin-configuration.nix";
   "es2" = "nvim ${nixpkgs_dir}/ubuntu/home.nix";
 

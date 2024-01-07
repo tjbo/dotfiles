@@ -40,6 +40,7 @@
     pkgs.rnix-lsp
     pkgs.yarn
     pkgs.pure-prompt
+    pkgs.neovim
     pkgs.nushell
   ];
 
@@ -49,13 +50,16 @@
     userEmail = "tom@prototypable.ca";
   };
 
+  home.file."./.config/nvim/" = {
+    source = ~/nixpkgs/dotfiles/lazyvim;
+    recursive = true;
+  };
+
   home.file.".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
-  home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/zsh/fzf-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/fzf-bindings.zsh;
   home.file.".config/nushell/env.nu".source = ~/nixpkgs/dotfiles/nushell/env.nu;
 
   programs.nushell = import ../dotfiles/nushell/nushell.nix;
-  programs.neovim = import ../dotfiles/nvim/nvim.nix;
   programs.zsh = import ../dotfiles/zsh/zsh.nix;
 
 
