@@ -11,6 +11,8 @@ in
   "cddf" = "cd ${dotfiles_dir}";
   "cdn" = "cd ${nixpkgs_dir}";
   "cdv" = "cd ${dotfiles_dir}/lazyvim";
+  "cdvp" = "cd ${dotfiles_dir}/lazyvim/lua/plugins/";
+  "cdvc" = "cd ${dotfiles_dir}/lazyvim/lua/config/";
   "cdz" = "cd ${dotfiles_dir}/zsh";
   "cddt" = "cd ~/Desktop";
   "cddl" = "cd ~/Downloads";
