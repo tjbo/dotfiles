@@ -4,9 +4,6 @@
   home.username = "tjbo";
   home.homeDirectory = "/home/tjbo";
   home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = [
     pkgs.rustc
     pkgs.bundletool
@@ -58,11 +55,7 @@
   home.file.".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
   home.file.".config/zsh/fzf-bindings.zsh".source = ~/nixpkgs/dotfiles/zsh/fzf-bindings.zsh;
   home.file.".config/nushell/env.nu".source = ~/nixpkgs/dotfiles/nushell/env.nu;
-
   programs.nushell = import ../dotfiles/nushell/nushell.nix;
   programs.zsh = import ../dotfiles/zsh/zsh.nix;
-
-
-
 }
 

@@ -17,6 +17,7 @@ return {
     { "<leader>tc", Util.telescope.config_files(), desc = "Find Config File" },
     { "<leader>to", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     -- search
+    { "<leader>sa", false },
     { '<leader>tr"', "<cmd>Telescope registers<cr>", desc = "Registers" },
     { "<leader>tz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
     { "<leader>th", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
