@@ -5,4 +5,5 @@ return {
   { "nvim-spectre", enabled = false },
   { "vim-illuminate", enabled = false },
   { "mini.bufremove", enabled = false },
+  { "nvim-treesitter-context", enabled = false },
 }
