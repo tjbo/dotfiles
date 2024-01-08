@@ -2,8 +2,8 @@ return {
   "akinsho/bufferline.nvim",
   keys = function()
     return {
-      { "<leader>bx", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-      { "<leader>bb", "<Cmd>BufferLinePick<CR>", desc = "Pick buffer" },
+      { "<leader>bb", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+      { "<leader><leader>", "<Cmd>BufferLinePick<CR>", desc = "Pick buffer" },
       { "<leader>bw", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
       { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete other buffers" },
       { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
