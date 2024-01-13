@@ -16,3 +16,11 @@
 # Notes
 - in a plugin if we return a function for keymaps instead of object it will overwrite entire keymaps
 
+
+
+# Simple Workflows
+## Find And Replace a Word
+- to find and replace a word in a file do CMD MENU: %s/you/me (we do not seem to need the global flag in NVIM)
+
+## Find And Replace a Word Across files
+- use Telescope + CDO
