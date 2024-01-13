@@ -1,4 +1,6 @@
 return {
+  { "folke/flash.nvim", enabled = false },
+  { "echasnovski/mini.surround", enabled = true },
   { "todo-comments.nvim", enabled = false },
   { "echasnovski/mini.ai", enabled = false },
   { "neo-tree.nvim", enabled = false },

@@ -6,7 +6,7 @@ return {
     defaults = {
       mode = { "n", "v" },
       -- ["g"] = { name = "+goto" },
-      -- ["gs"] = { name = "+surround" },
+      ["<leader>s"] = { name = "+surround" },
       ["<leader>b"] = { name = "+buffer" },
       ["<leader>c"] = { name = "+code" },
       ["<leader>f"] = { name = "+file/find" },
@@ -16,9 +16,4 @@ return {
       ["<leader>d"] = { name = "+diagnostics/quickfix" },
     },
   },
-  config = function(_, opts)
-    local wk = require("which-key")
-    wk.setup(opts)
-    wk.register(opts.defaults)
-  end,
 }
