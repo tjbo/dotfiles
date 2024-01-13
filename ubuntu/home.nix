@@ -7,7 +7,7 @@
   home.packages = [
     pkgs.rustc
     pkgs.bundletool
-    pkgs.libgcc
+    pkgs.rocmPackages.llvm.clang
     pkgs.fd
     pkgs.fzf
     pkgs.jdk11
@@ -39,6 +39,15 @@
     pkgs.pure-prompt
     pkgs.neovim
     pkgs.nushell
+    pkgs.php
+    pkgs.php82Packages.composer
+    pkgs.luajitPackages.luarocks
+    pkgs.python310Packages.pip
+    pkgs.libstdcxx5
+    pkgs.julia
+    pkgs.go
+    pkgs.clangStdenv
+    pkgs.unzip
   ];
 
   programs.git = {
