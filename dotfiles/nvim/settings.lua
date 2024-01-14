@@ -12,8 +12,32 @@ local wk = require("which-key")
 require("nvim-web-devicons").setup({})
 
 ----------------------------------------------------------------------
+-- Mini
+----------------------------------------------------------------------
+
+
+require('mini.comment').setup({
+	mappings = {
+		-- Toggle comment (like `gcip` - comment inner paragraph) for both
+		-- Normal and Visual modes
+		comment = 'gc',
+
+		-- Toggle comment on current line
+		comment_line = 'gcc',
+
+		-- Toggle comment on visual selection
+		comment_visual = 'gc',
+
+		-- Define 'comment' textobject (like `dgc` - delete whole comment block)
+		textobject = 'gc',
+	},
+})
+
+
+----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
+
 wk.setup({
 	presets = {
 		operators = false,
@@ -138,6 +162,70 @@ end
 require("notify").setup({ stages = "fade" })
 
 ----------------------------------------------------------------------
+-- Lualine
+----------------------------------------------------------------------
+
+local custom_ayudark = require("lualine.themes.ayu_dark")
+
+-- Change the background of lualine_c section for normal mode
+custom_ayudark.normal.c.fg = "#e6e1cf"
+
+require("lualine").setup({
+	options = {
+		icons_enabled = true,
+		theme = custom_ayudark,
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+		},
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch" },
+		lualine_c = {
+			{
+				"filename",
+				file_status = true, -- Displays file status (readonly status, modified status)
+				newfile_status = true, -- Display new file status (new file means no write after created)
+				path = 3,
+			},
+		},
+		lualine_x = {
+			"encoding",
+			{
+				"filetype",
+				colored = true, -- Displays filetype icon in color if set to true
+				icon_only = false, -- Display only an icon for filetype
+				icon = { align = "right" }, -- Display filetype icon on the right hand side
+			},
+		},
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		-- lualine_c = { "filename" },
+		-- lualine_x = { "location" },
+		lualine_y = {},
+		lualine_z = {},
+	},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {},
+});
+
+----------------------------------------------------------------------
 -- Noice
 ----------------------------------------------------------------------
 require("noice").setup({
@@ -156,43 +244,43 @@ require("noice").setup({
 	-- you can enable a preset for easier configuration
 	presets = {
 		bottom_search = true,   -- use a classic bottom cmdline for search
-		command_palette = true, -- position the cmdline and popupmenu together
+		command_palette = false, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = false,     -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = false, -- add a border to hover docs and signature help
 	},
 	views = {
-      cmdline_popup = {
-        position = {
-          row = 5,
-          col = "50%",
-        },
-        size = {
-          width = 60,
-          height = "auto",
-        },
-      },
-      popupmenu = {
-enabled = true,
+		cmdline_popup = {
+			position = {
+				row = 10,
+				col = "50%",
+			},
+			size = {
+				width = 60,
+				height = "auto",
+			},
+		},
+		popupmenu = {
+			enabled = true,
 			backend = "nui",
-        relative = "editor",
-        position = {
-          row = 8,
-          col = "50%",
-        },
-        size = {
-          width = 60,
-          height = 10,
-        },
-        border = {
-          style = "rounded",
-          padding = { 0, 1 },
-        },
-        win_options = {
-          winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-        },
-      },
-    },
+			relative = "editor",
+			position = {
+				row = 13,
+				col = "50%",
+			},
+			size = {
+				width = 60,
+				height = 20,
+			},
+			border = {
+				style = "rounded",
+				padding = { 0, 1 },
+			},
+			win_options = {
+				winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+			},
+		},
+	},
 })
 
 
@@ -259,7 +347,7 @@ require("gitsigns").setup({
 						end,
 						"Blame",
 					},
-					c = { gs.toggle_current_line_blame, "Toggle blame line" },
+					v = { gs.toggle_current_line_blame, "Toggle blame line" },
 					d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
 					n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
 					p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
@@ -403,28 +491,12 @@ cmp.setup({
 	}, {
 		{ name = "buffer" },
 	}),
-})
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = "buffer" },
+	completion = {
+		completeopt = "menu,menuone,noinsert",
 	},
 })
 
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({}, {
-		{
-			name = "cmdline",
-			option = {
-				ignore_cmds = { "Man", "!", "wq" },
-			},
-		},
-	}),
-})
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- gray
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
@@ -666,12 +738,10 @@ wk.register({
 				"<Cmd>BufferLineTogglePin<CR>",
 				"Toggle Pin"
 			},
-
 			d = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
-			o = { "<Cmd>BufferLineCloseOthers<CR>" },
+			o = { "<Cmd>BufferLineCloseOthers<CR>", "Close Other Buffers" },
 			r = { "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right" },
 			l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
-
 		},
 		d = {
 			name = "Diagnostics",

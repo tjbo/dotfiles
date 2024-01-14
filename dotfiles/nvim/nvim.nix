@@ -18,7 +18,9 @@ in
   plugins = with pkgs.vimPlugins; [
     vim-nix # support for writing nix 
     vim-rescript # support for writing rescript
-    vimPlugins.bufferline-nvim
+    vimPlugins.bufferline-nvim # for top bar
+    vimPlugins.mini-nvim
+    vimPlugins.lualine-nvim # for bottom status
     vimPlugins.nui-nvim
     vimPlugins.nvim-notify
     vimPlugins.noice-nvim
@@ -42,7 +44,6 @@ in
     vimPlugins.nvim-lsputils # todo: figureout if I need this
     vimPlugins.nvim-treesitter #todo: do I need this?
     vimPlugins.telescope-nvim # a modal panel that is used for pickers 
-    vimPlugins.vim-commentary # adds easy way to comment and uncomment an loc 
     vimPlugins.vim-lastplace # opens file where you were last
     vimPlugins.which-key-nvim # shows a menu of keybindings 
   ];
