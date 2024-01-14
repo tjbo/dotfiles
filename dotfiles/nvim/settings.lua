@@ -6,6 +6,36 @@ local api = vim.api
 local wk = require("which-key")
 
 ----------------------------------------------------------------------
+-- Notify 
+----------------------------------------------------------------------
+
+-- needed for noice
+require("notify").setup({ stages = "fade" })
+
+----------------------------------------------------------------------
+-- Noice 
+----------------------------------------------------------------------
+
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
+
+----------------------------------------------------------------------
 -- Icons
 ----------------------------------------------------------------------
 
@@ -142,6 +172,7 @@ o.runtimepath:append(parser_install_dir)
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
+		"astro",
 		"bash",
 		"css",
 		"html",
@@ -377,8 +408,17 @@ vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 -- Lsp
 ----------------------------------------------------------------------
 
+
+vim.filetype.add({
+    extension = {
+        astro = "astro"
+    }
+})
+
 -- this formats our code
 require("lsp-format").setup {}
+
+require("lspconfig").astro.setup({})
 
 local on_attach = function(client, bufnr)
 	require("lsp-format").on_attach(client, bufnr)
@@ -519,7 +559,7 @@ require("telescope").setup({
 		},
 		mappings = {
 			i = {
-				["<C-c>"] = require("telescope.actions").close,
+				["q"] = require("telescope.actions").close,
 			},
 		},
 	},
@@ -533,98 +573,18 @@ require("telescope").setup({
 	},
 })
 
+
 ----------------------------------------------------------------------
--- LuaLine
+-- Bufferline 
 ----------------------------------------------------------------------
 
-local custom_ayudark = require("lualine.themes.ayu_dark")
+require("bufferline").setup({
+options = {
+	themable = true,
+	show_buffer_close_icons = false,
+	show_close_icon = false,
+}
 
-local green = "#5af78e"
-local dark_bg1 = "#282a36"
-local blue = "#57c7ff"
-
--- Change the background of lualine_c section for normal mode
-custom_ayudark.normal.c.fg = "#e6e1cf"
--- custom_ayudark.normal.a.bg = "#57c7ff"
--- custom_ayudark.normal.b.bg = dark_bg1
--- custom_ayudark.normal.c.bg = dark_bg1
--- custom_ayudark.normal.z.bg = green
-
--- normal = {
---   c = { fg = colors.color9, bg = colors.color2 },
---   a = { fg = colors.color2, bg = colors.color10, gui = 'bold' },
---   b = { fg = colors.color4, bg = colors.color5 },
--- },
-
-require("lualine").setup({
-	options = {
-		icons_enabled = true,
-		theme = custom_ayudark,
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		-- lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_b = { "branch" },
-		lualine_c = {
-			{
-				"filename",
-				file_status = true, -- Displays file status (readonly status, modified status)
-				newfile_status = true, -- Display new file status (new file means no write after created)
-				path = 3,
-			},
-		},
-		lualine_x = {
-			"encoding",
-			{
-				"filetype",
-				colored = true, -- Displays filetype icon in color if set to true
-				icon_only = false, -- Display only an icon for filetype
-				icon = { align = "right" }, -- Display filetype icon on the right hand side
-			},
-		},
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		-- lualine_c = { "filename" },
-		-- lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {
-		lualine_a = {
-			{
-				"tabs",
-				mode = 2,
-				-- Automatically updates active tab color to match color of other components (will be overidden if buffers_color is set)
-				use_mode_colors = true,
-			},
-		},
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
-	},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
 })
 
 ----------------------------------------------------------------------
@@ -649,6 +609,23 @@ map("n", "<PageUp>", "<C-b>")
 
 wk.register({
 	["<leader>"] = {
+		["<leader>"] = {
+			"<Cmd>BufferLinePick<CR>",
+			"Pick Buffer"
+		},
+		b = {
+			name = "Bufferline",
+			b = {
+				"<Cmd>BufferLineTogglePin<CR>",
+				"Toggle Pin"
+			},
+
+			d = {  "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
+			o = {  "<Cmd>BufferLineCloseOthers<CR>" },
+      		r = {  "<Cmd>BufferLineCloseRight<CR>",  "Delete buffers to the right" },
+      l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
+
+		},
 		d = {
 			name = "Diagnostics",
 			d = {
@@ -663,6 +640,22 @@ wk.register({
 				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
 				"Prev Diagnostic",
 			},
+		},
+		n = {
+			name = "Noice",
+        	l = {
+			"<cmd>Noice last<CR>",
+        		"Noice Last Message",
+      		},
+		d = {
+			"<cmd>Noice dismiss<CR>",
+        		"Dismiss Notifications",
+      		},
+		h = {
+			"<cmd>Noice history<CR>",
+			"History"
+			},
+
 		},
 		t = {
 			name = "Telescope",
@@ -689,7 +682,7 @@ wk.register({
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>Telescope spell_suggest<cr>", "Spell Suggest for Cursor" },
-			t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
+			t = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
 			z = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List Workspace Symbols" },
 		},
 	},

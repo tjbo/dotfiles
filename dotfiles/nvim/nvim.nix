@@ -18,6 +18,12 @@ in
   plugins = with pkgs.vimPlugins; [
     vim-nix # support for writing nix 
     vim-rescript # support for writing rescript
+    vimPlugins.bufferline-nvim
+    vimPlugins.nui-nvim
+    vimPlugins.nvim-notify
+    vimPlugins.noice-nvim
+    vimPlugins.nvim-treesitter-parsers.astro
+    vimPlugins.vim-astro
     vimPlugins.plenary-nvim # dependency needed for telescope 
     vimPlugins.vim-vsnip
     vimPlugins.vim-prettier
@@ -31,8 +37,8 @@ in
     vimPlugins.nvim-web-devicons # web dev icons
     vimPlugins.gitsigns-nvim # for symbols and to navigate doc based on git status 
     vimPlugins.vim-code-dark # main color scheme 
-    vimPlugins.lualine-nvim # for bottom status
     vimPlugins.lsp-format-nvim
+    vimPlugins.nvim-treesitter-parsers.lua
     vimPlugins.nvim-lspconfig # for setting up configs for LSP client 
     vimPlugins.nvim-lsputils # todo: figureout if I need this
     vimPlugins.nvim-treesitter #todo: do I need this?
