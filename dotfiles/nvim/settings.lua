@@ -15,21 +15,18 @@ require("nvim-web-devicons").setup({})
 -- Mini
 ----------------------------------------------------------------------
 
-
-require('mini.comment').setup({
+require("mini.pairs").setup()
+require("mini.surround").setup()
+require("mini.comment").setup({
 	mappings = {
-		-- Toggle comment (like `gcip` - comment inner paragraph) for both
 		-- Normal and Visual modes
-		comment = 'gc',
-
+		comment = "gc",
 		-- Toggle comment on current line
-		comment_line = 'gcc',
-
+		comment_line = "gcc",
 		-- Toggle comment on visual selection
-		comment_visual = 'gc',
-
+		comment_visual = "gc",
 		-- Define 'comment' textobject (like `dgc` - delete whole comment block)
-		textobject = 'gc',
+		textobject = "gc",
 	},
 })
 
