@@ -30,8 +30,7 @@
     pkgs.nodePackages.eslint
     pkgs.nodePackages.typescript
     pkgs.nodePackages.typescript-language-server
-    # pkgs.lua_ls
-    pkgs.stylua
+    pkgs.lua-language-server
     pkgs.vscode-extensions.chenglou92.rescript-vscode
     pkgs.rust-analyzer
     pkgs.rnix-lsp
