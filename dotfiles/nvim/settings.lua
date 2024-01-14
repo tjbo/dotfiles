@@ -131,32 +131,32 @@ function map(mode, lhs, rhs, opts)
 end
 
 ----------------------------------------------------------------------
--- Notify 
+-- Notify
 ----------------------------------------------------------------------
 
 -- needed for noice
 require("notify").setup({ stages = "fade" })
 
 ----------------------------------------------------------------------
--- Noice 
+-- Noice
 ----------------------------------------------------------------------
 require("noice").setup({
-  lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
-    },
-  },
-  -- you can enable a preset for easier configuration
-  presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
-  },
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true,
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = true,   -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false,     -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
 	views = {
       cmdline_popup = {
         position = {
@@ -442,13 +442,6 @@ vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 -- Lsp
 ----------------------------------------------------------------------
 
-
-vim.filetype.add({
-    extension = {
-        astro = "astro"
-    }
-})
-
 -- this formats our code
 require("lsp-format").setup {}
 
@@ -481,6 +474,21 @@ lspconfig.jsonls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+
+----------------------------------------------------------------------
+-- Lsp - Astro
+----------------------------------------------------------------------
+
+vim.filetype.add({
+	extension = {
+		astro = "astro"
+	}
+})
+
+require 'lspconfig'.astro.setup {}
+
+
 
 ----------------------------------------------------------------------
 -- Lsp - JavaScript & TypeScript
@@ -609,15 +617,15 @@ require("telescope").setup({
 
 
 ----------------------------------------------------------------------
--- Bufferline 
+-- Bufferline
 ----------------------------------------------------------------------
 
 require("bufferline").setup({
-options = {
-	themable = true,
-	show_buffer_close_icons = false,
-	show_close_icon = false,
-}
+	options = {
+		themable = true,
+		show_buffer_close_icons = false,
+		show_close_icon = false,
+	}
 
 })
 
@@ -654,10 +662,10 @@ wk.register({
 				"Toggle Pin"
 			},
 
-			d = {  "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
-			o = {  "<Cmd>BufferLineCloseOthers<CR>" },
-      		r = {  "<Cmd>BufferLineCloseRight<CR>",  "Delete buffers to the right" },
-      l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
+			d = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
+			o = { "<Cmd>BufferLineCloseOthers<CR>" },
+			r = { "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right" },
+			l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
 
 		},
 		d = {
@@ -677,17 +685,17 @@ wk.register({
 		},
 		n = {
 			name = "Noice",
-        	l = {
-			"<cmd>Noice last<CR>",
-        		"Noice Last Message",
-      		},
-		d = {
-			"<cmd>Noice dismiss<CR>",
-        		"Dismiss Notifications",
-      		},
-		h = {
-			"<cmd>Noice history<CR>",
-			"History"
+			l = {
+				"<cmd>Noice last<CR>",
+				"Noice Last Message",
+			},
+			d = {
+				"<cmd>Noice dismiss<CR>",
+				"Dismiss Notifications",
+			},
+			h = {
+				"<cmd>Noice history<CR>",
+				"History"
 			},
 
 		},

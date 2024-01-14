@@ -23,7 +23,6 @@ in
     vimPlugins.nvim-notify
     vimPlugins.noice-nvim
     vimPlugins.nvim-treesitter-parsers.astro
-    vimPlugins.vim-astro
     vimPlugins.plenary-nvim # dependency needed for telescope 
     vimPlugins.vim-vsnip
     vimPlugins.vim-prettier

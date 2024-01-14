@@ -24,6 +24,7 @@
     pkgs.nodejs
     pkgs.netlify-cli
     pkgs.nodePackages.create-react-app
+    pkgs.nodePackages."@astrojs/language-server"
     pkgs.nodePackages."@tailwindcss/language-server"
     pkgs.nodePackages.vscode-langservers-extracted
     pkgs.nodePackages.prettier
