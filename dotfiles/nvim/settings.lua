@@ -141,6 +141,10 @@ require("notify").setup({ stages = "fade" })
 -- Noice
 ----------------------------------------------------------------------
 require("noice").setup({
+	cmdline = {
+		enabled = true,
+		view = "cmdline_popup",
+	},
 	lsp = {
 		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 		override = {
@@ -217,9 +221,11 @@ require("nvim-treesitter.configs").setup({
 		"json5",
 		"lua",
 		"markdown",
+		"markdown_inline",
 		"ocaml",
 		"ocaml_interface",
 		"python",
+		"regex",
 		"rust",
 		"toml",
 		"typescript",
@@ -265,7 +271,6 @@ require("gitsigns").setup({
 				},
 			},
 		})
-
 		c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
 		c("highlight GitSignsChange guibg=NONE guifg=ORANGE")
 		c("highlight GitSignsDelete guibg=NONE guifg=RED")
@@ -693,11 +698,6 @@ wk.register({
 				"<cmd>Noice dismiss<CR>",
 				"Dismiss Notifications",
 			},
-			h = {
-				"<cmd>Noice history<CR>",
-				"History"
-			},
-
 		},
 		t = {
 			name = "Telescope",
@@ -718,6 +718,10 @@ wk.register({
 			h = {
 				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
 				"Help Tags",
+			},
+			n = {
+				"<cmd>Telescope noice<cr>",
+				"Show Notification History"
 			},
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
 			l = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
