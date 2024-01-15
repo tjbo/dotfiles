@@ -33,6 +33,7 @@
     pkgs.nodePackages.typescript-language-server
     pkgs.lua-language-server
     pkgs.vscode-extensions.chenglou92.rescript-vscode
+    pkgs.rustfmt
     pkgs.rust-analyzer
     pkgs.rnix-lsp
     pkgs.yarn

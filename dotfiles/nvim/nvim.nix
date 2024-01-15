@@ -20,6 +20,7 @@ in
     vim-rescript # support for writing rescript
     vimPlugins.bufferline-nvim # for top bar
     vimPlugins.mini-nvim
+    vimPlugins.conform-nvim
     vimPlugins.lualine-nvim # for bottom status
     vimPlugins.nui-nvim
     vimPlugins.nvim-notify
@@ -38,7 +39,6 @@ in
     vimPlugins.nvim-web-devicons # web dev icons
     vimPlugins.gitsigns-nvim # for symbols and to navigate doc based on git status 
     vimPlugins.vim-code-dark # main color scheme 
-    vimPlugins.lsp-format-nvim
     vimPlugins.nvim-treesitter-parsers.lua
     vimPlugins.nvim-lspconfig # for setting up configs for LSP client 
     vimPlugins.nvim-lsputils # todo: figureout if I need this

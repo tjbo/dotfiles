@@ -536,8 +536,26 @@ vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 -- Lsp
 ----------------------------------------------------------------------
 
--- this formats our code
-require("lsp-format").setup {}
+
+-- formatting
+require("conform").setup({
+	formatters_by_ft = {
+		-- for astro also need to add a config and plugin locally
+		-- https://github.com/withastro/prettier-plugin-astro
+		astro = { { "prettier" } },
+		javascript = { { "prettier" } },
+		lua = { "stylua" },
+		rust = { "rustfmt" },
+
+	},
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true,
+	},
+})
+
+
+
 
 require("lspconfig").astro.setup({})
 
@@ -547,10 +565,8 @@ local on_attach = function(client, bufnr)
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
-
-	api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+	-- api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	-- local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	-- c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 end
 
