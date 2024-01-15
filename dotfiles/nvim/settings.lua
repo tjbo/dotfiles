@@ -15,7 +15,6 @@ require("nvim-web-devicons").setup({})
 -- Mini
 ----------------------------------------------------------------------
 
-require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.comment").setup({
 	mappings = {
@@ -27,26 +26,6 @@ require("mini.comment").setup({
 		comment_visual = "gc",
 		-- Define 'comment' textobject (like `dgc` - delete whole comment block)
 		textobject = "gc",
-	},
-})
-require('mini.move').setup({
-	mappings = {
-		-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-		left = '<M-h>',
-		right = '<M-l>',
-		down = '<M-j>',
-		up = '<M-k>',
-
-		-- Move current line in Normal mode
-		line_left = '<M-h>',
-		line_right = '<M-l>',
-		line_down = '<M-j>',
-		line_up = '<M-k>',
-	},
-	-- Options which control moving behavior
-	options = {
-		-- Automatically reindent selection during linewise vertical move
-		reindent_linewise = true,
 	},
 })
 
@@ -505,8 +484,8 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "vsnip" },
-	}, {
 		{ name = "buffer" },
+		{ name = "path" },
 	}),
 	completion = {
 		completeopt = "menu,menuone,noinsert",
@@ -536,7 +515,6 @@ vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 -- Lsp
 ----------------------------------------------------------------------
 
-
 -- formatting
 require("conform").setup({
 	formatters_by_ft = {
@@ -553,9 +531,6 @@ require("conform").setup({
 		lsp_fallback = true,
 	},
 })
-
-
-
 
 require("lspconfig").astro.setup({})
 
@@ -575,9 +550,6 @@ require("lspconfig").gopls.setup { on_attach = on_attach }
 
 local lspconfig = require("lspconfig")
 
--- vimPlugins.cmp-cmdline
--- couldn't install dependencies without setting this option
--- https://github.com/NixOS/nixpkgs/issues/168928#issuecomment-1109581739
 lspconfig.gopls.setup({ on_attach = on_attach })
 
 lspconfig.jsonls.setup({
@@ -596,7 +568,9 @@ vim.filetype.add({
 	}
 })
 
-require 'lspconfig'.astro.setup {}
+require 'lspconfig'.astro.setup({
+	capabilities = capabilities,
+})
 
 
 
