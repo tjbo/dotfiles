@@ -791,7 +791,6 @@ wk.register({
 				"List Diagnositcs For All Open Buffers",
 			},
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
-			g = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Go to implementation" },
 			h = {
 				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
 				"Help Tags",
@@ -801,12 +800,10 @@ wk.register({
 				"Show Notification History"
 			},
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
-			l = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
+			g = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
-			s = { "<cmd>Telescope spell_suggest<cr>", "Spell Suggest for Cursor" },
 			t = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
-			z = { "<cmd>Telescope lsp_workspace_symbols<cr>", "List Workspace Symbols" },
 		},
 	},
 }, {
