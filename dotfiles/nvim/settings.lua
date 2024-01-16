@@ -18,20 +18,20 @@ require("nvim-web-devicons").setup({})
 require("mini.surround").setup()
 require("mini.comment").setup({
 	mappings = {
-		-- Normal and Visual modes
+		-- normal and visual modes
 		comment = "gc",
-		-- Toggle comment on current line
+		-- toggle comment on current line
 		comment_line = "gcc",
-		-- Toggle comment on visual selection
+		-- toggle comment on visual selection
 		comment_visual = "gc",
-		-- Define 'comment' textobject (like `dgc` - delete whole comment block)
+		-- define 'comment' textobject (like `dgc` - delete whole comment block)
 		textobject = "gc",
 	},
 })
 
 
 ----------------------------------------------------------------------
--- Which Key
+-- which key
 ----------------------------------------------------------------------
 
 wk.setup({
@@ -58,12 +58,12 @@ wk.setup({
 })
 
 ----------------------------------------------------------------------
--- General
+-- general
 ----------------------------------------------------------------------
 o.showmode = false
 
 -- turn off auto comment insertion
-api.nvim_create_autocmd("BufEnter", {
+api.nvim_create_autocmd("bufenter", {
 	callback = function()
 		o.formatoptions = o.formatoptions - { "c", "r", "o" }
 	end,
@@ -90,7 +90,7 @@ o.swapfile = false
 o.diffopt:append({ "vertical" })
 
 -- open help windows vertically
-c([[autocmd FileType help wincmd L]])
+c([[autocmd filetype help wincmd l]])
 
 -- better spacing when using tabs
 o.expandtab = false
@@ -116,7 +116,7 @@ o.wrap = true
 -- gutter
 o.signcolumn = "yes:2"
 
--- Command Menu Settings
+-- command menu settings
 o.wildmode = { "list:longest,full" }
 
 -- allows system clipboard to work
@@ -130,17 +130,17 @@ o.undofile = true
 o.backupdir = "/tmp/nvim_backups"
 o.backup = true
 
--- Add timestamp as extension for backup files
-api.nvim_create_autocmd("BufWritePre", {
+-- add timestamp as extension for backup files
+api.nvim_create_autocmd("bufwritepre", {
 	group = vim.api.nvim_create_augroup("timestamp_backupext", { clear = true }),
-	desc = "Add timestamp to backup extension",
+	desc = "add timestamp to backup extension",
 	pattern = "*",
 	callback = function()
-		o.backupext = "-" .. vim.fn.strftime("%Y%m%d%H%M")
+		o.backupext = "-" .. vim.fn.strftime("%y%m%d%h%m")
 	end,
 })
 
--- Map keys function
+-- map keys function
 function map(mode, lhs, rhs, opts)
 	local options = { noremap = true }
 
@@ -151,19 +151,19 @@ function map(mode, lhs, rhs, opts)
 end
 
 ----------------------------------------------------------------------
--- Notify
+-- notify
 ----------------------------------------------------------------------
 
 -- needed for noice
 require("notify").setup({ stages = "fade" })
 
 ----------------------------------------------------------------------
--- Lualine
+-- lualine
 ----------------------------------------------------------------------
 
 local custom_ayudark = require("lualine.themes.ayu_dark")
 
--- Change the background of lualine_c section for normal mode
+-- change the background of lualine_c section for normal mode
 custom_ayudark.normal.c.fg = "#e6e1cf"
 
 require("lualine").setup({
@@ -191,8 +191,8 @@ require("lualine").setup({
 		lualine_c = {
 			{
 				"filename",
-				file_status = true, -- Displays file status (readonly status, modified status)
-				newfile_status = true, -- Display new file status (new file means no write after created)
+				file_status = true, -- displays file status (readonly status, modified status)
+				newfile_status = true, -- display new file status (new file means no write after created)
 				path = 3,
 			},
 		},
@@ -200,9 +200,9 @@ require("lualine").setup({
 			"encoding",
 			{
 				"filetype",
-				colored = true, -- Displays filetype icon in color if set to true
-				icon_only = false, -- Display only an icon for filetype
-				icon = { align = "right" }, -- Display filetype icon on the right hand side
+				colored = true, -- displays filetype icon in color if set to true
+				icon_only = false, -- display only an icon for filetype
+				icon = { align = "right" }, -- display filetype icon on the right hand side
 			},
 		},
 		lualine_y = { "progress" },
@@ -222,7 +222,7 @@ require("lualine").setup({
 });
 
 ----------------------------------------------------------------------
--- Noice
+-- noice
 ----------------------------------------------------------------------
 require("noice").setup({
 	cmdline = {
@@ -230,7 +230,7 @@ require("noice").setup({
 		view = "cmdline_popup",
 	},
 	lsp = {
-		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		-- override markdown rendering so that **cmp** and other plugins use **treesitter**
 		override = {
 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			["vim.lsp.util.stylize_markdown"] = true,
@@ -273,7 +273,7 @@ require("noice").setup({
 				padding = { 0, 1 },
 			},
 			win_options = {
-				winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+				winhighlight = { normal = "normal", floatborder = "diagnosticinfo" },
 			},
 		},
 	},
@@ -282,15 +282,16 @@ require("noice").setup({
 
 
 ----------------------------------------------------------------------
--- TreeSitter
+-- treesitter
 ----------------------------------------------------------------------
 
--- Defines a read-write directory for treesitters in nvim's cache dir
+-- defines a read-write directory for treesitters in nvim's cache dir
 local parser_install_dir = fn.stdpath("cache") .. "/treesitters"
 fn.mkdir(parser_install_dir, "p")
 
--- Prevents reinstall of treesitter plugins every boot
+-- prevents reinstall of treesitter plugins every boot
 o.runtimepath:append(parser_install_dir)
+
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
@@ -328,7 +329,7 @@ require("nvim-treesitter.configs").setup({
 })
 
 ----------------------------------------------------------------------
--- GitSigns
+-- gitsigns
 ----------------------------------------------------------------------
 require("gitsigns").setup({
 	on_attach = function(buffer)
@@ -336,60 +337,60 @@ require("gitsigns").setup({
 		wk.register({
 			["<leader>"] = {
 				g = {
-					name = "Git",
+					name = "git",
 					b = {
 						function()
 							gs.blame_line({ full = true })
 						end,
-						"Blame",
+						"blame",
 					},
-					v = { gs.toggle_current_line_blame, "Toggle blame line" },
-					d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
-					n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
-					p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
-					r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
-					s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-					u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
-					h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
-					w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
+					v = { gs.toggle_current_line_blame, "toggle blame line" },
+					d = { "<cmd>gitsigns preview_hunk<cr>", "diff" },
+					n = { "<cmd>gitsigns next_hunk<cr>", "next hunk" },
+					p = { "<cmd>gitsigns prev_hunk<cr>", "prev hunk" },
+					r = { "<cmd>gitsigns reset_hunk<cr>", "reset hunk" },
+					s = { "<cmd>gitsigns stage_hunk<cr>", "stage hunk" },
+					u = { "<cmd>gitsigns undo_stage_hunk<cr>", "undo stage hunk" },
+					h = { "<cmd>gitsigns toggle_linehl<cr>", "toggle line highlights" },
+					w = { "<cmd>gitsigns toggle_word_diff<cr>", "toggle word diff" },
 				},
 			},
 		})
-		c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
-		c("highlight GitSignsChange guibg=NONE guifg=ORANGE")
-		c("highlight GitSignsDelete guibg=NONE guifg=RED")
-		c("highlight SignColumn guibg=NONE")
-		c("highlight DiffAdd guibg=GREEN guifg=NONE ctermbg=none")
-		c("highlight DiffChange guibg=ORANGE guifg=NONE ctermbg=none")
-		c("highlight DiffDelete guibg=RED guifg=NONE ctermbg=none")
+		c("highlight gitsignsadd guibg=none guifg=green")
+		c("highlight gitsignschange guibg=none guifg=orange")
+		c("highlight gitsignsdelete guibg=none guifg=red")
+		c("highlight signcolumn guibg=none")
+		c("highlight diffadd guibg=green guifg=none ctermbg=none")
+		c("highlight diffchange guibg=orange guifg=none ctermbg=none")
+		c("highlight diffdelete guibg=red guifg=none ctermbg=none")
 	end,
 	signs = {
-		add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+		add = { hl = "gitsignsadd", text = "│", numhl = "gitsignsaddnr", linehl = "gitsignsaddln" },
 		change = {
-			hl = "GitSignsChange",
+			hl = "gitsignschange",
 			text = "│",
-			numhl = "GitSignsChangeNr",
-			linehl = "GitSignsChangeLn",
+			numhl = "gitsignschangenr",
+			linehl = "gitsignschangeln",
 		},
 		delete = {
-			hl = "GitSignsDelete",
+			hl = "gitsignsdelete",
 			text = "_",
-			numhl = "GitSignsDeleteNr",
-			linehl = "GitSignsDeleteLn",
+			numhl = "gitsignsdeletenr",
+			linehl = "gitsignsdeleteln",
 		},
 		topdelete = {
-			hl = "GitSignsDelete",
+			hl = "gitsignsdelete",
 			text = "‾",
-			numhl = "GitSignsDeleteNr",
-			linehl = "GitSignsDeleteLn",
+			numhl = "gitsignsdeletenr",
+			linehl = "gitsignsdeleteln",
 		},
 		changedelete = {
-			hl = "GitSignsChange",
+			hl = "gitsignschange",
 			text = "~",
-			numhl = "GitSignsChangeNr",
-			linehl = "GitSignsChangeLn",
+			numhl = "gitsignschangenr",
+			linehl = "gitsignschangeln",
 		},
-		untracked = { hl = "GitSignsAdd", text = "┆", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+		untracked = { hl = "gitsignsadd", text = "┆", numhl = "gitsignsaddnr", linehl = "gitsignsaddln" },
 	},
 	preview_config = {
 		border = "none",
@@ -401,7 +402,7 @@ require("gitsigns").setup({
 })
 
 ----------------------------------------------------------------------
--- AutoCompletion
+-- autocompletion
 ----------------------------------------------------------------------
 local cmp = require("cmp")
 
@@ -424,7 +425,7 @@ cmp.setup({
 		if vim.api.nvim_get_mode().mode == "c" then
 			return true
 		else
-			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("comment")
 		end
 	end,
 	formatting = {
@@ -441,14 +442,14 @@ cmp.setup({
 		end,
 	},
 	snippet = {
-		-- REQUIRED - you must specify a snippet engine
+		-- required - you must specify a snippet engine
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			vim.fn["vsnip#anonymous"](args.body) -- for `vsnip` users.
 		end,
 	},
 	window = {
 		completion = {
-			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+			winhighlight = "normal:pmenu,floatborder:pmenu,search:none",
 			col_offset = -3,
 			side_padding = 1,
 		},
@@ -457,11 +458,11 @@ cmp.setup({
 		dofile,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-k>"] = cmp.mapping.scroll_docs(-2),
-		["<C-j>"] = cmp.mapping.scroll_docs(2),
-		["<C-w>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = function(fallback)
+		["<c-k>"] = cmp.mapping.scroll_docs(-2),
+		["<c-j>"] = cmp.mapping.scroll_docs(2),
+		["<c-w>"] = cmp.mapping.abort(),
+		["<cr>"] = cmp.mapping.confirm({ select = true }),
+		["<tab>"] = function(fallback)
 			if not cmp.select_next_item() then
 				-- currently does not work for vsnip
 				if vim.bo.buftype ~= "prompt" and has_words_before() then
@@ -471,7 +472,7 @@ cmp.setup({
 				end
 			end
 		end,
-		["<S-Tab>"] = function(fallback)
+		["<s-tab>"] = function(fallback)
 			if not cmp.select_prev_item() then
 				if vim.bo.buftype ~= "prompt" and has_words_before() then
 					cmp.complete()
@@ -495,24 +496,24 @@ cmp.setup({
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- gray
-vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
+vim.api.nvim_set_hl(0, "cmpitemabbrdeprecated", { bg = "none", strikethrough = true, fg = "#808080" })
 -- blue
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
+vim.api.nvim_set_hl(0, "cmpitemabbrmatch", { bg = "none", fg = "#569cd6" })
+vim.api.nvim_set_hl(0, "cmpitemabbrmatchfuzzy", { link = "cmpintemabbrmatch" })
 -- light blue
-vim.api.nvim_set_hl(0, "CmpItemKindVariable", { bg = "NONE", fg = "#9CDCFE" })
-vim.api.nvim_set_hl(0, "CmpItemKindInterface", { link = "CmpItemKindVariable" })
-vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "CmpItemKindVariable" })
+vim.api.nvim_set_hl(0, "cmpitemkindvariable", { bg = "none", fg = "#9cdcfe" })
+vim.api.nvim_set_hl(0, "cmpitemkindinterface", { link = "cmpitemkindvariable" })
+vim.api.nvim_set_hl(0, "cmpitemkindtext", { link = "cmpitemkindvariable" })
 -- pink
-vim.api.nvim_set_hl(0, "CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
-vim.api.nvim_set_hl(0, "CmpItemKindMethod", { link = "CmpItemKindFunction" })
+vim.api.nvim_set_hl(0, "cmpitemkindfunction", { bg = "none", fg = "#c586c0" })
+vim.api.nvim_set_hl(0, "cmpitemkindmethod", { link = "cmpitemkindfunction" })
 -- front
-vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
-vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
-vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
+vim.api.nvim_set_hl(0, "cmpitemkindkeyword", { bg = "none", fg = "#d4d4d4" })
+vim.api.nvim_set_hl(0, "cmpitemkindproperty", { link = "cmpitemkindkeyword" })
+vim.api.nvim_set_hl(0, "cmpitemkindunit", { link = "cmpitemkindkeyword" })
 
 ----------------------------------------------------------------------
--- Lsp
+-- lsp
 ----------------------------------------------------------------------
 
 -- formatting
@@ -538,11 +539,11 @@ local on_attach = function(client, bufnr)
 	require("lsp-format").on_attach(client, bufnr)
 
 	if client.name == "tsserver" then
-		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentformattingprovider = false
 	end
 	-- api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	-- local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	-- c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+	-- c([[autocmd bufwritepre <buffer> lua vim.lsp.buf.format()]])
 end
 
 
@@ -559,7 +560,7 @@ lspconfig.jsonls.setup({
 
 
 ----------------------------------------------------------------------
--- Lsp - Astro
+-- lsp - astro
 ----------------------------------------------------------------------
 
 vim.filetype.add({
@@ -575,22 +576,22 @@ require 'lspconfig'.astro.setup({
 
 
 ----------------------------------------------------------------------
--- Lsp - JavaScript & TypeScript
+-- lsp - javascript & typescript
 ----------------------------------------------------------------------
 require('lspconfig').eslint.setup({
 	-- right now using vim.prettier which seems to do the job better than all the nvim plugins
 	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
 	on_attach = function(client, bufnr)
-		c([[autocmd BufWritePre <buffer> Prettier]])
+		c([[autocmd bufwritepre <buffer> prettier]])
 	end,
 })
 
 ----------------------------------------------------------------------
--- Lsp - Lua
+-- lsp - lua
 ----------------------------------------------------------------------
 lspconfig.lua_ls.setup({
 	settings = {
-		Lua = {
+		lua = {
 			diagnostics = {
 				globals = { "vim" },
 			},
@@ -601,68 +602,68 @@ lspconfig.lua_ls.setup({
 })
 
 ----------------------------------------------------------------------
--- Lsp - Nix
+-- lsp - nix
 ----------------------------------------------------------------------
 lspconfig.rnix.setup({
 	on_attach = on_attach,
 })
 
 ----------------------------------------------------------------------
--- Lsp - Rescript
+-- lsp - rescript
 ----------------------------------------------------------------------
 lspconfig.rescriptls.setup({
 	cmd = {
 		"node",
-		"/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
+		"/users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
 		"--stdio",
 	},
 	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = {
-		askToStartBuild = false,
+		asktostartbuild = false,
 	},
 })
 
 ----------------------------------------------------------------------
--- Rust
+-- rust
 ----------------------------------------------------------------------
 lspconfig.rust_analyzer.setup({
-	-- This didn't work on my ubuntu system, but check macos before removing completely
-	-- cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
+	-- this didn't work on my ubuntu system, but check macos before removing completely
+	-- cmd = { "/users/tjbo/.nix-profile/bin/rust-analyzer" },
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 ----------------------------------------------------------------------
--- CSS & Tailwind
+-- css & tailwind
 ----------------------------------------------------------------------
 lspconfig.tailwindcss.setup({
 	cmd = { "tailwindcss-language-server", "--stdio" },
 	settings = {
-		tailwindCSS = {
-			classAttributes = { "className" },
+		tailwindcss = {
+			classattributes = { "classname" },
 			lint = {
-				cssConflict = "warning",
-				invalidApply = "error",
-				invalidConfigPath = "error",
-				invalidScreen = "error",
-				invalidTailwindDirective = "error",
-				invalidVariant = "error",
-				recommendedVariantOrder = "warning",
+				cssconflict = "warning",
+				invalidapply = "error",
+				invalidconfigpath = "error",
+				invalidscreen = "error",
+				invalidtailwinddirective = "error",
+				invalidvariant = "error",
+				recommendedvariantorder = "warning",
 			},
 			validate = true,
 		},
 	},
 })
 
--- Need to fix CSS formatter:
+-- need to fix css formatter:
 -- lspconfig.cssls.setup({
 -- 	capabilities = capabilities,
 -- 	on_attach = on_attach,
 -- })
 
 ----------------------------------------------------------------------
--- Diagnostics
+-- diagnostics
 ----------------------------------------------------------------------
 vim.diagnostic.config({
 	float = {
@@ -674,7 +675,7 @@ vim.diagnostic.config({
 })
 
 ----------------------------------------------------------------------
--- Telescope
+-- telescope
 ----------------------------------------------------------------------
 require("telescope").setup({
 	defaults = {
@@ -701,7 +702,7 @@ require("telescope").setup({
 
 
 ----------------------------------------------------------------------
--- Bufferline
+-- bufferline
 ----------------------------------------------------------------------
 
 require("bufferline").setup({
@@ -714,96 +715,96 @@ require("bufferline").setup({
 })
 
 ----------------------------------------------------------------------
--- Keymaps
+-- keymaps
 ----------------------------------------------------------------------
 -- clears the search highlight
-map("n", "<C-L>", ":nohlsearch<CR><C-L>")
+map("n", "<c-l>", ":nohlsearch<cr><c-l>")
 
--- Todo: Switch between tabs
-map("n", "<C-tab>", "<cmd>tabnext<cr>")
-map("n", "<C-S-tab>", "<cmd>tabprev<cr>")
-map("n", "<C-n>", "<cmd>tabnew<cr>")
+-- todo: switch between tabs
+map("n", "<c-tab>", "<cmd>tabnext<cr>")
+map("n", "<c-s-tab>", "<cmd>tabprev<cr>")
+map("n", "<c-n>", "<cmd>tabnew<cr>")
 
--- Keeps selection when indenting in visual mode
+-- keeps selection when indenting in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- Allows <ctrl+v> to paste from system clipboard
+-- allows <ctrl+v> to paste from system clipboard
 map("i", "<c-v>", "<c-r>+")
-map("n", "<leader>/", "<cmd>WhichKey<cr>")
-map("n", "<PageUp>", "<C-b>")
+map("n", "<leader>/", "<cmd>whichkey<cr>")
+map("n", "<pageup>", "<c-b>")
 
 wk.register({
 	["<leader>"] = {
 		["<leader>"] = {
-			"<Cmd>BufferLinePick<CR>",
-			"Pick Buffer"
+			"<cmd>bufferlinepick<cr>",
+			"pick buffer"
 		},
 		b = {
-			name = "Bufferline",
+			name = "bufferline",
 			b = {
-				"<Cmd>BufferLineTogglePin<CR>",
-				"Toggle Pin"
+				"<cmd>bufferlinetogglepin<cr>",
+				"toggle pin"
 			},
-			d = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
-			o = { "<Cmd>BufferLineCloseOthers<CR>", "Close Other Buffers" },
-			r = { "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right" },
-			l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
+			d = { "<cmd>bufferlinegroupclose ungrouped<cr>", "delete non-pinned buffers" },
+			o = { "<cmd>bufferlinecloseothers<cr>", "close other buffers" },
+			r = { "<cmd>bufferlinecloseright<cr>", "delete buffers to the right" },
+			l = { "<cmd>bufferlinecloseleft<cr>", "delete buffers to the left" },
 		},
 		d = {
-			name = "Diagnostics",
+			name = "diagnostics",
 			d = {
-				"<cmd>lua vim.diagnostic.open_float()<CR>",
-				"Show Diagnostic For Error",
+				"<cmd>lua vim.diagnostic.open_float()<cr>",
+				"show diagnostic for error",
 			},
 			n = {
-				"<cmd>lua vim.diagnostic.goto_next()<CR>",
-				"Next Diagnostic",
+				"<cmd>lua vim.diagnostic.goto_next()<cr>",
+				"next diagnostic",
 			},
 			p = {
-				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
-				"Prev Diagnostic",
+				"<cmd>lua vim.diagnostic.goto_prev()<cr>",
+				"prev diagnostic",
 			},
 		},
 		n = {
-			name = "Noice",
+			name = "noice",
 			l = {
-				"<cmd>Noice last<CR>",
-				"Noice Last Message",
+				"<cmd>noice last<cr>",
+				"noice last message",
 			},
 			d = {
-				"<cmd>Noice dismiss<CR>",
-				"Dismiss Notifications",
+				"<cmd>noice dismiss<cr>",
+				"dismiss notifications",
 			},
 		},
 		t = {
-			name = "Telescope",
+			name = "telescope",
 			b = {
 				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
-				"List Open Buffers",
+				"list open buffers",
 			},
 			c = {
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
-				"Fuzzy Search Current Buffer",
+				"fuzzy search current buffer",
 			},
 			d = {
 				"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
-				"List Diagnositcs For All Open Buffers",
+				"list diagnositcs for all open buffers",
 			},
-			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
+			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "find file" },
 			h = {
 				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
-				"Help Tags",
+				"help tags",
 			},
 			n = {
-				"<cmd>Telescope noice<cr>",
-				"Show Notification History"
+				"<cmd>telescope noice<cr>",
+				"show notification history"
 			},
-			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
-			g = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
-			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
-			r = { "<cmd>Telescope registers<cr>", "Registers" },
-			t = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
+			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "jump list" },
+			g = { "<cmd>telescope live_grep<cr>", "live grep for cwd" },
+			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "recent files" },
+			r = { "<cmd>telescope registers<cr>", "registers" },
+			t = { "<cmd>telescope git_files<cr>", "gitfiles" },
 		},
 	},
 }, {
