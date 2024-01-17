@@ -1,7 +1,8 @@
 # Notes
 ## Motions 
 Just a list of motions I'd like to use more often
-in my daily text navigation workflows.
+in my daily text navigation workflows to make myself more
+efficient in VIM control.
 
 ## Anatomy of a Motion
 - command

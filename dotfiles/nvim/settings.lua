@@ -29,7 +29,6 @@ require("mini.comment").setup({
 	},
 })
 
-
 ----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
@@ -60,6 +59,7 @@ wk.setup({
 ----------------------------------------------------------------------
 -- General
 ----------------------------------------------------------------------
+
 o.showmode = false
 
 -- turn off auto comment insertion
@@ -211,8 +211,6 @@ require("lualine").setup({
 	inactive_sections = {
 		lualine_a = {},
 		lualine_b = {},
-		-- lualine_c = { "filename" },
-		-- lualine_x = { "location" },
 		lualine_y = {},
 		lualine_z = {},
 	},
@@ -224,6 +222,7 @@ require("lualine").setup({
 ----------------------------------------------------------------------
 -- Noice
 ----------------------------------------------------------------------
+
 require("noice").setup({
 	cmdline = {
 		enabled = true,
@@ -279,8 +278,6 @@ require("noice").setup({
 	},
 })
 
-
-
 ----------------------------------------------------------------------
 -- TreeSitter
 ----------------------------------------------------------------------
@@ -330,6 +327,7 @@ require("nvim-treesitter.configs").setup({
 ----------------------------------------------------------------------
 -- GitSigns
 ----------------------------------------------------------------------
+
 require("gitsigns").setup({
 	on_attach = function(buffer)
 		local gs = package.loaded.gitsigns
@@ -403,6 +401,7 @@ require("gitsigns").setup({
 ----------------------------------------------------------------------
 -- AutoCompletion
 ----------------------------------------------------------------------
+
 local cmp = require("cmp")
 
 local t = function(str)
@@ -496,16 +495,20 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- gray
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
+
 -- blue
 vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
 vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
+
 -- light blue
 vim.api.nvim_set_hl(0, "CmpItemKindVariable", { bg = "NONE", fg = "#9CDCFE" })
 vim.api.nvim_set_hl(0, "CmpItemKindInterface", { link = "CmpItemKindVariable" })
 vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "CmpItemKindVariable" })
+
 -- pink
 vim.api.nvim_set_hl(0, "CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
 vim.api.nvim_set_hl(0, "CmpItemKindMethod", { link = "CmpItemKindFunction" })
+
 -- front
 vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
 vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
@@ -515,7 +518,7 @@ vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 -- Lsp
 ----------------------------------------------------------------------
 
--- formatting
+-- This setups code formatting
 require("conform").setup({
 	formatters_by_ft = {
 		-- for astro also need to add a config and plugin locally
@@ -535,16 +538,10 @@ require("conform").setup({
 require("lspconfig").astro.setup({})
 
 local on_attach = function(client, bufnr)
-	require("lsp-format").on_attach(client, bufnr)
-
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
-	-- api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-	-- local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	-- c([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 end
-
 
 require("lspconfig").gopls.setup { on_attach = on_attach }
 
@@ -556,7 +553,6 @@ lspconfig.jsonls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
-
 
 ----------------------------------------------------------------------
 -- Lsp - Astro
@@ -572,11 +568,10 @@ require 'lspconfig'.astro.setup({
 	capabilities = capabilities,
 })
 
-
-
 ----------------------------------------------------------------------
 -- Lsp - JavaScript & TypeScript
 ----------------------------------------------------------------------
+
 require('lspconfig').eslint.setup({
 	-- right now using vim.prettier which seems to do the job better than all the nvim plugins
 	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
@@ -588,6 +583,7 @@ require('lspconfig').eslint.setup({
 ----------------------------------------------------------------------
 -- Lsp - Lua
 ----------------------------------------------------------------------
+
 lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
@@ -603,6 +599,7 @@ lspconfig.lua_ls.setup({
 ----------------------------------------------------------------------
 -- Lsp - Nix
 ----------------------------------------------------------------------
+
 lspconfig.rnix.setup({
 	on_attach = on_attach,
 })
@@ -610,6 +607,7 @@ lspconfig.rnix.setup({
 ----------------------------------------------------------------------
 -- Lsp - Rescript
 ----------------------------------------------------------------------
+
 lspconfig.rescriptls.setup({
 	cmd = {
 		"node",
@@ -626,6 +624,7 @@ lspconfig.rescriptls.setup({
 ----------------------------------------------------------------------
 -- Rust
 ----------------------------------------------------------------------
+
 lspconfig.rust_analyzer.setup({
 	-- This didn't work on my ubuntu system, but check macos before removing completely
 	-- cmd = { "/Users/tjbo/.nix-profile/bin/rust-analyzer" },
@@ -636,6 +635,7 @@ lspconfig.rust_analyzer.setup({
 ----------------------------------------------------------------------
 -- CSS & Tailwind
 ----------------------------------------------------------------------
+
 lspconfig.tailwindcss.setup({
 	cmd = { "tailwindcss-language-server", "--stdio" },
 	settings = {
@@ -655,15 +655,10 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
--- Need to fix CSS formatter:
--- lspconfig.cssls.setup({
--- 	capabilities = capabilities,
--- 	on_attach = on_attach,
--- })
-
 ----------------------------------------------------------------------
 -- Diagnostics
 ----------------------------------------------------------------------
+
 vim.diagnostic.config({
 	float = {
 		scope = "c",
@@ -676,6 +671,7 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 -- Telescope
 ----------------------------------------------------------------------
+
 require("telescope").setup({
 	defaults = {
 		wrap_results = true,
@@ -699,7 +695,6 @@ require("telescope").setup({
 	},
 })
 
-
 ----------------------------------------------------------------------
 -- Bufferline
 ----------------------------------------------------------------------
@@ -716,13 +711,9 @@ require("bufferline").setup({
 ----------------------------------------------------------------------
 -- Keymaps
 ----------------------------------------------------------------------
+
 -- clears the search highlight
 map("n", "<C-L>", ":nohlsearch<CR><C-L>")
-
--- Todo: Switch between tabs
-map("n", "<C-tab>", "<cmd>tabnext<cr>")
-map("n", "<C-S-tab>", "<cmd>tabprev<cr>")
-map("n", "<C-n>", "<cmd>tabnew<cr>")
 
 -- Keeps selection when indenting in visual mode
 map("v", "<", "<gv")
