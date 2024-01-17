@@ -35,6 +35,7 @@
     pkgs.vscode-extensions.chenglou92.rescript-vscode
     pkgs.rustfmt
     pkgs.rust-analyzer
+    pkgs.rustywind
     pkgs.rnix-lsp
     pkgs.yarn
     pkgs.pure-prompt
