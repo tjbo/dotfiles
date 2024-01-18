@@ -40,6 +40,7 @@ in
     vimPlugins.vim-code-dark # main color scheme 
     vimPlugins.nvim-treesitter-parsers.lua
     vimPlugins.nvim-lspconfig # for setting up configs for LSP client 
+    vimPlugins.nvim-treesitter-parsers.vimdoc
     vimPlugins.nvim-lsputils
     vimPlugins.nvim-treesitter
     vimPlugins.telescope-nvim # a modal panel that is used for pickers 

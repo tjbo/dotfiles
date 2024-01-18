@@ -5,7 +5,6 @@ local o = vim.opt
 local api = vim.api
 local wk = require("which-key")
 
-
 g.loaded_netrwPlugin = 0
 
 ----------------------------------------------------------------------
@@ -37,6 +36,7 @@ require("mini.comment").setup({
 ----------------------------------------------------------------------
 
 wk.setup({
+	ignore_missing = true,
 	presets = {
 		operators = false,
 		motions = false,
@@ -220,7 +220,7 @@ require("lualine").setup({
 	winbar = {},
 	inactive_winbar = {},
 	extensions = {},
-});
+})
 
 ----------------------------------------------------------------------
 -- Noice
@@ -241,10 +241,10 @@ require("noice").setup({
 	},
 	-- you can enable a preset for easier configuration
 	presets = {
-		bottom_search = true,   -- use a classic bottom cmdline for search
+		bottom_search = true, -- use a classic bottom cmdline for search
 		command_palette = false, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
-		inc_rename = false,     -- enables an input dialog for inc-rename.nvim
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = false, -- add a border to hover docs and signature help
 	},
 	views = {
@@ -296,6 +296,7 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"astro",
 		"bash",
+		"c",
 		"css",
 		"html",
 		"http",
@@ -314,6 +315,7 @@ require("nvim-treesitter.configs").setup({
 		"toml",
 		"typescript",
 		"vim",
+		"vimdoc",
 		"yaml",
 	},
 	auto_install = true,
@@ -516,7 +518,6 @@ require("conform").setup({
 	},
 })
 
-
 require("conform").setup({
 	format_on_save = function(bufnr)
 		-- Disable with a global or buffer-local variable
@@ -545,7 +546,6 @@ end, {
 	desc = "Re-enable autoformat-on-save",
 })
 
-
 require("lspconfig").astro.setup({})
 
 local on_attach = function(client, bufnr)
@@ -554,7 +554,7 @@ local on_attach = function(client, bufnr)
 	end
 end
 
-require("lspconfig").gopls.setup { on_attach = on_attach }
+require("lspconfig").gopls.setup({ on_attach = on_attach })
 
 local lspconfig = require("lspconfig")
 
@@ -571,11 +571,11 @@ lspconfig.jsonls.setup({
 
 vim.filetype.add({
 	extension = {
-		astro = "astro"
-	}
+		astro = "astro",
+	},
 })
 
-require 'lspconfig'.astro.setup({
+require("lspconfig").astro.setup({
 	capabilities = capabilities,
 })
 
@@ -583,9 +583,19 @@ require 'lspconfig'.astro.setup({
 -- Lsp - JavaScript & TypeScript
 ----------------------------------------------------------------------
 
-require('lspconfig').eslint.setup({
+require("lspconfig").eslint.setup({
 	-- right now using vim.prettier which seems to do the job better than all the nvim plugins
-	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+		"vue",
+		"svelte",
+		"astro",
+	},
 	on_attach = function(client, bufnr)
 		c([[autocmd BufWritePre <buffer> Prettier]])
 	end,
@@ -715,8 +725,7 @@ require("bufferline").setup({
 		themable = true,
 		show_buffer_close_icons = false,
 		show_close_icon = false,
-	}
-
+	},
 })
 
 ----------------------------------------------------------------------
@@ -739,13 +748,13 @@ wk.register({
 	["<leader>"] = {
 		["<leader>"] = {
 			"<Cmd>BufferLinePick<CR>",
-			"Pick Buffer"
+			"Pick Buffer",
 		},
 		b = {
 			name = "Bufferline",
 			b = {
 				"<Cmd>BufferLineTogglePin<CR>",
-				"Toggle Pin"
+				"Toggle Pin",
 			},
 			d = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
 			o = { "<Cmd>BufferLineCloseOthers<CR>", "Close Other Buffers" },
@@ -812,7 +821,7 @@ wk.register({
 			},
 			n = {
 				"<cmd>Telescope noice<cr>",
-				"Show Notification History"
+				"Show Notification History",
 			},
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
 			g = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
