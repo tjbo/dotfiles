@@ -765,7 +765,7 @@ wk.register({
 			},
 		},
 		g = {
-			name = "git",
+			name = "Git",
 			b = { "<cmd>Gitsigns blame_line<CR>", "Blame line" },
 			d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
 			n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },

@@ -40,8 +40,8 @@ in
     vimPlugins.vim-code-dark # main color scheme 
     vimPlugins.nvim-treesitter-parsers.lua
     vimPlugins.nvim-lspconfig # for setting up configs for LSP client 
-    vimPlugins.nvim-lsputils # todo: figureout if I need this
-    vimPlugins.nvim-treesitter #todo: do I need this?
+    vimPlugins.nvim-lsputils
+    vimPlugins.nvim-treesitter
     vimPlugins.telescope-nvim # a modal panel that is used for pickers 
     vimPlugins.vim-lastplace # opens file where you were last
     vimPlugins.which-key-nvim # shows a menu of keybindings 
