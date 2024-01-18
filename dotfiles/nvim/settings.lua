@@ -329,30 +329,7 @@ require("nvim-treesitter.configs").setup({
 ----------------------------------------------------------------------
 
 require("gitsigns").setup({
-	on_attach = function(buffer)
-		local gs = package.loaded.gitsigns
-		wk.register({
-			["<leader>"] = {
-				g = {
-					name = "Git",
-					b = {
-						function()
-							gs.blame_line({ full = true })
-						end,
-						"Blame",
-					},
-					v = { gs.toggle_current_line_blame, "Toggle blame line" },
-					d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
-					n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
-					p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
-					r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
-					s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-					u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
-					h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
-					w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
-				},
-			},
-		})
+	on_attach = function()
 		c("highlight GitSignsAdd guibg=NONE guifg=GREEN")
 		c("highlight GitSignsChange guibg=NONE guifg=ORANGE")
 		c("highlight GitSignsDelete guibg=NONE guifg=RED")
@@ -786,6 +763,19 @@ wk.register({
 				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
 				"Prev Diagnostic",
 			},
+		},
+		g = {
+			name = "git",
+			b = { "<cmd>Gitsigns blame_line<CR>", "Blame line" },
+			d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
+			n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
+			p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
+			r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+			s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+			u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
+			h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
+			v = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle current line blame" },
+			w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
 		},
 		n = {
 			name = "Noice",
