@@ -66,3 +66,5 @@ in insert mode
 
 https://github.com/ThePrimeagen/vim-be-good
 
+## `:e`
+- will give you prompt to create file

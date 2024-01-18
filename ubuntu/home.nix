@@ -31,25 +31,29 @@
     pkgs.nodePackages.eslint
     pkgs.nodePackages.typescript
     pkgs.nodePackages.typescript-language-server
+    pkgs.lf
     pkgs.lua-language-server
     pkgs.vscode-extensions.chenglou92.rescript-vscode
     pkgs.rustfmt
     pkgs.rust-analyzer
     pkgs.rustywind
     pkgs.rnix-lsp
+    pkgs.stylelint
     pkgs.yarn
     pkgs.pure-prompt
   ];
 
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
-
   home.file .".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
-  home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
 
+  # nvim
+  home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   programs.neovim = import ../dotfiles/nvim/nvim.nix; # copy lazygit config 
+
+  # lf
+  home.file.".config/lf/colors".source = ../dotfiles/lf/colors;
+  home.file.".config/lf/icons".source = ../dotfiles/lf/icons;
+  home.file.".config/lf/lfrc".source = ../dotfiles/lf/lfrc;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
