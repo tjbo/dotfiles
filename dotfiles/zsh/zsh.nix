@@ -28,7 +28,6 @@ with import <nixpkgs> { };
 
 
     # fzf
-    source "$(fzf-share)/completion.zsh"
     source ~/.config/zsh/fzf-bindings.zsh
 
     # load edit-command-line

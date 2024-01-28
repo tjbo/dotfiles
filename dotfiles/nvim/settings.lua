@@ -200,6 +200,11 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
+			{
+				require("noice").api.statusline.mode.get,
+				cond = require("noice").api.statusline.mode.has,
+				color = { fg = "#ff9e64" },
+			},
 			"encoding",
 			{
 				"filetype",
@@ -398,13 +403,13 @@ end
 
 cmp.setup({
 	enabled = function()
-		-- disable completion in comments
-		local context = require("cmp.config.context")
-
-		-- keep command mode completion enabled when cursor is in a comment
-		if vim.api.nvim_get_mode().mode == "c" then
+		if vim.bo.ft == "markdown" then
+			return false
+		elseif vim.api.nvim_get_mode().mode == "c" then
 			return true
 		else
+			local context = require("cmp.config.context")
+			-- keep command mode completion enabled when cursor is in a comment
 			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 		end
 	end,
@@ -422,51 +427,34 @@ cmp.setup({
 		end,
 	},
 	snippet = {
-		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			vim.fn["vsnip#anonymous"](args.body)
 		end,
 	},
+
 	window = {
 		completion = {
-			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+			border = "rounded",
+			winhighlight = "Normal:CmpNormal",
+			highlight = "Normal",
 			col_offset = -3,
 			side_padding = 1,
 		},
-		documentation = cmp.config.window.bordered(),
-
+	documentation = cmp.config.window.bordered(),
 		dofile,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-k>"] = cmp.mapping.scroll_docs(-2),
-		["<C-j>"] = cmp.mapping.scroll_docs(2),
+		["<C-u>"] = cmp.mapping.scroll_docs(-2),
+		["<C-d>"] = cmp.mapping.scroll_docs(2),
 		["<C-w>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = function(fallback)
-			if not cmp.select_next_item() then
-				-- currently does not work for vsnip
-				if vim.bo.buftype ~= "prompt" and has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end
-		end,
-		["<S-Tab>"] = function(fallback)
-			if not cmp.select_prev_item() then
-				if vim.bo.buftype ~= "prompt" and has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end
-		end,
+		["<C-j>"] = cmp.mapping.select_next_item(),
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "vsnip" },
-		{ name = "buffer" },
-		{ name = "path" },
+		{ name = "nvim_lsp", keyword_length = 2 },
+		{ name = "vsnip", keyword_length = 4 },
+		{ name = "buffer", keyword_length = 4 },
+		{ name = "path", keyword_length = 2 },
 	}),
 	completion = {
 		completeopt = "menu,menuone,noinsert",
@@ -474,27 +462,6 @@ cmp.setup({
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- gray
-vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
-
--- blue
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
-
--- light blue
-vim.api.nvim_set_hl(0, "CmpItemKindVariable", { bg = "NONE", fg = "#9CDCFE" })
-vim.api.nvim_set_hl(0, "CmpItemKindInterface", { link = "CmpItemKindVariable" })
-vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "CmpItemKindVariable" })
-
--- pink
-vim.api.nvim_set_hl(0, "CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
-vim.api.nvim_set_hl(0, "CmpItemKindMethod", { link = "CmpItemKindFunction" })
-
--- front
-vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
-vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
-vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 
 ----------------------------------------------------------------------
 -- Lsp
@@ -733,7 +700,7 @@ require("bufferline").setup({
 ----------------------------------------------------------------------
 
 -- clears the search highlight
-map("n", "<C-L>", ":nohlsearch<CR><C-L>")
+map("n", "<C-L>", ":nohlsearch<cr><C-L>")
 
 -- Keeps selection when indenting in visual mode
 map("v", "<", "<gv")
@@ -747,16 +714,20 @@ map("n", "<PageUp>", "<C-b>")
 wk.register({
 	["<leader>"] = {
 		["<leader>"] = {
-			"<Cmd>BufferLinePick<CR>",
+			"<Cmd>BufferLinePick<cr>",
 			"Pick Buffer",
 		},
 		b = {
 			name = "Bufferline",
 			b = {
-				"<Cmd>BufferLineTogglePin<CR>",
+				"<Cmd>BufferLineTogglePin<cr>",
 				"Toggle Pin",
 			},
-			d = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
+			d = {
+				"<Cmd>bd<cr>",
+				"Close buffer",
+			},
+			n = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
 			o = { "<Cmd>BufferLineCloseOthers<CR>", "Close Other Buffers" },
 			r = { "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right" },
 			l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },

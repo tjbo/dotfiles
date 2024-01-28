@@ -45,6 +45,8 @@
   ];
 
   home.file .".config/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
+
+  # zsh
   home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
 
   # nvim
