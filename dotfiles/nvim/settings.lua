@@ -433,15 +433,8 @@ cmp.setup({
 	},
 
 	window = {
-		completion = {
-			border = "rounded",
-			winhighlight = "Normal:CmpNormal",
-			highlight = "Normal",
-			col_offset = -3,
-			side_padding = 1,
-		},
-	documentation = cmp.config.window.bordered(),
-		dofile,
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-u>"] = cmp.mapping.scroll_docs(-2),
@@ -664,8 +657,8 @@ require("telescope").setup({
 	defaults = {
 		wrap_results = true,
 		layout_config = {
-			horizontal = { width = 0.99, height = 0.99 },
-			vertical = { width = 0.99 },
+			horizontal = { width = 0.95, height = 0.95 },
+			vertical = { width = 0.95 },
 		},
 		mappings = {
 			i = {
