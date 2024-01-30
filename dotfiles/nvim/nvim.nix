@@ -43,6 +43,7 @@ in
     vimPlugins.nvim-treesitter-parsers.vimdoc
     vimPlugins.nvim-lsputils
     vimPlugins.nvim-treesitter
+    vimPlugins.oil-nvim
     vimPlugins.telescope-nvim # a modal panel that is used for pickers 
     vimPlugins.vim-lastplace # opens file where you were last
     vimPlugins.which-key-nvim # shows a menu of keybindings 

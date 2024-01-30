@@ -31,6 +31,7 @@
     pkgs.nodePackages.eslint
     pkgs.nodePackages.typescript
     pkgs.nodePackages.typescript-language-server
+    pkgs.tree
     pkgs.lf
     pkgs.lua-language-server
     pkgs.stylua
