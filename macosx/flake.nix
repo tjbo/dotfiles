@@ -62,7 +62,6 @@
                   programs.bat.config.theme = "TwoDark";
                   programs.fzf.enable = true;
                   programs.fzf.enableZshIntegration = true;
-                  programs.exa.enable = true;
                   programs.git.enable = true;
                   programs.zsh = import ../dotfiles/zsh/zsh.nix;
                   
