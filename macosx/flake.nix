@@ -64,6 +64,8 @@
                   programs.fzf.enableZshIntegration = true;
                   programs.git.enable = true;
                   programs.zsh = import ../dotfiles/zsh/zsh.nix;
+    home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (dotfiles/lazygit/config.yml);
+
                   
                   programs.alacritty = {
                     enable = true;
