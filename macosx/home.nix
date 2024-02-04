@@ -19,8 +19,7 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-home.packages = [
-pkgs.kitty
+  home.packages = [
     pkgs.fd
     pkgs.fzf
     pkgs.jdk11
@@ -29,6 +28,7 @@ pkgs.kitty
     pkgs.delta
     pkgs.git
     pkgs.hack-font
+    # pkgs.karabiner-elements
     pkgs.lazygit
     pkgs.neofetch
     pkgs.nerdfonts
@@ -57,23 +57,20 @@ pkgs.kitty
     pkgs.pure-prompt
   ];
 
+  # copy lazygit config 
+  home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
+
+  # copy neovim config 
+  home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
+
+  # copy keybindings for fzf
+  home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
+
+  # copy kitty config
+  # programs.kitty.enable = true;
+  home.file.".config/kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
 
 
-
-
-    # copy lazygit config 
-    home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
-
-    # copy neovim config 
-    home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
-
-    # copy keybindings for fzf
-    home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
-
-    # copy kitty config
-    home.file.".config/kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
-
-
-    programs.neovim = import ../dotfiles/nvim/nvim.nix;
-    programs.zsh = import ../dotfiles/zsh/zsh.nix;
+  programs.neovim = import ../dotfiles/nvim/nvim.nix;
+  programs.zsh = import ../dotfiles/zsh/zsh.nix;
 }
