@@ -1,7 +1,6 @@
 let
-  dotfiles_dir = "~/nixpkgs/dotfiles";
+  dotfiles_dir = "~/dotfiles";
   config_dir = "~/.config";
-  nixpkgs_dir = "~/nixpkgs";
 in
 {
   # change directories
@@ -9,7 +8,7 @@ in
   "cdc" = "cd ${config_dir}";
   "cde" = "cd ~/Projects/eitherorelse.com";
   "cddf" = "cd ${dotfiles_dir}";
-  "cdn" = "cd ${nixpkgs_dir}";
+  "cdn" = "cd ${dotfiles_dir}";
   "cdv" = "cd ${dotfiles_dir}/nvim";
   "cdz" = "cd ${dotfiles_dir}/zsh";
   "cddt" = "cd ~/Desktop";
@@ -35,8 +34,8 @@ in
   "eza" = "nvim ${dotfiles_dir}/zsh/zsh-aliases.nix";
   "ev" = "nvim ${dotfiles_dir}/nvim/nvim.nix";
   "evs" = "nvim ${dotfiles_dir}/nvim/settings.lua";
-  "es1" = "nvim ${nixpkgs_dir}/darwin-configuration.nix";
-  "es2" = "nvim ${nixpkgs_dir}/ubuntu/home.nix";
+  "es1" = "nvim ${dotfiles_dir}/darwin-configuration.nix";
+  "es2" = "nvim ${dotfiles_dir}/ubuntu/home.nix";
 
   # clear
   "c" = "clear";
@@ -50,7 +49,7 @@ in
 
   # build systems
   "bs1" = "darwin-rebuild switch && reload";
-  "bs2" = "home-manager --file ${nixpkgs_dir}/ubuntu/home.nix switch";
+  "bs2" = "home-manager --file ${dotfiles_dir}/ubuntu/home.nix switch";
 
   "reload" = "source ~/.zshrc";
 

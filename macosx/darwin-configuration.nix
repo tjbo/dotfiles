@@ -1,98 +1,79 @@
 { config, pkgs, ... }:
+
 {
-  imports = [ <home-manager/nix-darwin> ];
-  environment.systemPackages = with pkgs;
-    [
-      btop
-      nixFlakes
-      neovim
-    ];
+  # Home Manager needs a bit of information about you and the
+  # paths it should manage.
+  home.username = "tjbo";
+  home.homeDirectory = "/Users/tjbo";
 
-  nix.extraOptions = "experimental-features = nix-command flakes";
+  # This value determines the Home Manager release that your
+  # configuration is compatible with. This helps avoid breakage
+  # when a new Home Manager release introduces backwards
+  # incompatible changes.
+  #
+  # You can update Home Manager without changing this value. See
+  # the Home Manager release notes for a list of state version
+  # changes in each release.
+  home.stateVersion = "23.11";
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;
+home.packages = [
+pkgs.kitty
+    pkgs.fd
+    pkgs.fzf
+    pkgs.jdk11
+    pkgs.ripgrep
+    pkgs.cargo
+    pkgs.delta
+    pkgs.git
+    pkgs.hack-font
+    pkgs.lazygit
+    pkgs.neofetch
+    pkgs.nerdfonts
+    pkgs.nixpkgs-fmt
+    pkgs.nodejs
+    pkgs.netlify-cli
+    pkgs.nodePackages.create-react-app
+    pkgs.nodePackages."@astrojs/language-server"
+    pkgs.nodePackages."@tailwindcss/language-server"
+    pkgs.nodePackages.vscode-langservers-extracted
+    pkgs.nodePackages.prettier
+    pkgs.nodePackages.eslint
+    pkgs.nodePackages.typescript
+    pkgs.nodePackages.typescript-language-server
+    pkgs.tree
+    pkgs.lf
+    pkgs.lua-language-server
+    pkgs.stylua
+    pkgs.vscode-extensions.chenglou92.rescript-vscode
+    pkgs.rustfmt
+    pkgs.rust-analyzer
+    pkgs.rustywind
+    pkgs.rnix-lsp
+    pkgs.stylelint
+    pkgs.yarn
+    pkgs.pure-prompt
+  ];
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  system.stateVersion = 4;
 
 
-  users.users.tjbo = {
-    name = "tjbo";
-    home = "/Users/tjbo";
-  };
 
-  homebrew = {
-    enable = true;
-    onActivation.autoUpdate = true;
-    casks = [
-      "alt-tab"
-      "chromium"
-      # "android-studio" installed manually as there currently isn't a package in nix for darwin
-      "kitty"
-      "iterm2"
-      "loom"
-      "react-native-debugger"
-      "visual-studio-code"
-      "zulu11"
-    ];
-  };
-  home-manager.users.tjbo = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      bundletool
-      fd
-      fzf
-      jdk11
-      ripgrep
-      cargo
-      cocoapods
-      delta
-      # todo: configure git 
-      hack-font
-      lazygit
-      neofetch
-      nerdfonts
-      nixpkgs-fmt
-      nodejs
-      netlify-cli
-      nodePackages.create-react-app
-      nodePackages."@tailwindcss/language-server"
-      nodePackages.prettier
-      nodePackages.vscode-langservers-extracted
-      nodePackages.eslint
-      nodePackages.gatsby-cli
-      nodePackages.vscode-langservers-extracted
-      nodePackages.react-native-cli
-      nodePackages.typescript
-      nodePackages.typescript-language-server
-      nodePackages.serverless
-      stylua
-      sumneko-lua-language-server
-      vscode-extensions.chenglou92.rescript-vscode
-      pure-prompt
-      rust-analyzer
-      rnix-lsp
-      yarn
-    ];
 
     # copy lazygit config 
-    home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (dotfiles/lazygit/config.yml);
+    home.file ."/Library/Application Support/lazygit/config.yml".text = builtins.readFile (../dotfiles/lazygit/config.yml);
 
     # copy neovim config 
-    home.file.".config/nvim/settings.lua".source = dotfiles/nvim/settings.lua;
+    home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
 
     # copy keybindings for fzf
-    home.file.".config/zsh/fzf-bindings.zsh".source = dotfiles/zsh/fzf-bindings.zsh;
+    home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
 
     # copy kitty config
-    home.file.".config/kitty/kitty.conf".source = dotfiles/kitty/kitty.conf;
+    home.file.".config/kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
 
-    programs.neovim = import dotfiles/nvim/nvim.nix;
-    programs.zsh = import dotfiles/zsh/zsh.nix;
-    home.stateVersion = "23.05";
-  };
+
+    programs.neovim = import ../dotfiles/nvim/nvim.nix;
+    programs.zsh = import ../dotfiles/zsh/zsh.nix;
 }
