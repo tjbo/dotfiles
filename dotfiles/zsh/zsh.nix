@@ -19,32 +19,45 @@ with import <nixpkgs> { };
     size = 1000;
   };
   initExtra = ''
-    export PATH=~/.npm-packages/bin:$PATH
-    export NODE_PATH=~/.npm-packages/lib/node_modules
+    # Nix
+    if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+    fi
+    # End Nix
 
-    unsetopt beep
-    autoload -U promptinit; promptinit
-    prompt pure
+        export PATH=~/.npm-packages/bin:$PATH
+        export NODE_PATH=~/.npm-packages/lib/node_modules
+
+        unsetopt beep
+        autoload -U promptinit; promptinit
+        prompt pure
 
 
-    # fzf
-    source ~/.config/zsh/fzf-bindings.zsh
+        # fzf
+        source ~/.config/zsh/fzf-bindings.zsh
 
-    # load edit-command-line
-    autoload -z edit-command-line
-    zle -N edit-command-line
+        # load edit-command-line
+        autoload -z edit-command-line
+        zle -N edit-command-line
 
-    # handles vi bindings for zsh
-    source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+        # handles vi bindings for zsh
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-    # keybinds
-    export NODE_OPTIONS="--openssl-legacy-provider"
-    export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
-    export PATH=$PATH:$ANDROID_HOME/emulator
-    export PATH=$PATH:$ANDROID_HOME/platform-tools
+        # keybinds
+        export NODE_OPTIONS="--openssl-legacy-provider"
+        export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
+        export PATH=$PATH:$ANDROID_HOME/emulator
+        export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-    # can move this
-    # source $HOME/.cargo/env
+        # can move this
+        # source $HOME/.cargo/env
+            
+
+        switchdesktop() {
+          osascript -e 'tell application "System Events" to key code 22 using control down'
+        }
+      alias switchdesktop=switchdesktop
+
   '';
   initExtraFirst = "";
   localVariables = {
