@@ -28,7 +28,6 @@
     pkgs.delta
     pkgs.git
     pkgs.hack-font
-    # pkgs.karabiner-elements
     pkgs.lazygit
     pkgs.neofetch
     pkgs.nerdfonts
@@ -53,6 +52,7 @@
     pkgs.rustywind
     pkgs.rnix-lsp
     pkgs.stylelint
+    pkgs.skhd
     pkgs.yarn
     pkgs.pure-prompt
   ];

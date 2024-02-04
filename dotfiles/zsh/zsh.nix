@@ -24,7 +24,7 @@ with import <nixpkgs> { };
       . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
     fi
     # End Nix
-
+        export PATH="/opt/homebrew/bin:$PATH"
         export PATH=~/.npm-packages/bin:$PATH
         export NODE_PATH=~/.npm-packages/lib/node_modules
 
@@ -48,16 +48,6 @@ with import <nixpkgs> { };
         export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
         export PATH=$PATH:$ANDROID_HOME/emulator
         export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-        # can move this
-        # source $HOME/.cargo/env
-            
-
-        switchdesktop() {
-          osascript -e 'tell application "System Events" to key code 22 using control down'
-        }
-      alias switchdesktop=switchdesktop
-
   '';
   initExtraFirst = "";
   localVariables = {
