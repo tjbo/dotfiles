@@ -11,6 +11,7 @@ there are some exceptions below:
 
 ### Software I downloaded and installed manually:
 - 1password
+- chrome
 - karabiner elements (bind CAPS to ESCAPE and RIGHT COMMAND
 to OPTOIN)
 - kitty is configured in nix but right now I'm installing it

@@ -20,6 +20,7 @@
   programs.home-manager.enable = true;
 
   home.packages = [
+    pkgs.bundletool
     pkgs.fd
     pkgs.fzf
     pkgs.jdk11
@@ -53,6 +54,7 @@
     pkgs.rnix-lsp
     pkgs.stylelint
     pkgs.skhd
+    pkgs.python3
     pkgs.yarn
     pkgs.pure-prompt
   ];
@@ -65,6 +67,9 @@
 
   # copy keybindings for fzf
   home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
+
+  # skhd 
+  home.file.".config/skhd/skhdrc".source = ../dotfiles/skhd/skhdrc;
 
   # copy kitty config
   # programs.kitty.enable = true;
