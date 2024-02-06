@@ -69,7 +69,7 @@
   home.file.".config/zsh/fzf-bindings.zsh".source = ../dotfiles/zsh/fzf-bindings.zsh;
 
   # skhd 
-  home.file.".config/skhd/skhdrc".source = ../dotfiles/skhd/skhdrc;
+  # home.file.".config/skhd/skhdrc".source = ../dotfiles/skhd/skhdrc;
 
   # copy kitty config
   # programs.kitty.enable = true;
