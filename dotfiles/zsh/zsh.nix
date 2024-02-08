@@ -51,6 +51,8 @@ with import <nixpkgs> { };
     source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
     # bind to fzf history search
+    export FZF_DEFAULT_OPTS="--border=rounded --no-scrollbar --no-color --no-separator --no-info"
+
     bindkey -M emacs '^H' fzf-history-widget
     bindkey -M vicmd '^H' fzf-history-widget
     bindkey -M viins '^H' fzf-history-widget
