@@ -24,31 +24,39 @@ with import <nixpkgs> { };
       . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
     fi
     # End Nix
-        autoload -U compinit && compinit
-        export PATH="/opt/homebrew/bin:$PATH"
-        export PATH=~/.npm-packages/bin:$PATH
-        export NODE_PATH=~/.npm-packages/lib/node_modules
+    # remove this line once we manage homebrew
+    export PATH="/opt/homebrew/bin:$PATH"
+    export PATH=~/.npm-packages/bin:$PATH
+    export NODE_PATH=~/.npm-packages/lib/node_modules
+    export NODE_OPTIONS="--openssl-legacy-provider"
+    export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
+    export PATH=$PATH:$ANDROID_HOME/emulator
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-        unsetopt beep
-        autoload -U promptinit; promptinit
-        prompt pure
+    unsetopt beep
 
+    # pure prompt
+    autoload -U promptinit; promptinit
+    prompt pure
 
-        # fzf
-        source ~/.config/zsh/fzf-bindings.zsh
+    # open command line text in vim
+    autoload -Uz edit-command-line
+    zle -N edit-command-line
+    bindkey -M vicmd 'vv' edit-command-line
 
-        # load edit-command-line
-        autoload -z edit-command-line
-        zle -N edit-command-line
+    # zsh plugins
+    source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
-        # handles vi bindings for zsh
-        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    # bind to fzf history search
+    bindkey -M emacs '^H' fzf-history-widget
+    bindkey -M vicmd '^H' fzf-history-widget
+    bindkey -M viins '^H' fzf-history-widget
 
-        # keybinds
-        export NODE_OPTIONS="--openssl-legacy-provider"
-        export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
-        export PATH=$PATH:$ANDROID_HOME/emulator
-        export PATH=$PATH:$ANDROID_HOME/platform-tools
+    # bind to auto suggest
+    bindkey '^ ' autosuggest-accept
   '';
   initExtraFirst = "";
   localVariables = {
@@ -61,8 +69,8 @@ with import <nixpkgs> { };
     PURE_PROMPT_SYMBOL = "=>";
     RPROMPT = "";
   };
-  loginExtra = ""; # Extra commands that should be added to .zlogin.
-  logoutExtra = ""; # Extra commands that should be added to .zlogout.
-  profileExtra = ""; # Extra commands that should be added to .zprofile.
+  loginExtra = "";
+  logoutExtra = "";
+  profileExtra = "";
   shellAliases = import ./zsh-aliases.nix;
 }
