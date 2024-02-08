@@ -24,6 +24,7 @@ with import <nixpkgs> { };
       . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
     fi
     # End Nix
+        autoload -U compinit && compinit
         export PATH="/opt/homebrew/bin:$PATH"
         export PATH=~/.npm-packages/bin:$PATH
         export NODE_PATH=~/.npm-packages/lib/node_modules
