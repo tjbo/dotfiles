@@ -58,7 +58,7 @@ in
   "yrb" = "yarn run build";
   "yrc" = "yarn run clean";
   "yrd" = "yarn run develop";
-  "yri" = "yarn run ios";
+  "yri" = "yarn run ios:simulator:develop";
   "yrr" = "yarn run rescript";
   "yrs" = "yarn run start";
   "yrw" = "yarn run watch";

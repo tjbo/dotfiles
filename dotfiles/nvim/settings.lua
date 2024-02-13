@@ -677,15 +677,18 @@ vim.diagnostic.config({
 
 require("telescope").setup({
 	defaults = {
+		mappings = {
+			i = {
+				["<C-o>"] = function(p_bufnr)
+					require("telescope.actions").send_selected_to_qflist(p_bufnr)
+					vim.cmd.cfdo("edit")
+				end,
+			},
+		},
 		wrap_results = true,
 		layout_config = {
 			horizontal = { width = 0.95, height = 0.95 },
 			vertical = { width = 0.95 },
-		},
-		mappings = {
-			i = {
-				["q"] = require("telescope.actions").close,
-			},
 		},
 	},
 	pickers = {
@@ -747,8 +750,8 @@ wk.register({
 			r = { "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right" },
 			l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
 		},
-		d = {
-			name = "Diagnostics",
+		e = {
+			name = "Errors",
 			d = {
 				"<cmd>lua vim.diagnostic.open_float()<CR>",
 				"Show Diagnostic For Error",
@@ -795,31 +798,38 @@ wk.register({
 		},
 		t = {
 			name = "Telescope",
-			b = {
-				"<cmd>lua require('telescope.builtin').buffers({ previewer= false })<cr>",
-				"List Open Buffers",
-			},
 			c = {
 				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
 				"Fuzzy Search Current Buffer",
 			},
 			d = {
-				"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
-				"List Diagnositcs For All Open Buffers",
+				"<cmd>lua require('telescope.builtin').lsp_definitions()<cr>",
+				"Go to or show definiton",
 			},
+			e = {
+				"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
+				"List Errors For Buffers",
+			},
+
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
-			h = {
+			q = {
 				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
 				"Help Tags",
+			},
+			m = {
+				"<cmd>lua require('telescope.builtin').marks()<cr>",
+				"Marks",
 			},
 			n = {
 				"<cmd>Telescope noice<cr>",
 				"Show Notification History",
 			},
+			h = { "<cmd>lua require('telescope.builtin').search_history()<cr>", "Search History" },
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
 			g = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
+			s = { "<cmd>lua require('telescope.builtin').grep_string()<cr>", "Grep Cursor Word" },
 			t = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
 		},
 	},
