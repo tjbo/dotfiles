@@ -56,7 +56,6 @@
 
       home.homeDirectory = "/Users/tjbo2";
 
-
       home.packages = [
         nixpkgs.ruby
         nixpkgs.bundletool
@@ -113,6 +112,22 @@
       # need to add kitty above
       # programs.kitty.enable = true;
       home.file.".config/kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
+
+      homebrew = {
+        enable = true;
+        autoUpdate = true;
+        # updates homebrew packages on activation,
+        # can make darwin-rebuild much slower (otherwise i'd forget to do it ever though)
+        casks = [
+          "hammerspoon"
+          "amethyst"
+          "alfred"
+          "logseq"
+          "discord"
+          "iina"
+        ];
+      };
+
 
       programs.neovim = import ../dotfiles/nvim/nvim.nix;
       programs.zsh = import ../dotfiles/zsh/zsh.nix;

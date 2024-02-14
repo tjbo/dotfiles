@@ -49,7 +49,7 @@ in
   "ls" = "ls -AGFhol";
 
   # build systems
-  "bs1" = "home-manager switch -f ${nixpkgs_dir}/macosx/home.nix && reload";
+  "bs1" = "export NIXPKGS_ALLOW_UNFREE=1 && home-manager switch -f ${nixpkgs_dir}/macosx/home.nix && reload";
   "bs2" = "home-manager --file ${nixpkgs_dir}/ubuntu/home.nix switch";
 
   "reload" = "source ~/.zshrc";

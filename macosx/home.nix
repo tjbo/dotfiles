@@ -26,14 +26,18 @@
     pkgs.fd
     pkgs.fzf
     pkgs.jdk11
+    pkgs.karabiner-elements
     pkgs.ripgrep
     pkgs.cargo
     pkgs.delta
     pkgs.git
     pkgs.hack-font
+    pkgs.kitty
     pkgs.lazygit
     pkgs.neofetch
+    pkgs.spotify
     # pkgs.nerdfonts
+    pkgs._1password-gui
     pkgs.nixpkgs-fmt
     pkgs.nodejs
     pkgs.netlify-cli
@@ -67,6 +71,7 @@
 
   # copy neovim config 
   home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
+  home.file.".config/karabiner/karabiner.json".source = ../dotfiles/karabiner/karabiner.json;
 
   # skhd 
   # home.file.".config/skhd/skhdrc".source = ../dotfiles/skhd/skhdrc;
@@ -75,7 +80,8 @@
   # programs.kitty.enable = true;
   home.file.".config/kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
 
-
   programs.neovim = import ../dotfiles/nvim/nvim.nix;
   programs.zsh = import ../dotfiles/zsh/zsh.nix;
+
+
 }
