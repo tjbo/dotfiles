@@ -18,5 +18,6 @@ there are some exceptions below:
 - whatsapp
 - flipper
 
+The home brew stuff can possibly be moved over to Nix?
 
 
