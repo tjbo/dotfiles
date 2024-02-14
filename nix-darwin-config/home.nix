@@ -3,7 +3,6 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "tjbo";
   home.homeDirectory = "/Users/tjbo";
 
   # This value determines the Home Manager release that your

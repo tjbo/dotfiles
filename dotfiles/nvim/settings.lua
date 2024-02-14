@@ -348,6 +348,7 @@ require("nvim-treesitter.configs").setup({
 		"ocaml_interface",
 		"python",
 		"regex",
+		"ruby",
 		"rust",
 		"toml",
 		"typescript",
@@ -562,6 +563,17 @@ require("lspconfig").astro.setup({
 })
 
 ----------------------------------------------------------------------
+-- Lsp - Podspec
+----------------------------------------------------------------------
+
+local auto_command_on = vim.api.nvim_create_autocmd
+
+auto_command_on({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.podspec", "Podfile" },
+	command = "set filetype=ruby",
+})
+
+----------------------------------------------------------------------
 -- Lsp - JavaScript & TypeScript
 ----------------------------------------------------------------------
 
@@ -737,12 +749,12 @@ wk.register({
 		},
 		b = {
 			name = "Bufferline",
-			b = {
+			p = {
 				"<Cmd>BufferLineTogglePin<cr>",
 				"Toggle Pin",
 			},
-			d = {
-				"<Cmd>bd<cr>",
+			c = {
+				"<Cmd>bc<cr>",
 				"Close buffer",
 			},
 			n = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
@@ -752,15 +764,15 @@ wk.register({
 		},
 		e = {
 			name = "Errors",
-			d = {
+			e = {
 				"<cmd>lua vim.diagnostic.open_float()<CR>",
 				"Show Diagnostic For Error",
 			},
-			n = {
+			j = {
 				"<cmd>lua vim.diagnostic.goto_next()<CR>",
 				"Next Diagnostic",
 			},
-			p = {
+			k = {
 				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
 				"Prev Diagnostic",
 			},
@@ -769,8 +781,8 @@ wk.register({
 			name = "Git",
 			b = { "<cmd>Gitsigns blame_line<CR>", "Blame line" },
 			d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
-			n = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
-			p = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
+			j = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
+			k = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
 			r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
 			s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
 			u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },

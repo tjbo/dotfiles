@@ -5,7 +5,7 @@ To reinstall them:
 1 - install nix
 2 - use standalone package manager and run `home-mananger switch` command
 
-Right now I'm not managing 100% of system software through,
+Right now I'm not managing 100% of system software,
 there are some exceptions below:
 
 ### Software I downloaded and installed manually:
@@ -15,10 +15,16 @@ there are some exceptions below:
 to OPTION), we can move this to Nix
 - kitty is configured in nix but right now I'm installing it
 manually, we can move this to Nix
+- vagrant
+- virtualbox
 
-
-### Homebrew:
+### Software Installed with Homebrew, that can likely be
+ported to nix build:
 - chromium
+- spotify
 - I installed yabai with homebrew and there is also a path
 in my zshrc for it
+- android studio
+
+
 
