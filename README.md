@@ -7,16 +7,16 @@ To reinstall them:
 Right now I'm not managing 100% of system software,
 there are some exceptions below:
 
-### Software I downloaded and installed manually:
+### Software installed manually:
 - chrome
 - xcode
 
-### Software Installed with Homebrew
-- yabai and there is also a path in my zshrc for it
+### Software installed with Homebrew
 - android studio
-- flipper
+- yabai and there is also a path in my zshrc for it
 - vagrant
 - whatsapp
+- flipper
 
 
 
