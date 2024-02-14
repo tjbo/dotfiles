@@ -37,7 +37,6 @@
     pkgs.neofetch
     pkgs.spotify
     # pkgs.nerdfonts
-    pkgs._1password-gui
     pkgs.nixpkgs-fmt
     pkgs.nodejs
     pkgs.netlify-cli

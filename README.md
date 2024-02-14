@@ -8,16 +8,17 @@ Right now I'm not managing 100% of system software,
 there are some exceptions below:
 
 ### Software installed manually:
-- chrome
 - xcode
 
 ### Software installed with Homebrew
 - android studio
+- google chrome
 - yabai and there is also a path in my zshrc for it
 - vagrant
 - whatsapp
 - flipper
+- 1password (has to be installed in Apps folder to work
+properly)
 
-The home brew stuff can possibly be moved over to Nix?
 
 
