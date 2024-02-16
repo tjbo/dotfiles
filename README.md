@@ -19,6 +19,3 @@ there are some exceptions below:
 - flipper
 - 1password (has to be installed in Apps folder to work
 properly)
-
-
-

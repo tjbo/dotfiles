@@ -72,11 +72,7 @@
   home.file.".config/nvim/settings.lua".source = ../dotfiles/nvim/settings.lua;
   home.file.".config/karabiner/karabiner.json".source = ../dotfiles/karabiner/karabiner.json;
 
-  # skhd 
-  # home.file.".config/skhd/skhdrc".source = ../dotfiles/skhd/skhdrc;
-
   # copy kitty config
-  # programs.kitty.enable = true;
   home.file.".config/kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
 
   programs.neovim = import ../dotfiles/nvim/nvim.nix;

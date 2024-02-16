@@ -142,7 +142,7 @@ c("colorscheme codedark")
 
 g.mapleader = " "
 o.completeopt = { "menu", "menuone", "noselect" }
-o.textwidth = 60
+o.textwidth = 80
 o.wrap = true
 
 -- gutter
@@ -492,6 +492,7 @@ require("conform").setup({
 		css = { "rustywind" },
 		javascript = { "prettier" },
 		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
 		lua = { "stylua" },
 		rust = { "rustfmt" },
 	},
