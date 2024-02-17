@@ -687,16 +687,38 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 -- Telescope
 ----------------------------------------------------------------------
+-- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
+local telescopeActions = require("telescope.actions")
+local ta = {
+	["<CR>"] = telescopeActions.select_default,
+	["<C-c>"] = telescopeActions.close,
+	["<C-v>"] = telescopeActions.select_vertical,
+	["<C-t>"] = telescopeActions.select_tab,
+	["<C-x>"] = telescopeActions.toggle_selection + telescopeActions.move_selection_worse,
+	["<C-z>"] = telescopeActions.toggle_selection + telescopeActions.move_selection_better,
+	["<C-o>"] = function(p_bufnr)
+		require("telescope.actions").send_selected_to_qflist(p_bufnr)
+		vim.cmd.cfdo("edit")
+	end,
+	["<C-f>"] = telescopeActions.preview_scrolling_left,
+	["<C-j>"] = telescopeActions.move_selection_next,
+	["<C-k>"] = telescopeActions.move_selection_previous,
+	["<C-g>"] = telescopeActions.move_to_top,
+	["<C-m>"] = telescopeActions.move_to_middle,
+	["<C-b>"] = telescopeActions.move_to_bottom,
+	["<esc>"] = telescopeActions.nop,
+	["<C-?>"] = telescopeActions.which_key,
+	["<C-q>"] = telescopeActions.nop,
+	["<M-q>"] = telescopeActions.nop,
+	["<C-u>"] = telescopeActions.preview_scrolling_up,
+	["<C-d>"] = telescopeActions.preview_scrolling_down,
+}
 
 require("telescope").setup({
 	defaults = {
 		mappings = {
-			i = {
-				["<C-o>"] = function(p_bufnr)
-					require("telescope.actions").send_selected_to_qflist(p_bufnr)
-					vim.cmd.cfdo("edit")
-				end,
-			},
+			i = ta,
+			n = ta,
 		},
 		wrap_results = true,
 		layout_config = {
@@ -755,7 +777,7 @@ wk.register({
 				"Toggle Pin",
 			},
 			c = {
-				"<Cmd>bc<cr>",
+				"<Cmd>bd<cr>",
 				"Close buffer",
 			},
 			n = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
@@ -839,10 +861,10 @@ wk.register({
 			},
 			h = { "<cmd>lua require('telescope.builtin').search_history()<cr>", "Search History" },
 			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
-			g = { "<cmd>Telescope live_grep<cr>", "Live Grep for CWD" },
+			g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Show git files" },
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
-			s = { "<cmd>lua require('telescope.builtin').grep_string()<cr>", "Grep Cursor Word" },
+			s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep Cursor Word" },
 			t = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
 		},
 	},
