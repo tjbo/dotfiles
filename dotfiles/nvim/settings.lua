@@ -689,10 +689,9 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 -- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
 local ta = {
-	["<CR>"] = require("telescope.actions").select_default,
 	["<C-c>"] = require("telescope.actions").close,
 	["<C-v>"] = require("telescope.actions").select_vertical,
-	["<C-t>"] = require("telescope.actions").select_tab,
+	["<C-t>"] = require("telescope.actions").nop,
 	["<C-x>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_worse,
 	["<C-z>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_better,
 	["<C-o>"] = function(p_bufnr)
@@ -711,6 +710,7 @@ local ta = {
 	["<M-q>"] = require("telescope.actions").nop,
 	["<C-u>"] = require("telescope.actions").preview_scrolling_up,
 	["<C-d>"] = require("telescope.actions").preview_scrolling_down,
+	["<cr>"] = require("telescope.actions").select_tab,
 }
 
 require("telescope").setup({
