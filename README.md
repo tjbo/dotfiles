@@ -11,6 +11,7 @@ there are some exceptions below:
 - xcode
 
 ### Software installed with Homebrew
+- alt tab
 - android studio
 - google chrome
 - yabai and there is also a path in my zshrc for it

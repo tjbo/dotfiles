@@ -688,30 +688,29 @@ vim.diagnostic.config({
 -- Telescope
 ----------------------------------------------------------------------
 -- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
-local telescopeActions = require("telescope.actions")
 local ta = {
-	["<CR>"] = telescopeActions.select_default,
-	["<C-c>"] = telescopeActions.close,
-	["<C-v>"] = telescopeActions.select_vertical,
-	["<C-t>"] = telescopeActions.select_tab,
-	["<C-x>"] = telescopeActions.toggle_selection + telescopeActions.move_selection_worse,
-	["<C-z>"] = telescopeActions.toggle_selection + telescopeActions.move_selection_better,
+	["<CR>"] = require("telescope.actions").select_default,
+	["<C-c>"] = require("telescope.actions").close,
+	["<C-v>"] = require("telescope.actions").select_vertical,
+	["<C-t>"] = require("telescope.actions").select_tab,
+	["<C-x>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_worse,
+	["<C-z>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_better,
 	["<C-o>"] = function(p_bufnr)
 		require("telescope.actions").send_selected_to_qflist(p_bufnr)
 		vim.cmd.cfdo("edit")
 	end,
-	["<C-f>"] = telescopeActions.preview_scrolling_left,
-	["<C-j>"] = telescopeActions.move_selection_next,
-	["<C-k>"] = telescopeActions.move_selection_previous,
-	["<C-g>"] = telescopeActions.move_to_top,
-	["<C-m>"] = telescopeActions.move_to_middle,
-	["<C-b>"] = telescopeActions.move_to_bottom,
-	["<esc>"] = telescopeActions.nop,
-	["<C-?>"] = telescopeActions.which_key,
-	["<C-q>"] = telescopeActions.nop,
-	["<M-q>"] = telescopeActions.nop,
-	["<C-u>"] = telescopeActions.preview_scrolling_up,
-	["<C-d>"] = telescopeActions.preview_scrolling_down,
+	["<C-f>"] = require("telescope.actions").preview_scrolling_left,
+	["<C-j>"] = require("telescope.actions").move_selection_next,
+	["<C-k>"] = require("telescope.actions").move_selection_previous,
+	["<C-g>"] = require("telescope.actions").move_to_top,
+	["<C-m>"] = require("telescope.actions").move_to_middle,
+	["<C-b>"] = require("telescope.actions").move_to_bottom,
+	["<esc>"] = require("telescope.actions").nop,
+	["<C-?>"] = require("telescope.actions").which_key,
+	["<C-q>"] = require("telescope.actions").nop,
+	["<M-q>"] = require("telescope.actions").nop,
+	["<C-u>"] = require("telescope.actions").preview_scrolling_up,
+	["<C-d>"] = require("telescope.actions").preview_scrolling_down,
 }
 
 require("telescope").setup({
@@ -846,7 +845,7 @@ wk.register({
 				"List Errors For Buffers",
 			},
 
-			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
+			t = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
 			q = {
 				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
 				"Help Tags",
@@ -865,7 +864,7 @@ wk.register({
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep Cursor Word" },
-			t = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
+			f = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
 		},
 	},
 }, {
