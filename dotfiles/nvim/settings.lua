@@ -44,7 +44,7 @@ require("nvim-web-devicons").setup({})
 -- Mini
 ----------------------------------------------------------------------
 
-require("mini.surround").setup()
+-- require("mini.surround").setup()
 require("mini.comment").setup({
 	mappings = {
 		-- Normal and Visual modes
@@ -691,7 +691,7 @@ vim.diagnostic.config({
 local ta = {
 	["<C-c>"] = require("telescope.actions").close,
 	["<C-v>"] = require("telescope.actions").select_vertical,
-	["<C-t>"] = require("telescope.actions").nop,
+	["<C-t>"] = require("telescope.actions").select_tab,
 	["<C-x>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_worse,
 	["<C-z>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_better,
 	["<C-o>"] = function(p_bufnr)
@@ -710,7 +710,6 @@ local ta = {
 	["<M-q>"] = require("telescope.actions").nop,
 	["<C-u>"] = require("telescope.actions").preview_scrolling_up,
 	["<C-d>"] = require("telescope.actions").preview_scrolling_down,
-	["<cr>"] = require("telescope.actions").select_tab,
 }
 
 require("telescope").setup({
@@ -845,7 +844,7 @@ wk.register({
 				"List Errors For Buffers",
 			},
 
-			t = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find File" },
+			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files in current directory" },
 			q = {
 				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
 				"Help Tags",
@@ -864,7 +863,7 @@ wk.register({
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep Cursor Word" },
-			f = { "<cmd>Telescope git_files<cr>", "Gitfiles" },
+			t = { "<cmd>Telescope git_files<cr>", "Gitfiles (working directory)" },
 		},
 	},
 }, {
