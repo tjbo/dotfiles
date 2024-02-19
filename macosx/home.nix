@@ -58,7 +58,6 @@
     pkgs.rustywind
     pkgs.rnix-lsp
     pkgs.stylelint
-    pkgs.skhd
     pkgs.yarn
     pkgs.zsh-autosuggestions
     pkgs.zsh-syntax-highlighting

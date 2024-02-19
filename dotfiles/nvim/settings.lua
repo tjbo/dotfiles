@@ -44,7 +44,7 @@ require("nvim-web-devicons").setup({})
 -- Mini
 ----------------------------------------------------------------------
 
--- require("mini.surround").setup()
+require("mini.surround").setup()
 require("mini.comment").setup({
 	mappings = {
 		-- Normal and Visual modes
@@ -424,6 +424,11 @@ require("gitsigns").setup({
 
 local cmp = require("cmp")
 
+local has_words_before = function()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 cmp.setup({
 	enabled = function()
 		if vim.bo.ft == "markdown" then
@@ -462,9 +467,26 @@ cmp.setup({
 	mapping = cmp.mapping.preset.insert({
 		["<C-u>"] = cmp.mapping.scroll_docs(-2),
 		["<C-d>"] = cmp.mapping.scroll_docs(2),
-		["<C-w>"] = cmp.mapping.abort(),
+		["<C-c>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<C-j>"] = cmp.mapping.select_next_item(),
+		["<C-k>"] = cmp.mapping.select_prev_item(),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				if #cmp.get_entries() == 1 then
+					cmp.confirm({ select = true })
+				else
+					cmp.select_next_item()
+				end
+			elseif has_words_before() then
+				cmp.complete()
+				if #cmp.get_entries() == 1 then
+					cmp.confirm({ select = true })
+				end
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp", keyword_length = 2 },
@@ -689,6 +711,7 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 -- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
 local ta = {
+	["<CR>"] = require("telescope.actions").select_default,
 	["<C-c>"] = require("telescope.actions").close,
 	["<C-v>"] = require("telescope.actions").select_vertical,
 	["<C-t>"] = require("telescope.actions").select_tab,

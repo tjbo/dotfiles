@@ -14,9 +14,30 @@ there are some exceptions below:
 - alt tab
 - android studio
 - google chrome
-- yabai and there is also a path in my zshrc for it
-- vagrant
 - whatsapp
 - flipper
 - 1password (has to be installed in Apps folder to work
 properly)
+
+### 3 Hyper Keys
+- Hyper Apps - controls switching spaces and apps
+- Hyper Raycast - a utility modal, we can do many things with
+- Hyper Kitty - a special binding for kitty terminal
+
+### 1 - Hyper Apps (Desktop / Spaces) 
+- hyper + uparrow = mission control
+- hyper + downarrow = application windows 
+- hyper + d = desktop
+- hyper + t = terminal
+- hyper + i = inspector (for debugging)
+- hyper + c = chrome
+- hyper + b = browser (for other browser)
+- hyper + p = pages/preview
+- hyper + n = notes
+- hyper + x = xcode
+- hyper + o = system settings (options)
+- hyper + w = whatsapp
+- hyper + s = spotify
+- hyper + u = upwork
+- hyper + a = android
+
