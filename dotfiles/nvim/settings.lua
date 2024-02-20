@@ -711,7 +711,7 @@ vim.diagnostic.config({
 ----------------------------------------------------------------------
 -- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
 local ta = {
-	["<CR>"] = require("telescope.actions").select_default,
+	["<C-CR>"] = require("telescope.actions").select_default,
 	["<C-c>"] = require("telescope.actions").close,
 	["<C-v>"] = require("telescope.actions").select_vertical,
 	["<C-t>"] = require("telescope.actions").select_tab,
@@ -763,9 +763,12 @@ require("telescope").setup({
 
 require("bufferline").setup({
 	options = {
+		numbers = "none",
 		themable = true,
 		show_buffer_close_icons = false,
 		show_close_icon = false,
+		show_duplicate_prefix = false,
+		always_show_bufferline = true,
 	},
 })
 
