@@ -46,6 +46,7 @@
     pkgs.nodePackages.vscode-langservers-extracted
     pkgs.nodePackages.prettier
     pkgs.nodePackages.eslint
+    pkgs.nodePackages.serverless
     pkgs.nodePackages.typescript
     pkgs.nodePackages.typescript-language-server
     pkgs.tree

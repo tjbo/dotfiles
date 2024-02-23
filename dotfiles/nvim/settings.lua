@@ -763,6 +763,7 @@ require("telescope").setup({
 
 require("bufferline").setup({
 	options = {
+		max_name_length = 30,
 		numbers = "none",
 		themable = true,
 		show_buffer_close_icons = false,
