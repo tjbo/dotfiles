@@ -41,24 +41,6 @@ require("oil").setup({
 require("nvim-web-devicons").setup({})
 
 ----------------------------------------------------------------------
--- Mini
-----------------------------------------------------------------------
-
-require("mini.surround").setup()
-require("mini.comment").setup({
-	mappings = {
-		-- Normal and Visual modes
-		comment = "gc",
-		-- Toggle comment on current line
-		comment_line = "gcc",
-		-- Toggle comment on visual selection
-		comment_visual = "gc",
-		-- Define 'comment' textobject (like `dgc` - delete whole comment block)
-		textobject = "gc",
-	},
-})
-
-----------------------------------------------------------------------
 -- Which Key
 ----------------------------------------------------------------------
 
@@ -431,7 +413,9 @@ end
 
 cmp.setup({
 	enabled = function()
-		if vim.bo.ft == "markdown" then
+		if vim.bo.buftype == "prompt" then
+			return false
+		elseif vim.bo.ft == "markdown" then
 			return false
 		elseif vim.api.nvim_get_mode().mode == "c" then
 			return true
@@ -710,36 +694,41 @@ vim.diagnostic.config({
 -- Telescope
 ----------------------------------------------------------------------
 -- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
+local actions = require("telescope.actions")
 local ta = {
-	["<C-CR>"] = require("telescope.actions").select_default,
-	["<C-c>"] = require("telescope.actions").close,
-	["<C-v>"] = require("telescope.actions").select_vertical,
-	["<C-t>"] = require("telescope.actions").select_tab,
-	["<C-x>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_worse,
-	["<C-z>"] = require("telescope.actions").toggle_selection + require("telescope.actions").move_selection_better,
 	["<C-o>"] = function(p_bufnr)
 		require("telescope.actions").send_selected_to_qflist(p_bufnr)
 		vim.cmd.cfdo("edit")
 	end,
-	["<C-f>"] = require("telescope.actions").preview_scrolling_left,
-	["<C-j>"] = require("telescope.actions").move_selection_next,
-	["<C-k>"] = require("telescope.actions").move_selection_previous,
-	["<C-g>"] = require("telescope.actions").move_to_top,
-	["<C-m>"] = require("telescope.actions").move_to_middle,
-	["<C-b>"] = require("telescope.actions").move_to_bottom,
-	["<esc>"] = require("telescope.actions").nop,
-	["<C-?>"] = require("telescope.actions").which_key,
-	["<C-q>"] = require("telescope.actions").nop,
-	["<M-q>"] = require("telescope.actions").nop,
-	["<C-u>"] = require("telescope.actions").preview_scrolling_up,
-	["<C-d>"] = require("telescope.actions").preview_scrolling_down,
+	["<C-j>"] = actions.move_selection_next,
+	["<C-k>"] = actions.move_selection_previous,
+	["<C-c>"] = actions.close,
+	["<Down>"] = actions.nop,
+	["<Up>"] = actions.nop,
+	["<CR>"] = actions.select_default,
+	["<C-x>"] = actions.select_horizontal,
+	["<C-v>"] = actions.select_vertical,
+	["<C-t>"] = actions.select_tab,
+	["<C-u>"] = actions.preview_scrolling_up,
+	["<C-d>"] = actions.preview_scrolling_down,
+	["<C-f>"] = actions.preview_scrolling_left,
+	["<PageUp>"] = actions.results_scrolling_up,
+	["<PageDown>"] = actions.results_scrolling_down,
+	["<M-f>"] = actions.results_scrolling_left,
+	["<M-k>"] = actions.results_scrolling_right,
+	["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+	["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+	["<C-l>"] = actions.complete_tag,
+	["<C-/>"] = actions.which_key,
+	["<C-w>"] = { "<c-s-w>", type = "command" },
+	["<C-r><C-w>"] = actions.insert_original_cword,
 }
 
 require("telescope").setup({
 	defaults = {
 		mappings = {
 			i = ta,
-			n = ta,
+			n = {},
 		},
 		wrap_results = true,
 		layout_config = {
@@ -899,4 +888,22 @@ wk.register({
 		position = "top",
 	},
 	show_help = false,
+})
+
+----------------------------------------------------------------------
+-- Mini
+----------------------------------------------------------------------
+
+require("mini.surround").setup()
+require("mini.comment").setup({
+	mappings = {
+		-- Normal and Visual modes
+		comment = "gc",
+		-- Toggle comment on current line
+		comment_line = "gcc",
+		-- Toggle comment on visual selection
+		comment_visual = "gc",
+		-- Define 'comment' textobject (like `dgc` - delete whole comment block)
+		textobject = "gc",
+	},
 })
