@@ -630,18 +630,18 @@ lspconfig.rnix.setup({
 -- Lsp - Rescript
 ----------------------------------------------------------------------
 
-lspconfig.rescriptls.setup({
-	cmd = {
-		"node",
-		"/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
-		"--stdio",
-	},
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = {
-		askToStartBuild = false,
-	},
-})
+-- lspconfig.rescriptls.setup({
+-- 	cmd = {
+-- 		"node",
+-- 		"/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
+-- 		"--stdio",
+-- 	},
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- 	settings = {
+-- 		askToStartBuild = false,
+-- 	},
+-- })
 
 ----------------------------------------------------------------------
 -- Rust
@@ -706,16 +706,16 @@ local ta = {
 	["<Down>"] = actions.nop,
 	["<Up>"] = actions.nop,
 	["<CR>"] = actions.select_default,
+	["<C-CR>"] = actions.select_default,
 	["<C-x>"] = actions.select_horizontal,
 	["<C-v>"] = actions.select_vertical,
 	["<C-t>"] = actions.select_tab,
 	["<C-u>"] = actions.preview_scrolling_up,
 	["<C-d>"] = actions.preview_scrolling_down,
 	["<C-f>"] = actions.preview_scrolling_left,
-	["<PageUp>"] = actions.results_scrolling_up,
-	["<PageDown>"] = actions.results_scrolling_down,
-	["<M-f>"] = actions.results_scrolling_left,
-	["<M-k>"] = actions.results_scrolling_right,
+	["<C-b>"] = actions.results_scrolling_right,
+	["<PageUp>"] = actions.nop,
+	["<PageDown>"] = actions.nop,
 	["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
 	["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
 	["<C-l>"] = actions.complete_tag,
@@ -728,7 +728,7 @@ require("telescope").setup({
 	defaults = {
 		mappings = {
 			i = ta,
-			n = {},
+			n = ta,
 		},
 		wrap_results = true,
 		layout_config = {
