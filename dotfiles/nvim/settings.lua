@@ -20,6 +20,7 @@ require("oil").setup({
 	keymaps = {
 		["<C-?>"] = "actions.show_help",
 		["f"] = "actions.select",
+		["<CR>"] = "actions.select",
 		["<C-t>"] = "actions.select_tab",
 		["<C-p>"] = "actions.preview",
 		["<C-c>"] = "actions.close",
@@ -630,18 +631,18 @@ lspconfig.rnix.setup({
 -- Lsp - Rescript
 ----------------------------------------------------------------------
 
--- lspconfig.rescriptls.setup({
--- 	cmd = {
--- 		"node",
--- 		"/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
--- 		"--stdio",
--- 	},
--- 	capabilities = capabilities,
--- 	on_attach = on_attach,
--- 	settings = {
--- 		askToStartBuild = false,
--- 	},
--- })
+lspconfig.rescriptls.setup({
+	cmd = {
+		"node",
+		"/Users/tjbo/.nix-profile/share/vscode/extensions/chenglou92.rescript-vscode/server/out/server.js",
+		"--stdio",
+	},
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		askToStartBuild = false,
+	},
+})
 
 ----------------------------------------------------------------------
 -- Rust
