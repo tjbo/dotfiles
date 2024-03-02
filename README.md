@@ -18,7 +18,6 @@ there are some exceptions below:
 - flipper
 - 1password (has to be installed in Apps folder to work
 properly)
-- steam
 
 ### 3 Hyper Keys
 - Hyper Apps - controls switching spaces and apps
