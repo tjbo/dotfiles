@@ -95,7 +95,6 @@ o.history = 9999
 
 -- number column
 o.number = true
-o.numberwidth = 2
 o.relativenumber = true
 
 -- we back up so don't need swap
@@ -753,7 +752,7 @@ require("telescope").setup({
 
 require("bufferline").setup({
 	options = {
-		max_name_length = 30,
+		max_name_length = 20,
 		numbers = "none",
 		themable = true,
 		show_buffer_close_icons = false,
@@ -761,6 +760,20 @@ require("bufferline").setup({
 		show_duplicate_prefix = false,
 		always_show_bufferline = true,
 	},
+})
+
+require("toggleterm").setup({
+	direction = "vertical",
+	open_mapping = [[<c-cr>]],
+	hide_numbers = true,
+	close_on_exit = true,
+	size = function(term)
+		if term.direction == "horizontal" then
+			return 15
+		elseif term.direction == "vertical" then
+			return vim.o.columns * 0.35
+		end
+	end,
 })
 
 ----------------------------------------------------------------------
