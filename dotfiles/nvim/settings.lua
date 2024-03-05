@@ -96,6 +96,7 @@ o.history = 9999
 -- number column
 o.number = true
 o.relativenumber = true
+o.signcolumn = "yes:1"
 
 -- we back up so don't need swap
 o.swapfile = false
@@ -126,9 +127,6 @@ g.mapleader = " "
 o.completeopt = { "menu", "menuone", "noselect" }
 o.textwidth = 80
 o.wrap = true
-
--- gutter
-o.signcolumn = "yes:2"
 
 -- Command Menu Settings
 o.wildmode = { "list:longest,full" }
@@ -921,3 +919,6 @@ require("mini.comment").setup({
 		textobject = "gc",
 	},
 })
+
+-- gutter
+o.signcolumn = "yes:1"
