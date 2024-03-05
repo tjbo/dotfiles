@@ -750,7 +750,7 @@ require("telescope").setup({
 
 require("bufferline").setup({
 	options = {
-		max_name_length = 20,
+		max_name_length = 17,
 		numbers = "none",
 		themable = true,
 		show_buffer_close_icons = false,
@@ -758,20 +758,6 @@ require("bufferline").setup({
 		show_duplicate_prefix = false,
 		always_show_bufferline = true,
 	},
-})
-
-require("toggleterm").setup({
-	direction = "vertical",
-	open_mapping = [[<c-cr>]],
-	hide_numbers = true,
-	close_on_exit = true,
-	size = function(term)
-		if term.direction == "horizontal" then
-			return 15
-		elseif term.direction == "vertical" then
-			return vim.o.columns * 0.35
-		end
-	end,
 })
 
 ----------------------------------------------------------------------

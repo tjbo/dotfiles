@@ -41,3 +41,5 @@ properly)
 - hyper + u = upwork
 - hyper + a = android
 
+### ToDos
+- add command for auto opening a vertical output terminal in kitty
