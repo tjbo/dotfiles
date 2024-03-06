@@ -730,9 +730,10 @@ require("telescope").setup({
 		},
 		wrap_results = true,
 		layout_config = {
-			horizontal = { width = 0.95, height = 0.95 },
-			vertical = { width = 0.95 },
+			horizontal = { width = 0.95, height = 0.99 },
+			vertical = { width = 0.98, height = 0.98 },
 		},
+		layout_strategy = "vertical",
 	},
 	pickers = {
 		diagnostics = {
