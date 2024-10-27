@@ -769,108 +769,66 @@ map("i", "<c-v>", "<c-r>+")
 map("n", "<leader>/", "<cmd>WhichKey<cr>")
 map("n", "<PageUp>", "<C-b>")
 
-wk.register({
-	["<leader>"] = {
-		["<leader>"] = {
-			"<Cmd>BufferLinePick<cr>",
-			"Pick Buffer",
-		},
-		b = {
-			name = "Bufferline",
-			p = {
-				"<Cmd>BufferLineTogglePin<cr>",
-				"Toggle Pin",
-			},
-			c = {
-				"<Cmd>bd<cr>",
-				"Close buffer",
-			},
-			n = { "<Cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
-			o = { "<Cmd>BufferLineCloseOthers<CR>", "Close Other Buffers" },
-			r = { "<Cmd>BufferLineCloseRight<CR>", "Delete buffers to the right" },
-			l = { "<Cmd>BufferLineCloseLeft<CR>", "Delete buffers to the left" },
-		},
-		e = {
-			name = "Errors",
-			e = {
-				"<cmd>lua vim.diagnostic.open_float()<CR>",
-				"Show Diagnostic For Error",
-			},
-			j = {
-				"<cmd>lua vim.diagnostic.goto_next()<CR>",
-				"Next Diagnostic",
-			},
-			k = {
-				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
-				"Prev Diagnostic",
-			},
-		},
-		g = {
-			name = "Git",
-			b = { "<cmd>Gitsigns blame_line<CR>", "Blame line" },
-			d = { "<cmd>Gitsigns preview_hunk<CR>", "Diff" },
-			j = { "<cmd>Gitsigns next_hunk<cr>", "Next hunk" },
-			k = { "<cmd>Gitsigns prev_hunk<cr>", "Prev hunk" },
-			r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
-			s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
-			u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo stage hunk" },
-			h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
-			v = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle current line blame" },
-			w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
-			q = { "<cmd>Gitsigns reset_buffer<cr>", "Reset current buffer" },
-		},
-		n = {
-			name = "Noice",
-			l = {
-				"<cmd>Noice last<CR>",
-				"Noice Last Message",
-			},
-			d = {
-				"<cmd>Noice dismiss<CR>",
-				"Dismiss Notifications",
-			},
-		},
-		o = {
-			name = "Oil",
-			o = {
-				"<cmd>Oil<cr>",
-				"Open Oil",
-			},
-		},
-		t = {
-			name = "Telescope",
-			c = {
-				"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
-				"Fuzzy Search Current Buffer",
-			},
-			d = {
-				"<cmd>lua require('telescope.builtin').lsp_definitions()<cr>",
-				"Go to or show definiton",
-			},
-			e = {
-				"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
-				"List Errors For Buffers",
-			},
-
-			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files in current directory" },
-			m = {
-				"<cmd>lua require('telescope.builtin').marks()<cr>",
-				"Marks",
-			},
-			n = {
-				"<cmd>Telescope noice<cr>",
-				"Show Notification History",
-			},
-			h = { "<cmd>lua require('telescope.builtin').search_history()<cr>", "Search History" },
-			j = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "Jump List" },
-			g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Show git files" },
-			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
-			r = { "<cmd>Telescope registers<cr>", "Registers" },
-			s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep Cursor Word" },
-			q = { "<cmd>lua require('telescope.builtin').quickfix()<cr>", "List items in quickfix" },
-			t = { "<cmd>Telescope git_files<cr>", "Gitfiles (working directory)" },
-		},
+wk.add({
+	{ "<leader><leader>", "<Cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
+	{ "<leader>b", group = "Bufferline" },
+	{ "<leader>bc", "<Cmd>bd<cr>", desc = "Close buffer" },
+	{ "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
+	{ "<leader>bn", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+	{ "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Close Other Buffers" },
+	{ "<leader>bp", "<Cmd>BufferLineTogglePin<cr>", desc = "Toggle Pin" },
+	{ "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
+	{ "<leader>e", group = "Errors" },
+	{ "<leader>ee", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Show Diagnostic For Error" },
+	{ "<leader>ej", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
+	{ "<leader>ek", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Prev Diagnostic" },
+	{ "<leader>g", group = "Git" },
+	{ "<leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "Blame line" },
+	{ "<leader>gd", "<cmd>Gitsigns preview_hunk<CR>", desc = "Diff" },
+	{ "<leader>gh", "<cmd>Gitsigns toggle_linehl<cr>", desc = "Toggle line highlights" },
+	{ "<leader>gj", "<cmd>Gitsigns next_hunk<cr>", desc = "Next hunk" },
+	{ "<leader>gk", "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev hunk" },
+	{ "<leader>gq", "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset current buffer" },
+	{ "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset hunk" },
+	{ "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage hunk" },
+	{ "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo stage hunk" },
+	{ "<leader>gv", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle current line blame" },
+	{ "<leader>gw", "<cmd>Gitsigns toggle_word_diff<cr>", desc = "Toggle word diff" },
+	{ "<leader>n", group = "Noice" },
+	{ "<leader>nd", "<cmd>Noice dismiss<CR>", desc = "Dismiss Notifications" },
+	{ "<leader>nl", "<cmd>Noice last<CR>", desc = "Noice Last Message" },
+	{ "<leader>o", group = "Oil" },
+	{ "<leader>oo", "<cmd>Oil<cr>", desc = "Open Oil" },
+	{ "<leader>t", group = "Telescope" },
+	{
+		"<leader>tc",
+		"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({ layout_strategy = 'horizontal' })<cr>",
+		desc = "Fuzzy Search Current Buffer",
 	},
+	{ "<leader>td", "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", desc = "Go to or show definiton" },
+	{
+		"<leader>te",
+		"<cmd>lua require('telescope.builtin').diagnostics({ initial_mode = 'normal', path_display='hidden', wrap_results = true })<cr>",
+		desc = "List Errors For Buffers",
+	},
+	{
+		"<leader>tf",
+		"<cmd>lua require('telescope.builtin').find_files()<cr>",
+		desc = "Find files in current directory",
+	},
+	{ "<leader>tg", "<cmd>lua require('telescope.builtin').git_status()<cr>", desc = "Show git files" },
+	{ "<leader>th", "<cmd>lua require('telescope.builtin').search_history()<cr>", desc = "Search History" },
+	{ "<leader>tj", "<cmd>lua require('telescope.builtin').jumplist()<cr>", desc = "Jump List" },
+	{ "<leader>tm", "<cmd>lua require('telescope.builtin').marks()<cr>", desc = "Marks" },
+	{ "<leader>tn", "<cmd>Telescope noice<cr>", desc = "Show Notification History" },
+	{ "<leader>to", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", desc = "Recent Files" },
+	{ "<leader>tq", "<cmd>lua require('telescope.builtin').quickfix()<cr>", desc = "List items in quickfix" },
+	{ "<leader>tr", "<cmd>Telescope registers<cr>", desc = "Registers" },
+	{ "<leader>ts", "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = "Grep Cursor Word" },
+	{ "<leader>tt", "<cmd>Telescope git_files<cr>", desc = "Gitfiles (working directory)" },
+	{ "<leader>tx", "<cmd>lua require('telescope.builtin').grep_string()<cr>", desc = "Grep Cursor Word" },
+	{ "windowborder", desc = "single" },
+	{ "windowposition", desc = "top" },
 }, {
 	window = {
 		border = "single",
