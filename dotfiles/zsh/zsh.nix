@@ -1,6 +1,6 @@
 with import <nixpkgs> { };
 {
-  enableAutosuggestions = true;
+  autosuggestion.enable = true;
   enableCompletion = true;
   syntaxHighlighting = {
     enable = true;
@@ -28,7 +28,7 @@ with import <nixpkgs> { };
     export PATH="/opt/homebrew/bin:$PATH"
     export PATH=~/.npm-packages/bin:$PATH
     export NODE_PATH=~/.npm-packages/lib/node_modules
-    export NODE_OPTIONS="--openssl-legacy-provider"
+    # export NODE_OPTIONS="--openssl-legacy-provider"
     export ANDROID_HOME=/Users/tjbo/Library/Android/sdk
     export PATH=$PATH:$ANDROID_HOME/emulator
     export PATH=$PATH:$ANDROID_HOME/platform-tools

@@ -20,6 +20,7 @@ require("oil").setup({
 	keymaps = {
 		["<C-?>"] = "actions.show_help",
 		["f"] = "actions.select",
+		["e"] = "actions.select",
 		["<CR>"] = "actions.select",
 		["<C-t>"] = "actions.select_tab",
 		["<C-p>"] = "actions.preview",
@@ -46,7 +47,9 @@ require("nvim-web-devicons").setup({})
 ----------------------------------------------------------------------
 
 wk.setup({
-	ignore_missing = true,
+	icons = {
+		mappings = false,
+	},
 	presets = {
 		operators = false,
 		motions = false,
@@ -63,9 +66,8 @@ wk.setup({
 	layout = {
 		height = { min = 30, max = 250 },
 	},
-	window = {
-		padding = { 2, 2, 2, 2 },
-		winblend = 10,
+	win = {
+		padding = { 2, 2 },
 	},
 })
 
@@ -113,6 +115,13 @@ o.tabstop = 4
 o.shiftwidth = 0
 o.softtabstop = 0
 o.smarttab = true
+
+o.foldmethod = "marker"
+
+-- Vim includes two regexp engines:
+-- An old, backtracking engine that supports everything.
+-- A new, NFA engine that works much faster on some patterns, possibly slower on some patterns.
+o.re = 1
 
 -- search
 o.hlsearch = true
@@ -361,33 +370,14 @@ require("gitsigns").setup({
 		c("highlight DiffChange guibg=ORANGE guifg=NONE ctermbg=none")
 		c("highlight DiffDelete guibg=RED guifg=NONE ctermbg=none")
 	end,
+	signs_staged_enable = true,
 	signs = {
-		add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-		change = {
-			hl = "GitSignsChange",
-			text = "│",
-			numhl = "GitSignsChangeNr",
-			linehl = "GitSignsChangeLn",
-		},
-		delete = {
-			hl = "GitSignsDelete",
-			text = "_",
-			numhl = "GitSignsDeleteNr",
-			linehl = "GitSignsDeleteLn",
-		},
-		topdelete = {
-			hl = "GitSignsDelete",
-			text = "‾",
-			numhl = "GitSignsDeleteNr",
-			linehl = "GitSignsDeleteLn",
-		},
-		changedelete = {
-			hl = "GitSignsChange",
-			text = "~",
-			numhl = "GitSignsChangeNr",
-			linehl = "GitSignsChangeLn",
-		},
-		untracked = { hl = "GitSignsAdd", text = "┆", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+		add = { text = "┃" },
+		change = { text = "┃" },
+		delete = { text = "_" },
+		topdelete = { text = "‾" },
+		changedelete = { text = "~" },
+		untracked = { text = "┆" },
 	},
 	preview_config = {
 		border = "none",
@@ -489,24 +479,20 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- This setups code formatting
 require("conform").setup({
+	log_level = vim.log.levels.DEBUG,
+
 	formatters_by_ft = {
 		-- for astro also need to add a config and plugin locally
 		-- https://github.com/withastro/prettier-plugin-astro
 		astro = { "prettier" },
 		css = { "rustywind" },
+		tml = { { "prettier", "prettierd" } },
 		javascript = { "prettier" },
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
 		lua = { "stylua" },
 		rust = { "rustfmt" },
 	},
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_fallback = true,
-	},
-})
-
-require("conform").setup({
 	format_on_save = function(bufnr)
 		-- Disable with a global or buffer-local variable
 		if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
@@ -514,24 +500,38 @@ require("conform").setup({
 		end
 		return { timeout_ms = 500, lsp_fallback = true }
 	end,
+	-- format_on_save = {
+	-- 	timeout_ms = 500,
+	-- 	lsp_fallback = true,
+	-- },
 })
 
-vim.api.nvim_create_user_command("FormatDisable", function(args)
-	if args.bang then
-		-- FormatDisable! will disable formatting just for this buffer
-		vim.b.disable_autoformat = true
+local notify = require("notify")
+
+local function show_notification(message, level)
+	notify(message, level, { title = "conform.nvim" })
+end
+
+vim.api.nvim_create_user_command("FormatToggle", function(args)
+	local is_global = not args.bang
+	if is_global then
+		vim.g.disable_autoformat = not vim.g.disable_autoformat
+		if vim.g.disable_autoformat then
+			show_notification("Autoformat-on-save disabled globally", "info")
+		else
+			show_notification("Autoformat-on-save enabled globally", "info")
+		end
 	else
-		vim.g.disable_autoformat = true
+		vim.b.disable_autoformat = not vim.b.disable_autoformat
+		if vim.b.disable_autoformat then
+			show_notification("Autoformat-on-save disabled for this buffer", "info")
+		else
+			show_notification("Autoformat-on-save enabled for this buffer", "info")
+		end
 	end
 end, {
-	desc = "Disable autoformat-on-save",
+	desc = "Toggle autoformat-on-save",
 	bang = true,
-})
-vim.api.nvim_create_user_command("FormatEnable", function()
-	vim.b.disable_autoformat = false
-	vim.g.disable_autoformat = false
-end, {
-	desc = "Re-enable autoformat-on-save",
 })
 
 require("lspconfig").astro.setup({})
@@ -595,9 +595,9 @@ require("lspconfig").eslint.setup({
 		"svelte",
 		"astro",
 	},
-	on_attach = function(client, bufnr)
-		c([[autocmd BufWritePre <buffer> Prettier]])
-	end,
+	-- on_attach = function(client, bufnr)
+	-- c([[autocmd BufWritePre <buffer> Prettier]])
+	-- end,
 })
 
 ----------------------------------------------------------------------
@@ -613,14 +613,6 @@ lspconfig.lua_ls.setup({
 		},
 	},
 	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-----------------------------------------------------------------------
--- Lsp - Nix
-----------------------------------------------------------------------
-
-lspconfig.rnix.setup({
 	on_attach = on_attach,
 })
 
@@ -825,6 +817,7 @@ wk.register({
 			h = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlights" },
 			v = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle current line blame" },
 			w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
+			q = { "<cmd>Gitsigns reset_buffer<cr>", "Reset current buffer" },
 		},
 		n = {
 			name = "Noice",
@@ -860,10 +853,6 @@ wk.register({
 			},
 
 			f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files in current directory" },
-			q = {
-				"<cmd>lua require('telescope.builtin').help_tags()<cr>",
-				"Help Tags",
-			},
 			m = {
 				"<cmd>lua require('telescope.builtin').marks()<cr>",
 				"Marks",
@@ -878,6 +867,7 @@ wk.register({
 			o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Recent Files" },
 			r = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep Cursor Word" },
+			q = { "<cmd>lua require('telescope.builtin').quickfix()<cr>", "List items in quickfix" },
 			t = { "<cmd>Telescope git_files<cr>", "Gitfiles (working directory)" },
 		},
 	},

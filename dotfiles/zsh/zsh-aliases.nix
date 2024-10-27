@@ -20,7 +20,13 @@ in
   "cdpr" = "cd ~/Projects/prototypable.io/";
   "cdtl" = "cd ~/Projects/timer-labs-app/";
   "cdtla" = "cd ~/Projects/timer-labs-app/app";
-  "cdtlf" = "cd ~/Projects/timer-labs-app/functions";
+  "cdtlf" = "cd ~/Projects/timer-labs-app/functions2";
+  "cdtq" = "cd ~/Projects/tq/paperbits-cms/";
+  "cdtqf" = "cd ~/Projects/tq/tq-cms-functions";
+  "cdtqb" = "cd ~/Projects/tq/paperbits-cms/";
+  "cdma" = "cd ~/Projects/tq/paperbits-cms/microapps/";
+  "cdtqc" = "cd ~/Projects/tq/paperbits-cms/components/";
+
   "cdtld" = "cd ~/Projects/timer-labs-app/db";
   "cdtlv" = "cd ~/Projects/timer-labs-app/vpc";
   "cdtlw" = "cd ~/Projects/timerlabs.com/";
@@ -58,7 +64,7 @@ in
   "yrb" = "yarn run build";
   "yrc" = "yarn run clean";
   "yrd" = "yarn run develop";
-  "yri" = "yarn run ios:simulator:develop";
+  "yri" = "yarn run ios";
   "yrr" = "yarn run rescript";
   "yrs" = "yarn run start";
   "yrw" = "yarn run watch";

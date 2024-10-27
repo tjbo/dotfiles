@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
+let
+  # Fetching the specific Nixpkgs version (24.05) we want to use
+  nixpkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/24.05.tar.gz") {};
+in
+
 {
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "tjbo";
@@ -14,55 +20,65 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+
+  # Set the Home Manager `nixpkgs` channel explicitly
+  # programs.home-manager.nixpkgs = nixpkgs;
+
   home.packages = [
-    pkgs.ruby
-    pkgs.bundletool
-    pkgs.cocoapods
-    pkgs.fd
-    pkgs.fzf
-    pkgs.jdk11
-    pkgs.karabiner-elements
-    pkgs.ripgrep
-    pkgs.cargo
-    pkgs.delta
-    pkgs.git
-    pkgs.hack-font
-    pkgs.kitty
-    pkgs.lazygit
-    pkgs.neofetch
-    pkgs.spotify
-    # pkgs.nerdfonts
-    pkgs.nixpkgs-fmt
-    pkgs.nodejs
-    pkgs.netlify-cli
-    pkgs.nodePackages.create-react-app
-    pkgs.nodePackages."@astrojs/language-server"
-    pkgs.nodePackages."@tailwindcss/language-server"
-    pkgs.nodePackages.vscode-langservers-extracted
-    pkgs.nodePackages.prettier
-    pkgs.nodePackages.eslint
-    pkgs.nodePackages.serverless
-    pkgs.nodePackages.typescript
-    pkgs.nodePackages.typescript-language-server
-    pkgs.tree
-    pkgs.lf
-    pkgs.lua-language-server
-    pkgs.stylua
-    pkgs.vscode-extensions.chenglou92.rescript-vscode
-    pkgs.rustfmt
-    pkgs.rust-analyzer
-    pkgs.rustywind
-    pkgs.rnix-lsp
-    pkgs.stylelint
-    pkgs.yarn
-    pkgs.zsh-autosuggestions
-    pkgs.zsh-syntax-highlighting
-    pkgs.pure-prompt
+    nixpkgs.httpie
+    nixpkgs.tree-sitter
+    nixpkgs.awscli2
+    # nixpkgs.ruby
+    nixpkgs.prettierd
+    nixpkgs.bundletool
+    nixpkgs.cocoapods
+    nixpkgs.fd
+    nixpkgs.fzf
+    # nixpkgs.jdk11
+    nixpkgs.karabiner-elements
+    nixpkgs.ripgrep
+    nixpkgs.cargo
+    nixpkgs.delta
+    nixpkgs.git
+    nixpkgs.hack-font
+    nixpkgs.kitty
+    nixpkgs.lazygit
+    # nixpkgs.neofetch
+    nixpkgs.nodePackages.firebase-tools
+    nixpkgs.spotify
+    # nixpkgs.nerdfonts
+    nixpkgs.nixpkgs-fmt
+    nixpkgs.nodejs
+    # nixpkgs.netlify-cli
+    nixpkgs.nodePackages.create-react-app
+    nixpkgs.nodePackages_latest.eas-cli
+    nixpkgs.nodePackages."@astrojs/language-server"
+    nixpkgs.nodePackages."@tailwindcss/language-server"
+    nixpkgs.nodePackages.vscode-langservers-extracted
+    nixpkgs.nodePackages.prettier
+    nixpkgs.nodePackages.eslint
+    nixpkgs.nodePackages.serverless
+    nixpkgs.nodePackages.typescript
+    nixpkgs.nodePackages.typescript-language-server
+    # nixpkgs.tree
+    # nixpkgs.lf
+    nixpkgs.lua-language-server
+    nixpkgs.stylua
+    nixpkgs.vscode-extensions.chenglou92.rescript-vscode
+    nixpkgs.rustfmt
+    nixpkgs.rust-analyzer
+    nixpkgs.rustywind
+    # nixpkgs.rnix-lsp
+    nixpkgs.stylelint
+    nixpkgs.yarn
+    nixpkgs.zsh-autosuggestions
+    nixpkgs.zsh-syntax-highlighting
+    nixpkgs.pure-prompt
   ];
 
   # copy lazygit config 

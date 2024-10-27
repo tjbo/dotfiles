@@ -20,10 +20,12 @@
     pkgs.lazygit
     pkgs.neofetch
     pkgs.nerdfonts
+    pkgs.firebase-tools
     pkgs.nixpkgs-fmt
     pkgs.nodejs
     pkgs.netlify-cli
     pkgs.nodePackages.create-react-app
+    pkgs.nodePackages_latest.eas-cli
     pkgs.nodePackages."@astrojs/language-server"
     pkgs.nodePackages."@tailwindcss/language-server"
     pkgs.nodePackages.vscode-langservers-extracted

@@ -11,13 +11,18 @@ there are some exceptions below:
 - xcode
 
 ### Software installed with Homebrew
-- alt tab
-- android studio
-- google chrome
+- 1password		
+- android-studio		
+- flipper			
+- inkscape		
+- slack			
+- vagrant
+- alt-tab			
+- chromium		
+- google-chrome		
+- react-native-debugger	
+- transmission		
 - whatsapp
-- flipper
-- 1password (has to be installed in Apps folder to work
-properly)
 
 ### 3 Hyper Keys
 - Hyper Apps - controls switching spaces and apps
