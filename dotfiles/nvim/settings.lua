@@ -650,6 +650,27 @@ lspconfig.rust_analyzer.setup({
 
 lspconfig.tailwindcss.setup({
 	cmd = { "tailwindcss-language-server", "--stdio" },
+	filetypes = {
+		"astro",
+		"astro-markdown",
+		"ejs",
+		"html",
+		"markdown",
+		"mdx",
+		"css",
+		"less",
+		"postcss",
+		"sass",
+		"scss",
+		"stylus",
+		"javascript",
+		"javascriptreact",
+		"reason",
+		"rescript",
+		"typescript",
+		"typescriptreact",
+	},
+
 	settings = {
 		tailwindCSS = {
 			classAttributes = { "className" },
@@ -804,6 +825,13 @@ wk.register({
 				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
 				"Prev Diagnostic",
 			},
+		},
+		j = {
+			name = "JavaScript",
+			f = { "<cmd>TSToolsFixAll<CR>", "Fix all fixable" },
+			j = { "<cmd>TSToolsGoToSourceDefinition<CR>", "Go to definition" },
+			n = { "<cmd>TSToolsRenameFile<CR>", "Rename current file" },
+			r = { "<cmd>TSToolsFileReferences<CR>", "Find references" },
 		},
 		g = {
 			name = "Git",

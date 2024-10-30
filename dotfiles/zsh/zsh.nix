@@ -59,6 +59,7 @@ with import <nixpkgs> { };
 
     # bind to auto suggest
     bindkey '^ ' autosuggest-accept
+    source <(fzf --zsh)
   '';
   initExtraFirst = "";
   localVariables = {

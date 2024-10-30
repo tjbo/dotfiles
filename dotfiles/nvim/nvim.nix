@@ -19,6 +19,7 @@ in
     vim-nix # support for writing nix 
     vim-rescript # support for writing rescript
     vimPlugins.bufferline-nvim # for top bar
+    vimPlugins.typescript-tools-nvim
     vimPlugins.mini-nvim
     vimPlugins.conform-nvim
     vimPlugins.lualine-nvim # for bottom status
